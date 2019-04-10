@@ -3,6 +3,7 @@ package engine.sprites;
 import java.awt.Graphics;
 
 import engine.core.MarioSprite;
+import engine.effects.DeathEffect;
 import engine.graphics.MarioImage;
 import engine.helper.Assets;
 import engine.helper.SpriteType;
@@ -59,6 +60,9 @@ public class BulletBill extends MarioSprite {
 	    if (yMarioD > -height && yMarioD < world.mario.height) {
 		if (world.mario.ya > 0 && yMarioD <= 0 && (!world.mario.onGround || !world.mario.wasOnGround)) {
 		    world.mario.stomp(this);
+		    if(this.graphics != null) {
+			this.world.addEffect(new DeathEffect(this.x, this.y - 7, this.graphics.flipX, 43, 0));
+		    }
 		    this.world.removeSprite(this);
 		} else {
 		    world.mario.getHurt();
@@ -90,6 +94,9 @@ public class BulletBill extends MarioSprite {
 
 	if (xD > -16 && xD < 16) {
 	    if (yD > -height && yD < shell.height) {
+		if(this.graphics != null) {
+		    this.world.addEffect(new DeathEffect(this.x, this.y - 7, this.graphics.flipX, 43, -1));
+		}
 		this.world.removeSprite(this);
 		return true;
 	    }

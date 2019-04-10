@@ -3,6 +3,7 @@ package engine.sprites;
 import java.awt.Graphics;
 
 import engine.core.MarioSprite;
+import engine.effects.DeathEffect;
 import engine.graphics.MarioImage;
 import engine.helper.Assets;
 import engine.helper.SpriteType;
@@ -104,6 +105,9 @@ public class Shell extends MarioSprite {
 
 		xa = fireball.facing * 2;
 		ya = -5;
+		if(this.graphics != null) {
+		    this.world.addEffect(new DeathEffect(this.x, this.y, this.graphics.flipX, 41 + this.shellType, -5));
+		}
 		this.world.removeSprite(this);
 		return true;
 	    }

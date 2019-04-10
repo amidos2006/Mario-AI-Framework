@@ -408,6 +408,9 @@ public class MarioWorld {
 	    for (MarioSprite sprite : sprites) {
 		if (sprite != fireball && fireball.alive && sprite.alive) {
 		    if (sprite.fireballCollideCheck(fireball)) {
+			if(this.visuals) {
+			    this.addEffect(new FireballEffect(fireball.x, fireball.y));
+			}
 			this.removeSprite(fireball);
 		    }
 		}

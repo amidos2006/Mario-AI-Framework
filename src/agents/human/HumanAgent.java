@@ -37,6 +37,9 @@ public class HumanAgent extends KeyAdapter implements MarioAgent {
     }
 
     private void toggleKey(int keyCode, boolean isPressed) {
+	if(this.actions == null) {
+	    return;
+	}
 	switch (keyCode) {
 	case KeyEvent.VK_LEFT:
 	    this.actions[MarioActions.LEFT.getValue()] = isPressed;

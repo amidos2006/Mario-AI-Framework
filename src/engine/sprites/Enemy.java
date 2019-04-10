@@ -3,6 +3,8 @@ package engine.sprites;
 import java.awt.Graphics;
 
 import engine.core.MarioSprite;
+import engine.effects.DeathEffect;
+import engine.effects.SquishEffect;
 import engine.graphics.MarioImage;
 import engine.helper.Assets;
 import engine.helper.SpriteType;
@@ -81,6 +83,10 @@ public class Enemy extends MarioSprite {
 			     this.world.addSprite(new Shell(this.graphics != null, x, y, 1, this.initialCode));
 			} else if (type == SpriteType.RED_KOOPA || type == SpriteType.RED_KOOPA_WINGED) {
 			    this.world.addSprite(new Shell(this.graphics != null, x, y, 0, this.initialCode));
+			} else if(type == SpriteType.GOOMBA || type == SpriteType.GOOMBA_WINGED) {
+			    if(this.graphics != null) {
+				this.world.addEffect(new SquishEffect(this.x, this.y - 7));
+			    }
 			}
 			this.world.stompKill += 1;
 			this.world.removeSprite(this);
@@ -261,6 +267,20 @@ public class Enemy extends MarioSprite {
 		xa = shell.facing * 2;
 		ya = -5;
 		this.world.shellKill += 1;
+		if(this.graphics != null) {
+		    if(this.type == SpriteType.GREEN_KOOPA || this.type == SpriteType.GREEN_KOOPA_WINGED) {
+			this.world.addEffect(new DeathEffect(this.x, this.y, this.graphics.flipX, 42, -5));
+		    }
+		    else if(this.type == SpriteType.RED_KOOPA || this.type == SpriteType.RED_KOOPA_WINGED) {
+			this.world.addEffect(new DeathEffect(this.x, this.y, this.graphics.flipX, 41, -5));
+		    }
+		    else if(this.type == SpriteType.GOOMBA || this.type == SpriteType.GOOMBA_WINGED) {
+			this.world.addEffect(new DeathEffect(this.x, this.y, this.graphics.flipX, 44, -5));
+		    }
+		    else if(this.type == SpriteType.SPIKY || this.type == SpriteType.SPIKY_WINGED) {
+			this.world.addEffect(new DeathEffect(this.x, this.y, this.graphics.flipX, 45, -5));
+		    }
+		}
 		this.world.removeSprite(this);
 		return true;
 	    }
@@ -280,6 +300,17 @@ public class Enemy extends MarioSprite {
 		xa = fireball.facing * 2;
 		ya = -5;
 		this.world.fireKill += 1;
+		if(this.graphics != null) {
+		    if(this.type == SpriteType.GREEN_KOOPA || this.type == SpriteType.GREEN_KOOPA_WINGED) {
+			this.world.addEffect(new DeathEffect(this.x, this.y, this.graphics.flipX, 42, -5));
+		    }
+		    else if(this.type == SpriteType.RED_KOOPA || this.type == SpriteType.RED_KOOPA_WINGED) {
+			this.world.addEffect(new DeathEffect(this.x, this.y, this.graphics.flipX, 41, -5));
+		    }
+		    else if(this.type == SpriteType.GOOMBA || this.type == SpriteType.GOOMBA_WINGED) {
+			this.world.addEffect(new DeathEffect(this.x, this.y, this.graphics.flipX, 44, -5));
+		    }
+		}
 		this.world.removeSprite(this);
 		return true;
 	    }
@@ -291,6 +322,17 @@ public class Enemy extends MarioSprite {
 	if (x + width > xTile * 16 && x - width < xTile * 16 + 16 && yTile == (int) ((y - 1) / 16)) {
 	    xa = -world.mario.facing * 2;
 	    ya = -5;
+	    if (this.graphics != null) {
+		if (this.type == SpriteType.GREEN_KOOPA || this.type == SpriteType.GREEN_KOOPA_WINGED) {
+		    this.world.addEffect(new DeathEffect(this.x, this.y, this.graphics.flipX, 42, -5));
+		} else if (this.type == SpriteType.RED_KOOPA || this.type == SpriteType.RED_KOOPA_WINGED) {
+		    this.world.addEffect(new DeathEffect(this.x, this.y, this.graphics.flipX, 41, -5));
+		} else if (this.type == SpriteType.GOOMBA || this.type == SpriteType.GOOMBA_WINGED) {
+		    this.world.addEffect(new DeathEffect(this.x, this.y, this.graphics.flipX, 44, -5));
+		} else if (this.type == SpriteType.SPIKY || this.type == SpriteType.SPIKY_WINGED) {
+		    this.world.addEffect(new DeathEffect(this.x, this.y, this.graphics.flipX, 45, -5));
+		}
+	    }
 	    this.world.removeSprite(this);
 	}
     }

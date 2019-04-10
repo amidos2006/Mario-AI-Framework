@@ -60,7 +60,7 @@ public class MarioLevel {
 		    this.marioTileY = y;
 		    marioLocInit = true;
 		    break;
-		case 'E':
+		case 'F':
 		    this.exitTileX = x;
 		    this.exitTileY = y;
 		    exitLocInit = true;
