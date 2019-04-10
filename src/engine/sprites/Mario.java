@@ -13,7 +13,6 @@ public class Mario extends MarioSprite{
     public boolean isLarge, isFire;
     public boolean onGround, wasOnGround, isDucking, canShoot, mayJump;
     public boolean[] actions = null;
-//    public MarioSprite carriedShell = null;
     
     private float xJumpSpeed, yJumpSpeed = 0;
     private int invulnerableTime, jumpTime = 0;
@@ -202,16 +201,9 @@ public class Mario extends MarioSprite{
 	    frameIndex = ((int) (marioFrameSpeed / 20)) % 4;
 	    if (frameIndex == 3)
 		frameIndex = 1;
-//	    if (this.carriedShell == null && Math.abs(xa) > 10)
-//		frameIndex += 3;
-//	    if (this.carriedShell != null)
-//		frameIndex += 10;
 	    if (Math.abs(xa) > 10)
 		frameIndex += 3;
 	    if (!onGround) {
-//		if (this.carriedShell != null)
-//		    frameIndex = 11;
-//		else 
 		if (Math.abs(xa) > 10)
 		    frameIndex = 6;
 		else
@@ -219,16 +211,9 @@ public class Mario extends MarioSprite{
 	    }
 	} else {
 	    frameIndex = ((int) (marioFrameSpeed / 20)) % 2;
-//	    if (carriedShell == null && Math.abs(xa) > 10)
-//		frameIndex += 2;
-//	    if (carriedShell != null)
-//		frameIndex += 8;
 	    if (Math.abs(xa) > 10)
 		frameIndex += 2;
 	    if (!onGround) {
-//		if (carriedShell != null)
-//		    frameIndex = 9;
-//		else 
 		if (Math.abs(xa) > 10)
 		    frameIndex = 5;
 		else
@@ -347,15 +332,6 @@ public class Mario extends MarioSprite{
 	if (!onGround) {
 	    ya += 3;
 	}
-
-//	if (carriedShell != null) {
-//	    carriedShell.x = x + facing * 8;
-//	    carriedShell.y = y - 2;
-//	    if (!actions[MarioActions.SPEED.getValue()]) {
-//		carriedShell.release(this);
-//		carriedShell = null;
-//	    }
-//	}
 	
 	if(this.graphics != null) {
 	    this.updateGraphics();
@@ -375,10 +351,6 @@ public class Mario extends MarioSprite{
     }
 
     public void stomp(Shell shell) {
-//	if (actions[MarioActions.SPEED.getValue()] && shell.facing == 0) {
-//	    carriedShell = shell;
-//	    shell.isCarried = true;
-//	} else {
 	    float targetY = shell.y - shell.height / 2;
 	    move(0, targetY - y);
 
@@ -388,7 +360,6 @@ public class Mario extends MarioSprite{
 	    ya = jumpTime * yJumpSpeed;
 	    onGround = false;
 	    invulnerableTime = 1;
-//	}
     }
 
     public void getHurt() {
@@ -436,12 +407,7 @@ public class Mario extends MarioSprite{
     }
 
     public void kick(Shell shell) {
-//	if (actions[MarioActions.SPEED.getValue()]) {
-////	    carriedShell = shell;
-//	    shell.isCarried = true;
-//	} else {
-	    invulnerableTime = 1;
-//	}
+	invulnerableTime = 1;
     }
 
     public void stomp(BulletBill bill) {

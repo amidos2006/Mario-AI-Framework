@@ -115,19 +115,14 @@ public class MarioWorld {
 	world.currentTimer = this.currentTimer;
 	world.currentTick = this.currentTick;
 	world.level = this.level.clone();
-//	Shell carriedShell = null;
 	for(MarioSprite sprite:this.sprites) {
 	    MarioSprite cloneSprite = sprite.clone();
 	    cloneSprite.world = world;
 	    if (cloneSprite.type == SpriteType.MARIO) {
 		world.mario = (Mario) cloneSprite;
 	    }
-//	    if(cloneSprite.type == SpriteType.SHELL && ((Shell)cloneSprite).isCarried) {
-//		carriedShell = (Shell)cloneSprite;
-//	    }
 	    world.sprites.add(cloneSprite);
 	}
-//	world.mario.carriedShell = carriedShell;
 	//stats
 	world.coins = this.coins;
 	world.lives = this.lives;
@@ -401,12 +396,7 @@ public class MarioWorld {
 	for (Shell shell : shellsToCheck) {
 	    for (MarioSprite sprite : sprites) {
 		if (sprite != shell && shell.alive && sprite.alive) {
-		    if (sprite.shellCollideCheck(shell)) {
-//			if (mario.carriedShell == shell && shell.alive) {
-//			    mario.carriedShell = null;
-//			    this.removeSprite(shell);
-//			}
-		    }
+		    sprite.shellCollideCheck(shell);
 		}
 	    }
 	}

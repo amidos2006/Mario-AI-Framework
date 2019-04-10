@@ -13,7 +13,6 @@ public class Shell extends MarioSprite {
 
     private int shellType = 0;
     private boolean onGround = false;
-//    public boolean isCarried;
 
     private MarioImage graphics;
 
@@ -44,17 +43,12 @@ public class Shell extends MarioSprite {
 	sprite.height = this.height;
 	sprite.facing = this.facing;
 	sprite.onGround = this.onGround;
-//	sprite.isCarried = this.isCarried;
 	return (Shell)sprite;
     }
 
     @Override
     public void update() {
 	super.update();
-
-//	if (this.isCarried) {
-//	    return;
-//	}
 
 	float sideWaysSpeed = 11f;
 
@@ -118,8 +112,6 @@ public class Shell extends MarioSprite {
     }
 
     public void collideCheck() {
-//	if (this.isCarried || !this.alive)
-//	    return;
 	if(!this.alive) return;
 	
 	float xMarioD = world.mario.x - x;
@@ -259,10 +251,6 @@ public class Shell extends MarioSprite {
 
 	if (xD > -16 && xD < 16) {
 	    if (yD > -height && yD < shell.height) {
-//		if (world.mario.carriedShell == shell || world.mario.carriedShell == this) {
-//		    world.mario.carriedShell = null;
-//		}
-
 		this.world.removeSprite(this);
 		this.world.removeSprite(shell);
 		return true;
@@ -272,7 +260,6 @@ public class Shell extends MarioSprite {
     }
 
     public void release(Mario mario) {
-//	this.isCarried = false;
 	facing = mario.facing;
 	x += facing * 8;
     }
