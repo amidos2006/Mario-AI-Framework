@@ -24,7 +24,7 @@ public class MarioWorld {
     //Status
     public int coins, lives, mushrooms, flowers, breakBlock;
     public int shellKill, fireKill, stompKill, fallKill;
-    public int numJumps, maxXJump, maxYJump, minXJump, minYJump;
+    public int numJumps, maxXJump, jumpAirTime;
     
     private long prevFrameTime;
     
@@ -47,7 +47,6 @@ public class MarioWorld {
 	this.addedSprites = new ArrayList<>();
 	this.removedSprites = new ArrayList<>();
 	this.effects = new ArrayList<>();
-	this.minXJump = this.minYJump = Integer.MAX_VALUE;
     }
     
     public void initializeVisuals(GraphicsConfiguration graphicsConfig) {
@@ -135,9 +134,7 @@ public class MarioWorld {
 	world.stompKill = this.stompKill;
 	world.numJumps = this.numJumps;
 	world.maxXJump = this.maxXJump;
-	world.maxYJump = this.maxYJump;
-	world.minXJump = this.minXJump;
-	world.minYJump = this.minYJump;
+	world.jumpAirTime = this.jumpAirTime;
 	return world;
     }
     

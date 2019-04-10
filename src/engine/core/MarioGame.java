@@ -115,5 +115,6 @@ public class MarioGame{
               }
 	    }
 	}
+	System.out.println(world.maxXJump + " " + world.numJumps + " " + world.jumpAirTime);
     }
 }

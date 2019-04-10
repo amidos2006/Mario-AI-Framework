@@ -80,6 +80,18 @@ public class MarioForwardModel {
 	return this.world.fallKill;
     }
     
+    public int getNumJumps() {
+	return this.world.numJumps;
+    }
+    
+    public int getMaxXJump() {
+	return this.world.maxXJump;
+    }
+    
+    public int getJumpAirTime() {
+	return this.world.jumpAirTime;
+    }
+    
     public int[][] getScreenCompleteObservation(){
 	return this.getScreenCompleteObservation(1, 0);
     }

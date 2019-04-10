@@ -21,6 +21,10 @@ public class Mario extends MarioSprite{
     private boolean oldLarge, oldFire = false;    
     private MarioImage graphics = null;
     
+    //stats
+    private float xJumpStart = -100;
+    private int jumpAirTime = 0;
+    
     private final float GROUND_INERTIA = 0.89f;
     private final float AIR_INERTIA = 0.89f;
     private final int POWERUP_TIME = 3;
@@ -57,6 +61,8 @@ public class Mario extends MarioSprite{
         sprite.yJumpSpeed = yJumpSpeed;
         sprite.invulnerableTime = invulnerableTime;
         sprite.jumpTime = jumpTime;
+        sprite.xJumpStart = xJumpStart;
+        sprite.jumpAirTime = jumpAirTime;
         return (MarioSprite) sprite;
     }
     
@@ -274,6 +280,13 @@ public class Mario extends MarioSprite{
 		jumpTime = 7;
 		ya = jumpTime * yJumpSpeed;
 		onGround = false;
+		if (!(isBlocking(x, y - 4 - height, 0, -4) || 
+			isBlocking(x - width, y - 4 - height, 0, -4) || 
+			isBlocking(x + width, y - 4 - height, 0, -4))){
+		    this.xJumpStart = this.x;
+		    this.jumpAirTime = 0;
+		    this.world.numJumps += 1;
+		}
 	    } else if (jumpTime > 0) {
 		xa += xJumpSpeed;
 		ya = jumpTime * yJumpSpeed;
@@ -310,6 +323,19 @@ public class Mario extends MarioSprite{
 	onGround = false;
 	move(xa, 0);
 	move(0, ya);
+	if(!onGround && this.xJumpStart >= 0) {
+	    this.jumpAirTime += 1;
+	}
+	if(!wasOnGround && onGround && this.xJumpStart >= 0) {
+	    if(Math.abs(this.x - this.xJumpStart) > this.world.maxXJump) {
+		this.world.maxXJump = (int)Math.abs(this.x - this.xJumpStart);
+	    }
+	    if(this.jumpAirTime > this.world.jumpAirTime) {
+		this.world.jumpAirTime = this.jumpAirTime;
+	    }
+	    this.xJumpStart = -100;
+	    this.jumpAirTime = 0;
+	}
 
 	if (x < 0) {
 	    x = 0;

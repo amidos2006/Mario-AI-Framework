@@ -22,7 +22,7 @@ public class main {
     public static void main(String[] args) {
 	MarioGame game = new MarioGame();
 	game.pause = false;
-	game.runVisuals(new HumanAgent(), getLevel("levels/mario-1-1.txt"), 200, 30, 2);
+	game.runVisuals(new HumanAgent(), getLevel("levels/mario-1-1.txt"), 10, 30, 2);
 //	game.runNoVisuals(new DoNothingAgent(), 
 //		"................................\n" +
 //		"................................\n" +
