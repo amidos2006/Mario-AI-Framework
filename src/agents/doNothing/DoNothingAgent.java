@@ -1,0 +1,24 @@
+package agents.doNothing;
+
+import engine.core.MarioAgent;
+import engine.core.MarioForwardModel;
+import engine.core.MarioTimer;
+import engine.helper.MarioActions;
+
+public class DoNothingAgent implements MarioAgent {
+    @Override
+    public void initialize(MarioForwardModel world, MarioTimer timer) {
+	
+    }
+
+    @Override
+    public boolean[] getActions(MarioForwardModel world, MarioTimer timer) {
+	return new boolean[MarioActions.numberOfActions()];
+    }
+
+    @Override
+    public String getAgentName() {
+	return "DoNothingAgent";
+    }
+
+}
