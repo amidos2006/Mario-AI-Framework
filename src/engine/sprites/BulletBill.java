@@ -84,7 +84,7 @@ public class BulletBill extends MarioSprite {
 	return false;
     }
 
-    public boolean shellCollideCheck(Shell shell, Mario mario) {
+    public boolean shellCollideCheck(Shell shell) {
 	float xD = shell.x - x;
 	float yD = shell.y - y;
 

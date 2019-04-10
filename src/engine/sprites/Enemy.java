@@ -252,7 +252,7 @@ public class Enemy extends MarioSprite {
 	return blocking;
     }
 
-    public boolean shellCollideCheck(Shell shell, Mario mario) {
+    public boolean shellCollideCheck(Shell shell) {
 	float xD = shell.x - x;
 	float yD = shell.y - y;
 

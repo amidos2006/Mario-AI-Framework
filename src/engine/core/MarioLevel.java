@@ -199,8 +199,6 @@ public class MarioLevel {
 	    this.exitTileX = lines[0].length() - 1;
 	    this.exitTileY = findFirstFloor(lines, this.exitTileX);
 	}
-	this.levelTiles[this.exitTileX][this.exitTileY] = 2;
-	this.exitTileY = this.exitTileY - 1;
 	for(int y=this.exitTileY; y>1; y--) {
 	    this.levelTiles[this.exitTileX][y] = 40;
 	}

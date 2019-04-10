@@ -258,9 +258,4 @@ public class Shell extends MarioSprite {
 	}
 	return false;
     }
-
-    public void release(Mario mario) {
-	facing = mario.facing;
-	x += facing * 8;
-    }
 }

@@ -27,7 +27,7 @@ public class Mario extends MarioSprite{
     
     public Mario(boolean visuals, float x, float y) {
 	super(x + 8, y + 15, SpriteType.MARIO);
-	this.isLarge = this.oldLarge = true;
+	this.isLarge = this.oldLarge = false;
 	this.isFire = this.oldFire = false;
 	this.width = 4;
 	this.height = 24;

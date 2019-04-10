@@ -396,7 +396,9 @@ public class MarioWorld {
 	for (Shell shell : shellsToCheck) {
 	    for (MarioSprite sprite : sprites) {
 		if (sprite != shell && shell.alive && sprite.alive) {
-		    sprite.shellCollideCheck(shell);
+		    if(sprite.shellCollideCheck(shell)) {
+			this.removeSprite(sprite);
+		    }
 		}
 	    }
 	}
@@ -431,10 +433,10 @@ public class MarioWorld {
 	    if (features.contains(TileFeatures.SPECIAL)) {
 		if (!this.mario.isLarge) {
 			addSprite(new Mushroom(this.visuals, xTile * 16 + 9, yTile * 16 + 8));
-		    } else {
+		} else {
 			addSprite(new FireFlower(this.visuals, xTile * 16 + 9, yTile * 16 + 8));
-		    }
-	    } if(features.contains(TileFeatures.LIFE)){
+		}
+	    } else if(features.contains(TileFeatures.LIFE)){
 		addSprite(new LifeMushroom(this.visuals, xTile * 16 + 9, yTile * 16 + 8));
 	    } else {
 		mario.collectCoin();
