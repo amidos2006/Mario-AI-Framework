@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 
 import javax.swing.JFrame;
 
+import agents.human.HumanAgent;
 import engine.helper.GameStatus;
 import engine.helper.MarioActions;
 
@@ -43,27 +44,47 @@ public class MarioGame{
         }
     }
     
-    public void runNoVisuals(MarioAgent agent, String level, int timer) {
-	this.setAgent(agent);
-	this.gameLoop(level, timer, false, 0);
+    public void playGame(String level, int timer) {
+	this.runGame(new HumanAgent(), level, timer, true, 30, 2);
     }
     
-    public void runVisuals(MarioAgent agent, String level, int timer, int fps, float scale) {
-	this.window = new JFrame("Mario AI Framework");
-	this.render = new MarioRender(scale);
-	this.window.setContentPane(this.render);
-	this.window.pack();
-	this.window.setResizable(false);
-	this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	this.render.init();
-	this.window.setVisible(true);
-	
+    public void playGame(String level, int timer, int fps) {
+	this.runGame(new HumanAgent(), level, timer, true, fps, 2);
+    }
+    
+    public void playGame(String level, int timer, int fps, float scale) {
+	this.runGame(new HumanAgent(), level, timer, true, fps, scale);
+    }
+    
+    public void runGame(MarioAgent agent, String level, int timer) {
+	this.runGame(agent, level, timer, false, 0, 2);
+    }
+    
+    public void runGame(MarioAgent agent, String level, int timer, boolean visuals) {
+	this.runGame(agent, level, timer, visuals, visuals?30:0, 2);
+    }
+    public void runGame(MarioAgent agent, String level, int timer, boolean visuals, int fps) {
+	this.runGame(agent, level, timer, visuals, fps, 2);
+    }
+    
+    public void runGame(MarioAgent agent, String level, int timer, boolean visuals, int fps, float scale) {
+	if (visuals) {
+	    this.window = new JFrame("Mario AI Framework");
+	    this.render = new MarioRender(scale);
+	    this.window.setContentPane(this.render);
+	    this.window.pack();
+	    this.window.setResizable(false);
+	    this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    this.render.init();
+	    this.window.setVisible(true);
+	}
 	this.setAgent(agent);
-	this.gameLoop(level, timer, true, fps);
+	this.gameLoop(level, timer, visuals, fps);
     }
     
     private void gameLoop(String level, int timer, boolean visual, int fps) {
 	this.world = new MarioWorld();
+	this.world.timeScale = fps > 0 ? fps/30f : 1;
 	this.world.visuals = visual;
 	this.world.initializeLevel(level, 1000 * timer);
 	if(visual) {
@@ -115,6 +136,5 @@ public class MarioGame{
               }
 	    }
 	}
-	System.out.println(world.maxXJump + " " + world.numJumps + " " + world.jumpAirTime);
     }
 }

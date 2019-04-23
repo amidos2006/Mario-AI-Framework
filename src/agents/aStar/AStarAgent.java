@@ -1,24 +1,29 @@
-package agents.doNothing;
+package agents.aStar;
 
 import engine.core.MarioAgent;
 import engine.core.MarioForwardModel;
 import engine.core.MarioTimer;
 import engine.helper.MarioActions;
 
-public class DoNothingAgent implements MarioAgent {
+public class AStarAgent implements MarioAgent{
+    private boolean action[];
+    private AStarTree tree;
+    
     @Override
     public void initialize(MarioForwardModel model, MarioTimer timer) {
-	
+	this.action = new boolean[MarioActions.numberOfActions()];
+	this.tree = new AStarTree();
     }
 
     @Override
     public boolean[] getActions(MarioForwardModel model, MarioTimer timer) {
-	return new boolean[MarioActions.numberOfActions()];
+	action = this.tree.optimise(model, timer);
+	return action;
     }
 
     @Override
     public String getAgentName() {
-	return "DoNothingAgent";
+	return "AStarAgent";
     }
 
 }

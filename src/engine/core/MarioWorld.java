@@ -16,6 +16,7 @@ public class MarioWorld {
     public int pauseTimer = 0;
     public int fireballsOnScreen = 0;
     public int currentTimer = -1;
+    public float timeScale = 1;
     public float cameraX;
     public Mario mario;
     public MarioLevel level;
@@ -25,8 +26,6 @@ public class MarioWorld {
     public int coins, lives, mushrooms, flowers, breakBlock;
     public int shellKill, fireKill, stompKill, fallKill;
     public int numJumps, maxXJump, jumpAirTime;
-    
-    private long prevFrameTime;
     
     private ArrayList<MarioSprite> sprites;
     private ArrayList<Shell> shellsToCheck;
@@ -91,7 +90,6 @@ public class MarioWorld {
 	this.mario.alive = true;
 	this.mario.world = this;
 	this.sprites.add(this.mario);
-	this.prevFrameTime = System.currentTimeMillis();
     }
     
     public ArrayList<MarioSprite> getEnemies(){
@@ -112,6 +110,7 @@ public class MarioWorld {
 	world.gameStatus = this.gameStatus;
 	world.pauseTimer = this.pauseTimer;
 	world.currentTimer = this.currentTimer;
+	world.timeScale = this.timeScale;
 	world.currentTick = this.currentTick;
 	world.level = this.level.clone();
 	for(MarioSprite sprite:this.sprites) {
@@ -121,6 +120,9 @@ public class MarioWorld {
 		world.mario = (Mario) cloneSprite;
 	    }
 	    world.sprites.add(cloneSprite);
+	}
+	if(world.mario == null) {
+	    world.mario = (Mario) this.mario.clone();
 	}
 	//stats
 	world.coins = this.coins;
@@ -302,8 +304,7 @@ public class MarioWorld {
 	}
 	
 	if(this.currentTimer > 0) {
-	    this.currentTimer -= (System.currentTimeMillis() - this.prevFrameTime);
-	    this.prevFrameTime = System.currentTimeMillis();
+	    this.currentTimer -= 30 * this.timeScale;
 	    if(this.currentTimer <= 0) {
 		this.currentTimer = 0;
 		this.lose();

@@ -11,7 +11,7 @@ public class MarioForwardModel {
 	this.world = world;
     }
     
-    public MarioForwardModel copy() {
+    public MarioForwardModel clone() {
 	return new MarioForwardModel(this.world.clone());
     }
     
@@ -27,18 +27,12 @@ public class MarioForwardModel {
 	return new float[] {this.world.mario.x, this.world.mario.y};
     }
     
-    public int[] getMarioScreenTilePos() {
-	return new int[] {(int)((this.world.mario.x - this.world.cameraX)/16), (int)(this.world.mario.y/16)};
+    public float[] getMarioFloatVelocity() {
+	return new float[] {this.world.mario.xa, this.world.mario.ya};
     }
     
-    public float[] getEnemiesFloatPos() {
-	ArrayList<MarioSprite> enemiesAlive = this.world.getEnemies();
-	float[] enemyPos = new float[enemiesAlive.size() * 2];
-	for(int i=0; i<enemiesAlive.size(); i++) {
-	    enemyPos[2*i] = enemiesAlive.get(0).x;
-	    enemyPos[2*i + 1] = enemiesAlive.get(0).y;
-	}
-	return enemyPos;
+    public boolean getMarioCanJumpHigher() {
+	return this.world.mario.jumpTime > 0;
     }
     
     public int getMarioMode() {
@@ -58,6 +52,28 @@ public class MarioForwardModel {
     
     public boolean mayMarioJump() {
 	return this.world.mario.mayJump;
+    }
+    
+    public int[] getMarioScreenTilePos() {
+	return new int[] {(int)((this.world.mario.x - this.world.cameraX)/16), (int)(this.world.mario.y/16)};
+    }
+    
+    public float[] getLevelFloatDimensions() {
+	return new float[] {this.world.level.width, this.world.level.height};
+    }
+    
+    public int getRemainingTime() {
+	return this.world.currentTimer;
+    }
+    
+    public float[] getEnemiesFloatPos() {
+	ArrayList<MarioSprite> enemiesAlive = this.world.getEnemies();
+	float[] enemyPos = new float[enemiesAlive.size() * 2];
+	for(int i=0; i<enemiesAlive.size(); i++) {
+	    enemyPos[2*i] = enemiesAlive.get(0).x;
+	    enemyPos[2*i + 1] = enemiesAlive.get(0).y;
+	}
+	return enemyPos;
     }
     
     public int getKillsTotal() {

@@ -12,12 +12,12 @@ public class HumanAgent extends KeyAdapter implements MarioAgent {
     private boolean[] actions = null;
     
     @Override
-    public void initialize(MarioForwardModel world, MarioTimer timer) {
+    public void initialize(MarioForwardModel model, MarioTimer timer) {
 	actions = new boolean[MarioActions.numberOfActions()];
     }
 
     @Override
-    public boolean[] getActions(MarioForwardModel world, MarioTimer timer) {
+    public boolean[] getActions(MarioForwardModel model, MarioTimer timer) {
 	return actions;
     }
 

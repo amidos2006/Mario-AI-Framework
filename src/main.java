@@ -3,8 +3,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import agents.aStar.AStarAgent;
 import agents.doNothing.DoNothingAgent;
-import agents.human.HumanAgent;
 import engine.core.MarioGame;
 
 
@@ -22,23 +22,8 @@ public class main {
     public static void main(String[] args) {
 	MarioGame game = new MarioGame();
 	game.pause = false;
-	game.runVisuals(new HumanAgent(), getLevel("levels/mario-1-1.txt"), 10, 30, 2);
-//	game.runNoVisuals(new DoNothingAgent(), 
-//		"................................\n" +
-//		"................................\n" +
-//		"................................\n" +
-//		"................................\n" +
-//		"................................\n" +
-//		"................................\n" +
-//		"................................\n" +
-//		"................................\n" +
-//		"..............o...o.............\n" +
-//		".............BBC@CBB............\n" +
-//		"................................\n" +
-//		"................................\n" +
-//		"M..............................E\n" +
-//		"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n" +
-//		"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n", 2);
+//	game.playGame(getLevel("levels/mario-1-1.txt"), 200);
+	game.runGame(new AStarAgent(), getLevel("levels/mario-1-1.txt"), 200, true);
 	System.out.println("Hello");
     }
 }

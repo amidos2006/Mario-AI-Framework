@@ -45,7 +45,7 @@ public class MarioRender extends JComponent implements FocusListener {
 	world.render(og);
 	drawStringDropShadow(og, "Lives: " + world.lives, 0, 0, 7);
 	drawStringDropShadow(og, "Coins: " + world.coins, 11, 0, 7);
-	drawStringDropShadow(og, "Time: " + (world.currentTimer==-1?"Inf":(int)Math.ceil(world.currentTimer/1000)), 22, 0, 7);
+	drawStringDropShadow(og, "Time: " + (world.currentTimer==-1?"Inf":(int)Math.ceil(world.currentTimer/1000f)), 22, 0, 7);
 	if(MarioGame.verbose) {
 	    String pressedButtons = "";
 	    for (int i = 0; i < world.mario.actions.length; i++) {

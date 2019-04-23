@@ -13,9 +13,10 @@ public class Mario extends MarioSprite{
     public boolean isLarge, isFire;
     public boolean onGround, wasOnGround, isDucking, canShoot, mayJump;
     public boolean[] actions = null;
+    public int jumpTime = 0;
     
     private float xJumpSpeed, yJumpSpeed = 0;
-    private int invulnerableTime, jumpTime = 0;
+    private int invulnerableTime = 0; 
     
     private float marioFrameSpeed = 0;
     private boolean oldLarge, oldFire = false;    
@@ -42,7 +43,7 @@ public class Mario extends MarioSprite{
     
     @Override
     public MarioSprite clone() {
-        Mario sprite = new Mario(false, x, y);
+        Mario sprite = new Mario(false, x - 8, y - 15);
         sprite.xa = this.xa;
         sprite.ya = this.ya;
         sprite.initialCode = this.initialCode;
@@ -56,7 +57,10 @@ public class Mario extends MarioSprite{
         sprite.isDucking = isDucking;
         sprite.canShoot = canShoot;
         sprite.mayJump = mayJump;
-        sprite.actions = actions;
+        sprite.actions = new boolean[this.actions.length];
+        for(int i=0; i<this.actions.length; i++) {
+            sprite.actions[i] = this.actions[i];
+        }
         sprite.xJumpSpeed = xJumpSpeed;
         sprite.yJumpSpeed = yJumpSpeed;
         sprite.invulnerableTime = invulnerableTime;

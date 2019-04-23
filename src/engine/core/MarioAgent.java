@@ -1,7 +1,7 @@
 package engine.core;
 
 public interface MarioAgent {
-    void initialize(MarioForwardModel world, MarioTimer timer);
-    boolean[] getActions(MarioForwardModel world, MarioTimer timer);
+    void initialize(MarioForwardModel model, MarioTimer timer);
+    boolean[] getActions(MarioForwardModel model, MarioTimer timer);
     String getAgentName();
 }
