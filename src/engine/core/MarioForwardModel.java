@@ -7,6 +7,7 @@ import engine.helper.GameStatus;
 public class MarioForwardModel {
     public final int obsGridWidth = MarioGame.tileWidth;
     public final int obsGridHeight = MarioGame.tileHeight;
+    
     private MarioWorld world;
     
     public MarioForwardModel(MarioWorld world) {
@@ -109,6 +110,26 @@ public class MarioForwardModel {
     
     public int getJumpAirTime() {
 	return this.world.jumpAirTime;
+    }
+    
+    public int getNumLives() {
+	return this.world.lives;
+    }
+    
+    public int getNumCollectedMushrooms() {
+	return this.world.mushrooms;
+    }
+    
+    public int getNumCollectedFireflower() {
+	return this.world.flowers;
+    }
+    
+    public int getNumCollectedCoins() {
+	return this.world.coins;
+    }
+    
+    public int getNumDestroyedBricks() {
+	return this.world.breakBlock;
     }
     
     public int[][] getScreenCompleteObservation(){

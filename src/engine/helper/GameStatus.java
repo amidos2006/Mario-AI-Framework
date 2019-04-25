@@ -3,5 +3,6 @@ package engine.helper;
 public enum GameStatus {
     RUNNING,
     WIN,
-    LOSE;
+    LOSE,
+    TIME_OUT;
 }

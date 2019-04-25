@@ -178,6 +178,11 @@ public class MarioWorld {
 	this.mario.alive = false;
     }
     
+    public void timeout() {
+	this.gameStatus = GameStatus.TIME_OUT;
+	this.mario.alive = false;
+    }
+    
     public int[][] getSceneObservation(float centerX, float centerY, int detail){
 	int[][] ret = new int[MarioGame.tileWidth][MarioGame.tileHeight];
         int centerXInMap = (int)centerX/16;
@@ -307,7 +312,7 @@ public class MarioWorld {
 	    this.currentTimer -= 30 * this.timeScale;
 	    if(this.currentTimer <= 0) {
 		this.currentTimer = 0;
-		this.lose();
+		this.timeout();
 		return;
 	    }
 	}

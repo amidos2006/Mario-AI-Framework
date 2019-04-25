@@ -46,30 +46,38 @@ public class MarioGame{
         }
     }
     
-    public void playGame(String level, int timer) {
-	this.runGame(new Agent(), level, timer, true, 30, 2);
+    public MarioResult playGame(String level, int timer) {
+	return this.runGame(new Agent(), level, timer, 0, true, 30, 2);
     }
     
-    public void playGame(String level, int timer, int fps) {
-	this.runGame(new Agent(), level, timer, true, fps, 2);
+    public MarioResult playGame(String level, int timer, int marioState) {
+	return this.runGame(new Agent(), level, timer, marioState, true, 30, 2);
     }
     
-    public void playGame(String level, int timer, int fps, float scale) {
-	this.runGame(new Agent(), level, timer, true, fps, scale);
+    public MarioResult playGame(String level, int timer, int marioState, int fps) {
+	return this.runGame(new Agent(), level, timer, marioState, true, fps, 2);
     }
     
-    public void runGame(MarioAgent agent, String level, int timer) {
-	this.runGame(agent, level, timer, false, 0, 2);
+    public MarioResult playGame(String level, int timer, int marioState, int fps, float scale) {
+	return this.runGame(new Agent(), level, timer, marioState, true, fps, scale);
     }
     
-    public void runGame(MarioAgent agent, String level, int timer, boolean visuals) {
-	this.runGame(agent, level, timer, visuals, visuals?30:0, 2);
-    }
-    public void runGame(MarioAgent agent, String level, int timer, boolean visuals, int fps) {
-	this.runGame(agent, level, timer, visuals, fps, 2);
+    public MarioResult runGame(MarioAgent agent, String level, int timer) {
+	return this.runGame(agent, level, timer, 0, false, 0, 2);
     }
     
-    public void runGame(MarioAgent agent, String level, int timer, boolean visuals, int fps, float scale) {
+    public MarioResult runGame(MarioAgent agent, String level, int timer, int marioState) {
+	return this.runGame(agent, level, timer, marioState, false, 0, 2);
+    }
+    
+    public MarioResult runGame(MarioAgent agent, String level, int timer, int marioState, boolean visuals) {
+	return this.runGame(agent, level, timer, marioState, visuals, visuals?30:0, 2);
+    }
+    public MarioResult runGame(MarioAgent agent, String level, int timer, int marioState, boolean visuals, int fps) {
+	return this.runGame(agent, level, timer, marioState, visuals, fps, 2);
+    }
+    
+    public MarioResult runGame(MarioAgent agent, String level, int timer, int marioState, boolean visuals, int fps, float scale) {
 	if (visuals) {
 	    this.window = new JFrame("Mario AI Framework");
 	    this.render = new MarioRender(scale);
@@ -81,10 +89,10 @@ public class MarioGame{
 	    this.window.setVisible(true);
 	}
 	this.setAgent(agent);
-	this.gameLoop(level, timer, visuals, fps);
+	return this.gameLoop(level, timer, marioState, visuals, fps);
     }
     
-    private void gameLoop(String level, int timer, boolean visual, int fps) {
+    private MarioResult gameLoop(String level, int timer, int marioState, boolean visual, int fps) {
 	this.world = new MarioWorld();
 	this.world.timeScale = fps > 0 ? fps/30f : 1;
 	this.world.visuals = visual;
@@ -92,6 +100,8 @@ public class MarioGame{
 	if(visual) {
 	    this.world.initializeVisuals(this.render.getGraphicsConfiguration());
 	}
+	this.world.mario.isLarge = marioState > 0;
+	this.world.mario.isFire = marioState > 1;
 	this.world.update(new boolean[MarioActions.numberOfActions()]);
 	long currentTime = System.currentTimeMillis();
 	
@@ -138,5 +148,6 @@ public class MarioGame{
               }
 	    }
 	}
+	return new MarioResult(this.world);
     }
 }
