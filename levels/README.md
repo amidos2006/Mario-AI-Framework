@@ -1,0 +1,1 @@
+This folder is a modified version of the levels in the VGLC to include higher level resolution.
