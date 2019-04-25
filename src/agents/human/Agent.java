@@ -8,7 +8,7 @@ import engine.core.MarioForwardModel;
 import engine.core.MarioTimer;
 import engine.helper.MarioActions;
 
-public class HumanAgent extends KeyAdapter implements MarioAgent {
+public class Agent extends KeyAdapter implements MarioAgent {
     private boolean[] actions = null;
     
     @Override

@@ -71,6 +71,7 @@ public class MarioLevel {
 		case 'Y':
 		    this.spriteTemplates[x][y] = SpriteType.SPIKY_WINGED;
 		    break;
+		case 'E':
 		case 'g':
 		    this.spriteTemplates[x][y] = SpriteType.GOOMBA;
 		    break;
@@ -124,10 +125,12 @@ public class MarioLevel {
 		    //bullet bill body
 		    this.levelTiles[x][y] = 5;
 		    break;
+		case '?':
 		case '@':
 		    //mushroom question block
 		    this.levelTiles[x][y] = 8;
 		    break;
+		case 'Q':
 		case '!':
 		    //coin question block
 		    this.totalCoins += 1;
@@ -142,10 +145,11 @@ public class MarioLevel {
 		    this.totalCoins += 1;
 		    this.levelTiles[x][y] = 49;
 		    break;
-		case 'Q':
+		case 'D':
 		    //used
 		    this.levelTiles[x][y] = 14;
 		    break;
+		case 'S':
 		case 'B':
 		    //normal block
 		    this.levelTiles[x][y] = 6;
@@ -155,7 +159,7 @@ public class MarioLevel {
 		    this.totalCoins += 1;
 		    this.levelTiles[x][y] = 7;
 		    break;
-		case 'S':
+		case 'U':
 		    //mushroom block
 		    this.levelTiles[x][y] = 50;
 		    break;
@@ -302,7 +306,8 @@ public class MarioLevel {
     
     private boolean isSolid(char c) {
 	return  c == 'X' || c == '#' || c == '@' || c == '!' || c == 'B' || c == 'C' || 
-		c == 'Q' || c == '<' || c == '>' || c == '[' || c == ']';
+		c == 'Q' || c == '<' || c == '>' || c == '[' || c == ']' || c == '?' ||
+		c == 'S' || c == 'U' || c == 'D';
     }
     
     public int getBlockValueGeneralization(int xTile, int yTile, int detail) {
@@ -364,7 +369,6 @@ public class MarioLevel {
 	    case 44:
 	    case 45:
 		return shiftValue + 43;
-
 	    }
 	    return 0;
 	case (2):

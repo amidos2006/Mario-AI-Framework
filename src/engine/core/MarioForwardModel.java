@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import engine.helper.GameStatus;
 
 public class MarioForwardModel {
+    public final int obsGridWidth = MarioGame.tileWidth;
+    public final int obsGridHeight = MarioGame.tileHeight;
     private MarioWorld world;
     
     public MarioForwardModel(MarioWorld world) {
@@ -68,10 +70,11 @@ public class MarioForwardModel {
     
     public float[] getEnemiesFloatPos() {
 	ArrayList<MarioSprite> enemiesAlive = this.world.getEnemies();
-	float[] enemyPos = new float[enemiesAlive.size() * 2];
+	float[] enemyPos = new float[enemiesAlive.size() * 3];
 	for(int i=0; i<enemiesAlive.size(); i++) {
-	    enemyPos[2*i] = enemiesAlive.get(0).x;
-	    enemyPos[2*i + 1] = enemiesAlive.get(0).y;
+	    enemyPos[3*i] = enemiesAlive.get(i).type.getValue();
+	    enemyPos[3*i + 1] = enemiesAlive.get(i).x;
+	    enemyPos[3*i + 2] = enemiesAlive.get(i).y;
 	}
 	return enemyPos;
     }
@@ -132,27 +135,27 @@ public class MarioForwardModel {
 	return this.getMarioSceneObservation(1);
     }
     
-    public int[][] getScreenCompleteObservation(int sceneDetail, int enemyDetail){
-	return this.world.getMergedObservation(this.world.cameraX + MarioGame.width / 2, MarioGame.height / 2, sceneDetail, enemyDetail);
+    public int[][] getScreenSceneObservation(int detail){
+	return this.world.getSceneObservation(this.world.cameraX + MarioGame.width / 2, MarioGame.height / 2, detail);
     }
     
     public int[][] getScreenEnemiesObservation(int detail){
 	return this.world.getEnemiesObservation(this.world.cameraX + MarioGame.width / 2, MarioGame.height / 2, detail);
     }
     
-    public int[][] getScreenSceneObservation(int detail){
-	return this.world.getSceneObservation(this.world.cameraX + MarioGame.width / 2, MarioGame.height / 2, detail);
+    public int[][] getScreenCompleteObservation(int sceneDetail, int enemyDetail){
+	return this.world.getMergedObservation(this.world.cameraX + MarioGame.width / 2, MarioGame.height / 2, sceneDetail, enemyDetail);
     }
     
-    public int[][] getMarioCompleteObservation(int sceneDetail, int enemyDetail){
-	return this.world.getMergedObservation(this.world.mario.x, this.world.mario.y, sceneDetail, enemyDetail);
+    public int[][] getMarioSceneObservation(int detail){
+	return this.world.getSceneObservation(this.world.mario.x, this.world.mario.y, detail);
     }
     
     public int[][] getMarioEnemiesObservation(int detail){
 	return this.world.getEnemiesObservation(this.world.mario.x, this.world.mario.y, detail);
     }
     
-    public int[][] getMarioSceneObservation(int detail){
-	return this.world.getSceneObservation(this.world.mario.x, this.world.mario.y, detail);
+    public int[][] getMarioCompleteObservation(int sceneDetail, int enemyDetail){
+	return this.world.getMergedObservation(this.world.mario.x, this.world.mario.y, sceneDetail, enemyDetail);
     }
 }

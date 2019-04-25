@@ -1,11 +1,14 @@
-package agents.aStar;
+package agents.robinBaumgarten;
 
 import engine.core.MarioAgent;
 import engine.core.MarioForwardModel;
 import engine.core.MarioTimer;
 import engine.helper.MarioActions;
 
-public class AStarAgent implements MarioAgent{
+/**
+ * @author RobinBaumgarten
+ */
+public class Agent implements MarioAgent{
     private boolean action[];
     private AStarTree tree;
     
@@ -23,7 +26,7 @@ public class AStarAgent implements MarioAgent{
 
     @Override
     public String getAgentName() {
-	return "AStarAgent";
+	return "RobinBaumgartenAgent";
     }
 
 }

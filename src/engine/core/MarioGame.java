@@ -6,7 +6,7 @@ import java.awt.event.KeyAdapter;
 
 import javax.swing.JFrame;
 
-import agents.human.HumanAgent;
+import agents.human.Agent;
 import engine.helper.GameStatus;
 import engine.helper.MarioActions;
 
@@ -15,7 +15,9 @@ public class MarioGame{
     public static final long maxTime = 40;
     public static final long graceTime = 10;
     public static final int width = 256;
-    public static final int height = 240;
+    public static final int height = 256;
+    public static final int tileWidth = width/16;
+    public static final int tileHeight = height/16;
     public static final boolean verbose = false;
     
     public boolean pause = false;
@@ -45,15 +47,15 @@ public class MarioGame{
     }
     
     public void playGame(String level, int timer) {
-	this.runGame(new HumanAgent(), level, timer, true, 30, 2);
+	this.runGame(new Agent(), level, timer, true, 30, 2);
     }
     
     public void playGame(String level, int timer, int fps) {
-	this.runGame(new HumanAgent(), level, timer, true, fps, 2);
+	this.runGame(new Agent(), level, timer, true, fps, 2);
     }
     
     public void playGame(String level, int timer, int fps, float scale) {
-	this.runGame(new HumanAgent(), level, timer, true, fps, scale);
+	this.runGame(new Agent(), level, timer, true, fps, scale);
     }
     
     public void runGame(MarioAgent agent, String level, int timer) {

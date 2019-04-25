@@ -179,13 +179,13 @@ public class MarioWorld {
     }
     
     public int[][] getSceneObservation(float centerX, float centerY, int detail){
-	int[][] ret = new int[MarioGame.width / 16][MarioGame.height / 16];
+	int[][] ret = new int[MarioGame.tileWidth][MarioGame.tileHeight];
         int centerXInMap = (int)centerX/16;
         int centerYInMap = (int)centerY/16;
 
-        for (int y = centerYInMap - MarioGame.height / 32, obsX = 0; y < centerYInMap + MarioGame.height / 32; y++, obsX++)
+        for (int y = centerYInMap - MarioGame.tileHeight / 2, obsY = 0; y < centerYInMap + MarioGame.tileHeight / 2; y++, obsY++)
         {
-            for (int x = centerXInMap - MarioGame.width / 32, obsY = 0; x < centerXInMap + MarioGame.width / 32; x++, obsY++)
+            for (int x = centerXInMap - MarioGame.tileWidth / 2, obsX = 0; x < centerXInMap + MarioGame.tileWidth / 2; x++, obsX++)
             {
         	int currentX = x;
         	if(currentX < 0) {
@@ -201,7 +201,7 @@ public class MarioWorld {
         	if(currentY > level.tileHeight - 1) {
         	    currentY = level.tileHeight - 1;
         	}
-        	ret[obsX][obsY] = this.level.getBlockValueGeneralization(x, y, detail);
+        	ret[obsX][obsY] = this.level.getBlockValueGeneralization(currentX, currentY, detail);
             }
         }
         return ret;
@@ -209,7 +209,7 @@ public class MarioWorld {
     
     public int[][] getEnemiesObservation(float centerX, float centerY, int detail)
     {
-        int[][] ret = new int[MarioGame.width / 16][MarioGame.height / 16];
+        int[][] ret = new int[MarioGame.tileWidth][MarioGame.tileHeight];
         int centerXInMap = (int)centerX/16;
         int centerYInMap = (int)centerY/16;
 
@@ -222,14 +222,14 @@ public class MarioWorld {
             if (sprite.type == SpriteType.MARIO)
                 continue;
             if (sprite.getMapX() >= 0 &&
-                sprite.getMapX() > centerXInMap - MarioGame.width / 32 &&
-                sprite.getMapX() < centerXInMap + MarioGame.width / 32 &&
+                sprite.getMapX() > centerXInMap - MarioGame.tileWidth / 2 &&
+                sprite.getMapX() < centerXInMap + MarioGame.tileWidth / 2 &&
                 sprite.getMapY() >= 0 &&
-                sprite.getMapY() > centerYInMap - MarioGame.height / 32 &&
-                sprite.getMapY() < centerYInMap + MarioGame.height / 32 )
+                sprite.getMapY() > centerYInMap - MarioGame.tileHeight / 2 &&
+                sprite.getMapY() < centerYInMap + MarioGame.tileHeight / 2 )
             {
-                int obsX = sprite.getMapX() - centerXInMap + MarioGame.width / 32;
-                int obsY = sprite.getMapY() - centerYInMap + MarioGame.height / 32;
+                int obsX = sprite.getMapX() - centerXInMap + MarioGame.tileWidth / 2;
+                int obsY = sprite.getMapY() - centerYInMap + MarioGame.tileHeight / 2;
                 ret[obsX][obsY] = sprite.type.getSpriteTypeGeneralization(detail);
             }
         }
@@ -238,13 +238,13 @@ public class MarioWorld {
     
     public int[][] getMergedObservation(float centerX, float centerY, int sceneDetail, int enemiesDetail)
     {
-        int[][] ret = new int[MarioGame.width / 16][MarioGame.height / 16];
+        int[][] ret = new int[MarioGame.tileWidth][MarioGame.tileHeight];
         int centerXInMap = (int)centerX/16;
         int centerYInMap = (int)centerY/16;
 
-        for (int y = centerYInMap - MarioGame.height / 32, obsX = 0; y < centerYInMap + MarioGame.height / 32; y++, obsX++)
+        for (int y = centerYInMap - MarioGame.tileHeight / 2, obsY = 0; y < centerYInMap + MarioGame.tileHeight / 2; y++, obsY++)
         {
-            for (int x = centerXInMap - MarioGame.width / 32, obsY = 0; x < centerXInMap + MarioGame.width / 32; x++, obsY++)
+            for (int x = centerXInMap - MarioGame.tileWidth / 2, obsX = 0; x < centerXInMap + MarioGame.tileWidth / 2; x++, obsX++)
             {
         	int currentX = x;
         	if(currentX < 0) {
@@ -269,14 +269,14 @@ public class MarioWorld {
             if (sprite.type == SpriteType.MARIO)
                 continue;
             if (sprite.getMapX() >= 0 &&
-                    sprite.getMapX() > centerXInMap - MarioGame.width / 32 &&
-                    sprite.getMapX() < centerXInMap + MarioGame.width / 32 &&
+                    sprite.getMapX() > centerXInMap - MarioGame.tileWidth / 2 &&
+                    sprite.getMapX() < centerXInMap + MarioGame.tileWidth / 2 &&
                     sprite.getMapY() >= 0 &&
-                    sprite.getMapY() > centerYInMap - MarioGame.height / 32 &&
-                    sprite.getMapY() < centerYInMap + MarioGame.height / 32 )
+                    sprite.getMapY() > centerYInMap - MarioGame.tileHeight / 2 &&
+                    sprite.getMapY() < centerYInMap + MarioGame.tileHeight / 2 )
                 {
-                int obsX = sprite.getMapX() - centerXInMap + MarioGame.width / 32;
-                int obsY = sprite.getMapY() - centerYInMap + MarioGame.height / 32;
+                int obsX = sprite.getMapX() - centerXInMap + MarioGame.tileWidth / 2;
+                int obsY = sprite.getMapY() - centerYInMap + MarioGame.tileHeight / 2;
                 int tmp = sprite.type.getSpriteTypeGeneralization(enemiesDetail);
                 if (tmp != SpriteType.NONE.getValue()) {
                     ret[obsX][obsY] = tmp;

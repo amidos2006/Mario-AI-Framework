@@ -1,4 +1,4 @@
-package agents.aStar;
+package agents.robinBaumgarten;
 
 import java.util.ArrayList;
 

@@ -5,7 +5,7 @@ import engine.core.MarioForwardModel;
 import engine.core.MarioTimer;
 import engine.helper.MarioActions;
 
-public class DoNothingAgent implements MarioAgent {
+public class Agent implements MarioAgent {
     @Override
     public void initialize(MarioForwardModel model, MarioTimer timer) {
 	
@@ -20,5 +20,4 @@ public class DoNothingAgent implements MarioAgent {
     public String getAgentName() {
 	return "DoNothingAgent";
     }
-
 }
