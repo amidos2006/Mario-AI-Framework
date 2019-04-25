@@ -16,7 +16,6 @@ public class MarioWorld {
     public int pauseTimer = 0;
     public int fireballsOnScreen = 0;
     public int currentTimer = -1;
-    public float timeScale = 1;
     public float cameraX;
     public Mario mario;
     public MarioLevel level;
@@ -110,7 +109,6 @@ public class MarioWorld {
 	world.gameStatus = this.gameStatus;
 	world.pauseTimer = this.pauseTimer;
 	world.currentTimer = this.currentTimer;
-	world.timeScale = this.timeScale;
 	world.currentTick = this.currentTick;
 	world.level = this.level.clone();
 	for(MarioSprite sprite:this.sprites) {
@@ -309,7 +307,7 @@ public class MarioWorld {
 	}
 	
 	if(this.currentTimer > 0) {
-	    this.currentTimer -= 30 * this.timeScale;
+	    this.currentTimer -= 30;
 	    if(this.currentTimer <= 0) {
 		this.currentTimer = 0;
 		this.timeout();

@@ -5,8 +5,13 @@ import engine.sprites.Enemy;
 import engine.sprites.FlowerEnemy;
 
 public enum SpriteType {
-    NONE(0), 
+    //Generic values
+    NONE(0),
+    UNDEF(-42),
     MARIO(-31), 
+    //Common between detail 0 and 1
+    FIREBALL(16),
+    //Enemies Detail 0
     GOOMBA(2, 16), 
     GOOMBA_WINGED(3, 16), 
     RED_KOOPA(4, 0), 
@@ -21,8 +26,12 @@ public enum SpriteType {
     FIRE_FLOWER(13), 
     SHELL(14), 
     LIFE_MUSHROOM(15),
-    FIREBALL(16), 
-    UNDEF(-42);
+    //Enemies Detail 1
+    STOMPABLE_ENEMY(2),
+    NONSTOMPABLE_ENEMY(8),
+    SPECIAL_ITEM(12),
+    //Enemies Detail 2
+    ENEMY(1);
 
     private int value;
     private int startIndex;
@@ -69,7 +78,7 @@ public enum SpriteType {
 	    case MUSHROOM:
 	    case LIFE_MUSHROOM:
 	    case FIRE_FLOWER:
-		return MUSHROOM.getValue();
+		return SPECIAL_ITEM.getValue();
 	    case BULLET_BILL:
 	    case SHELL:
 	    case GOOMBA:
@@ -78,11 +87,11 @@ public enum SpriteType {
 	    case GREEN_KOOPA_WINGED:
 	    case RED_KOOPA:
 	    case RED_KOOPA_WINGED:
-		return GOOMBA.getValue();
+		return STOMPABLE_ENEMY.getValue();
 	    case SPIKY:
 	    case SPIKY_WINGED:
 	    case ENEMY_FLOWER:
-		return SPIKY.getValue();
+		return NONSTOMPABLE_ENEMY.getValue();
 	    default:
 		NONE.getValue();
 	    }
@@ -93,11 +102,11 @@ public enum SpriteType {
 	    case MUSHROOM:
 	    case LIFE_MUSHROOM:
 	    case FIRE_FLOWER:
-		return 0;
+		return NONE.getValue();
 	    default:
-		return 1;
+		return ENEMY.getValue();
 	    }
 	}
-	return this.getValue();
+	return UNDEF.getValue();
     }
 }

@@ -19,7 +19,7 @@ public class PlayLevel {
 		" Fireballs: " + result.getKillsByFire() + " Shells: " + result.getKillsByShell() + 
 		" Falls: " + result.getKillsByFall() + ")");
 	System.out.println("Bricks: " + result.getNumDestroyedBricks() + " Jumps: " + result.getNumJumps() + 
-		" Max X Jump: " + result.getMaxXJump() + " Max Air Time: " + result.getJumpAirTime());
+		" Max X Jump: " + result.getMaxXJump() + " Max Air Time: " + result.getMaxJumpAirTime());
 	System.out.println("****************************************************************");
     }
     
