@@ -1,5 +1,4 @@
-# Mario-AI Framework
-## 10th Anniversary Edition
+# Mario-AI Framework: 10th Anniversary Edition
 This is an updated version for the Mario-AI framework. This new code will support better interface for planning/level generation/learning (future). We will also provide multiple different planning agents, level generators, original levels, and generated levels from previous years. Also, the framework is compatible with VGLC processed notations: https://github.com/TheVGLC/TheVGLC.
 
 ### Implemented Features
@@ -9,8 +8,11 @@ This is an updated version for the Mario-AI framework. This new code will suppor
 - Adding multiple agents from the previous competition
 - Isolating particle effects from game sprites
 - Only using the first SMB action set (no more shell carrying/wall jumping)
+- Documenting the interface
 
 ### Missing Features
+- Documenting the whole engine
+- Better way to check the observation grid
 - Adding a simple MCTS agent and simple A* agent
 - Koopa shells can come back to life after stomping on it
 - Adding Monte Mario agent
