@@ -277,11 +277,8 @@ public class MarioLevel {
 	if(xTile > this.tileWidth - 1) {
 	    xTile = this.tileWidth - 1;
 	}
-	if(yTile < 0) {
-	    yTile = 0;
-	}
-	if(yTile > this.tileHeight - 1) {
-	    yTile = this.tileHeight - 1;
+	if(yTile < 0 || yTile > this.tileHeight - 1) {
+	    return 0;
 	}
 	return this.levelTiles[xTile][yTile];
     }
@@ -328,7 +325,7 @@ public class MarioLevel {
     private boolean isSolid(char c) {
 	return  c == 'X' || c == '#' || c == '@' || c == '!' || c == 'B' || c == 'C' || 
 		c == 'Q' || c == '<' || c == '>' || c == '[' || c == ']' || c == '?' ||
-		c == 'S' || c == 'U' || c == 'D' || c == '%';
+		c == 'S' || c == 'U' || c == 'D' || c == '%' || c == 't' || c == 'T';
     }
     
     public int getBlockValueGeneralization(int xTile, int yTile, int detail) {
@@ -415,9 +412,14 @@ public class MarioLevel {
     }
     
     private int findFirstFloor(String[] lines, int x) {
+	boolean skipLines = true;
 	for(int i=lines.length - 1; i>= 0; i--) {
 	    Character c = lines[i].charAt(x);
-	    if(!isSolid(c)) {
+	    if(isSolid(c)) {
+		skipLines = false;
+		continue;
+	    }
+	    if(!skipLines && !isSolid(c)) {
 		return i;
 	    }
 	}
