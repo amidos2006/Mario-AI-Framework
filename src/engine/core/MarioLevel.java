@@ -114,17 +114,16 @@ public class MarioLevel {
 		    //background for jump through block
 		    this.levelTiles[x][y] = 47;
 		    break;
-		case 'O':
-		    //bullet bill head
-		    this.levelTiles[x][y] = 3;
-		    break;
-		case 'T':
+		case '*':
 		    //bullet bill neck
-		    this.levelTiles[x][y] = 4;
-		    break;
-		case 'W':
-		    //bullet bill body
-		    this.levelTiles[x][y] = 5;
+		    tempIndex = 0;
+		    if(y > 0 && lines[y-1].charAt(x) == '*') {
+			tempIndex += 1;
+		    }
+		    if(y > 1 && lines[y-2].charAt(x) == '*') {
+			tempIndex += 1;
+		    }
+		    this.levelTiles[x][y] = 3 + tempIndex;
 		    break;
 		case '?':
 		case '@':
@@ -173,9 +172,30 @@ public class MarioLevel {
 		    this.totalCoins += 1;
 		    this.levelTiles[x][y] = 15;
 		    break;
-		case '(':
-		    this.levelTiles[x][y] = 18;
-		    this.spriteTemplates[x][y] = SpriteType.ENEMY_FLOWER;
+		case 't':
+		    //empty Pipe
+		    tempIndex = 0;
+		    if(x > 0 && Character.toLowerCase(lines[y].charAt(x-1)) == 't') {
+			tempIndex += 1;
+		    }
+		    if(y > 0 && Character.toLowerCase(lines[y-1].charAt(x)) == 't') {
+			tempIndex += 2;
+		    }
+		    this.levelTiles[x][y] = 18 + tempIndex;
+		    break;
+		case 'T':
+		    //flower pipe
+		    tempIndex = 0;
+		    if(x > 0 && Character.toLowerCase(lines[y].charAt(x-1)) == 't') {
+			tempIndex += 1;
+		    }
+		    if(y > 0 && Character.toLowerCase(lines[y-1].charAt(x)) == 't') {
+			tempIndex += 2;
+		    }
+		    this.levelTiles[x][y] = 18 + tempIndex;
+		    if(tempIndex == 0) {
+			this.spriteTemplates[x][y] = SpriteType.ENEMY_FLOWER;
+		    }
 		    break;
 		case '<':
 		    //pipe top left
@@ -198,7 +218,7 @@ public class MarioLevel {
 	}
 	if(!marioLocInit) {
 	    this.marioTileX = 0;
-	    this.marioTileY = findFirstFloor(lines, this.exitTileX);
+	    this.marioTileY = findFirstFloor(lines, this.marioTileX);
 	}
 	if(!exitLocInit) {
 	    this.exitTileX = lines[0].length() - 1;
@@ -308,7 +328,7 @@ public class MarioLevel {
     private boolean isSolid(char c) {
 	return  c == 'X' || c == '#' || c == '@' || c == '!' || c == 'B' || c == 'C' || 
 		c == 'Q' || c == '<' || c == '>' || c == '[' || c == ']' || c == '?' ||
-		c == 'S' || c == 'U' || c == 'D';
+		c == 'S' || c == 'U' || c == 'D' || c == '%';
     }
     
     public int getBlockValueGeneralization(int xTile, int yTile, int detail) {

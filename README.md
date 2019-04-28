@@ -9,6 +9,7 @@ This is an updated version for the Mario-AI framework. This new code will suppor
 - Isolating particle effects from game sprites
 - Only using the first SMB action set (no more shell carrying/wall jumping)
 - Documenting the interface
+- Adding Generated Levels
 
 ### Missing Features
 - Documenting the whole engine
@@ -16,8 +17,7 @@ This is an updated version for the Mario-AI framework. This new code will suppor
 - Adding a simple MCTS agent and simple A* agent
 - Koopa shells can come back to life after stomping on it
 - Adding Monte Mario agent
-- Adding Generated Levels
-- Modifying the current Mario levels to include more details
+- Modifying the original Mario levels to include more details
 - Adding the level generator interface
 - Adding the level generators to the framework
 - Multiple different backgrounds/palettes that the user can select from.

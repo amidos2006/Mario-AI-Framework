@@ -9,6 +9,7 @@ public class FlowerEnemy extends Enemy {
 
     public FlowerEnemy(boolean visuals, float x, float y) {
 	super(visuals, x, y, 0, SpriteType.ENEMY_FLOWER);
+	this.winged = false;
 	this.noFireballDeath = false;
 	this.width = 2;
 	this.yStart = this.y;
