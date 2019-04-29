@@ -256,7 +256,9 @@ public class Shell extends MarioSprite {
 	if (xD > -16 && xD < 16) {
 	    if (yD > -height && yD < shell.height) {
 		this.world.removeSprite(this);
-		this.world.removeSprite(shell);
+		if(this != shell) {
+		    this.world.removeSprite(shell);
+		}
 		return true;
 	    }
 	}

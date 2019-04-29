@@ -183,30 +183,6 @@ public class MarioForwardModel {
     }
     
     /**
-     * get number of jumps performed by mario during the game
-     * @return the number of jumps performed by mario during the game
-     */
-    public int getNumJumps() {
-	return this.world.numJumps;
-    }
-    
-    /**
-     * get the maximum x distance traversed by mario
-     * @return the maximum x distance traversed mario
-     */
-    public int getMaxXJump() {
-	return this.world.maxXJump;
-    }
-    
-    /**
-     * get the maximum amount of frames mario is being in the air
-     * @return the maximum amount of frames mario is being in the air
-     */
-    public int getMaxJumpAirTime() {
-	return this.world.jumpAirTime;
-    }
-    
-    /**
      * get the number 100 coins collected by mario
      * @return number of 100 coins collected by mario
      */

@@ -175,26 +175,56 @@ public class MarioLevel {
 		case 't':
 		    //empty Pipe
 		    tempIndex = 0;
-		    if(x > 0 && Character.toLowerCase(lines[y].charAt(x-1)) == 't') {
+		    boolean singlePipe = false;
+		    if(x < lines[y].length() - 1 && Character.toLowerCase(lines[y].charAt(x+1)) != 't' &&
+			    x > 0 && Character.toLowerCase(lines[y].charAt(x-1)) != 't') {
+			singlePipe = true;
+		    }
+		    if(x > 0 && (this.levelTiles[x-1][y] == 18 || this.levelTiles[x-1][y] == 20)) {
 			tempIndex += 1;
 		    }
 		    if(y > 0 && Character.toLowerCase(lines[y-1].charAt(x)) == 't') {
-			tempIndex += 2;
+			if(singlePipe) {
+			    tempIndex += 1;
+			}
+			else {
+			    tempIndex += 2;
+			}
 		    }
-		    this.levelTiles[x][y] = 18 + tempIndex;
+		    if(singlePipe) {
+			this.levelTiles[x][y] = 52 + tempIndex;
+		    }
+		    else {
+			this.levelTiles[x][y] = 18 + tempIndex;
+		    }
 		    break;
 		case 'T':
 		    //flower pipe
 		    tempIndex = 0;
-		    if(x > 0 && Character.toLowerCase(lines[y].charAt(x-1)) == 't') {
+		    singlePipe = false;
+		    if(x < lines[y].length() - 1 && Character.toLowerCase(lines[y].charAt(x+1)) != 't' &&
+			    x > 0 && Character.toLowerCase(lines[y].charAt(x-1)) != 't') {
+			singlePipe = true;
+		    }
+		    if(x > 0 && (this.levelTiles[x-1][y] == 18 || this.levelTiles[x-1][y] == 20)) {
 			tempIndex += 1;
 		    }
 		    if(y > 0 && Character.toLowerCase(lines[y-1].charAt(x)) == 't') {
-			tempIndex += 2;
+			if(singlePipe) {
+			    tempIndex += 1;
+			}
+			else {
+			    tempIndex += 2;
+			}
 		    }
-		    this.levelTiles[x][y] = 18 + tempIndex;
-		    if(tempIndex == 0) {
-			this.spriteTemplates[x][y] = SpriteType.ENEMY_FLOWER;
+		    if(singlePipe) {
+			this.levelTiles[x][y] = 52 + tempIndex;
+		    }
+		    else {
+			if(tempIndex == 0) {
+			    this.spriteTemplates[x][y] = SpriteType.ENEMY_FLOWER;
+			}
+			this.levelTiles[x][y] = 18 + tempIndex;
 		    }
 		    break;
 		case '<':
