@@ -12,17 +12,19 @@ This is an updated version for the Mario-AI framework. This new code will suppor
 - Adding Generated Levels
 - Adding the level generator interface
 - Adding the level generators to the framework
+- Better way to check the observation grid Using TileType and SpriteType
 
 ### Missing Features
-- Documenting the whole engine
-- Better way to check the observation grid
+- Add more stats to MarioResult class similar to Gameplay Metrics
+- Mix the TileType and TileFeature class
 - Adding a simple MCTS agent and simple A* agent
 - Koopa shells can come back to life after stomping on it
 - Adding Monte Mario agent
 - Modifying the original Mario levels to include more details
 - Multiple different backgrounds/palettes that the user can select from.
-- Adding the learning track interface
+- Documenting the whole engine
 - Mimicking the original SMB physics instead of SMW physics
+- Adding the learning track interface
 
 ### Copyrights
 Mario is a Nintendo character which the authors doesn't own any rights to it. The framework is based on the core source code of Mario-AI framework which was a modification to Infinite Mario Bros by Notch.
