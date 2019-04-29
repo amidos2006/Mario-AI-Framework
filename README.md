@@ -10,6 +10,8 @@ This is an updated version for the Mario-AI framework. This new code will suppor
 - Only using the first SMB action set (no more shell carrying/wall jumping)
 - Documenting the interface
 - Adding Generated Levels
+- Adding the level generator interface
+- Adding the level generators to the framework
 
 ### Missing Features
 - Documenting the whole engine
@@ -18,8 +20,6 @@ This is an updated version for the Mario-AI framework. This new code will suppor
 - Koopa shells can come back to life after stomping on it
 - Adding Monte Mario agent
 - Modifying the original Mario levels to include more details
-- Adding the level generator interface
-- Adding the level generators to the framework
 - Multiple different backgrounds/palettes that the user can select from.
 - Adding the learning track interface
 - Mimicking the original SMB physics instead of SMW physics
