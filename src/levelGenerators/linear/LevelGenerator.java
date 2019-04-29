@@ -8,6 +8,17 @@ import engine.core.MarioLevelModel;
 import engine.core.MarioTimer;
 
 public class LevelGenerator implements MarioLevelGenerator{
+    private final int GROUND_PADDING = 5;
+    private final int GROUND_LENGTH = 8;
+    private final int GAP_LENGTH = 6;
+    private final float GAP_PROB = 0.1f;
+    private final float PIPE_PROB = 0.75f;
+    private final int GROUND_PIPE_LENGTH = 10;
+    private final int PIPE_HEIGHT = 6;
+    private final float COLLECTIBLE_PROB = 0.75f;
+    private final int GROUND_COLLECTIBLE_LENGTH = 6;
+    private final int GROUND_ENEMY_LENGTH = 2;
+    
     private char[][] map;
     private Random rnd;
     
@@ -61,17 +72,17 @@ public class LevelGenerator implements MarioLevelGenerator{
 	
 	ArrayList<Integer> groundArea = new ArrayList<Integer>();
 	groundArea.add(0);
-	int groundLength = 3 + this.rnd.nextInt(6);
+	int groundLength = GROUND_LENGTH / 2 + this.rnd.nextInt(GROUND_LENGTH / 2);
 	int gapLength = 0;
 	
 	//add ground
 	for(int x=0; x<levelWidth; x++) {
-	    if(groundLength > 0 || gapLength == 0 || x < 5 || x > levelWidth - 6) {
+	    if(groundLength > 0 || gapLength == 0 || x < GROUND_PADDING || x > levelWidth - 1 - GROUND_PADDING) {
 		this.map[x][levelHeight - 1] = MarioLevelModel.GROUND;
 	    	this.map[x][levelHeight - 2] = MarioLevelModel.GROUND;
 		groundLength -= 1;
-		if (groundLength <= 0 && this.rnd.nextDouble() < 0.1) {
-		    gapLength = 3 + this.rnd.nextInt(4);
+		if (groundLength <= 0 && this.rnd.nextDouble() < GAP_PROB) {
+		    gapLength = GAP_LENGTH / 2 + this.rnd.nextInt(GAP_LENGTH / 2);
 		}
 		if(groundArea.size() % 2 == 0) {
 		    groundArea.add(x);
@@ -80,7 +91,7 @@ public class LevelGenerator implements MarioLevelGenerator{
 	    else {
 		gapLength -= 1;
 		if(gapLength <= 0) {
-		    groundLength = 3 + this.rnd.nextInt(6);
+		    groundLength = GROUND_LENGTH / 2 + this.rnd.nextInt(GROUND_LENGTH / 2);
 		}
 		if(groundArea.size() % 2 == 1) {
 		    groundArea.add(x);
@@ -93,9 +104,9 @@ public class LevelGenerator implements MarioLevelGenerator{
 	ArrayList<Integer> newAreas = new ArrayList<Integer>();
 	for(int i=0; i<groundArea.size()/2; i++) {
 	    groundLength = groundArea.get(2*i + 1) - groundArea.get(2*i);
-	    if(groundLength > 10 && this.rnd.nextDouble() < 0.75) {
+	    if(groundLength > GROUND_PIPE_LENGTH && this.rnd.nextDouble() < PIPE_PROB) {
 		int x = groundArea.get(2*i) + this.rnd.nextInt(groundLength / 4) + 3;
-		this.placePipe(x, levelHeight - 3, this.rnd.nextInt(3) + 2);
+		this.placePipe(x, levelHeight - 3, this.rnd.nextInt(PIPE_HEIGHT * 2 / 3) + PIPE_HEIGHT / 3);
 		newAreas.add(groundArea.get(2*i));
 		newAreas.add(x-1);
 		newAreas.add(x+2);
@@ -111,7 +122,7 @@ public class LevelGenerator implements MarioLevelGenerator{
 	    groundArea.add(levelHeight-3);
 	    groundArea.add(newAreas.get(2*i + 1));
 	    groundArea.add(levelHeight-3);
-	    if(groundLength > 6 && this.rnd.nextDouble() < 0.75) {
+	    if(groundLength > GROUND_COLLECTIBLE_LENGTH && this.rnd.nextDouble() < COLLECTIBLE_PROB) {
 		int x = newAreas.get(2*i) + this.rnd.nextInt(groundLength / 3) + 1;
 		int y = levelHeight - 5 - this.rnd.nextInt(3);
 		int length = 1 + this.rnd.nextInt(groundLength/3);
@@ -126,7 +137,7 @@ public class LevelGenerator implements MarioLevelGenerator{
 	//add enemies
 	for(int i=1; i<groundArea.size()/4; i++) {
 	    groundLength = groundArea.get(4*i + 2) - groundArea.get(4*i);
-	    if(groundLength > 2) {
+	    if(groundLength > GROUND_ENEMY_LENGTH) {
 		this.placeEnemy(groundArea.get(4*i), groundArea.get(4*i+2), groundArea.get(4*i+1));
 	    }
 	}

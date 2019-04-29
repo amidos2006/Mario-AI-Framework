@@ -17,6 +17,19 @@ public class LevelGenerator implements MarioLevelGenerator{
     private Random rnd;
     private char[][] map;
     
+    public LevelGenerator() {
+	this("levels/original/", 10);
+    }
+    
+    public LevelGenerator(String sampleFolder) {
+	this(sampleFolder, 10);
+    }
+    
+    public LevelGenerator(String sampleFolder, int sampleWidth) {
+	this.sampleWidth = sampleWidth;
+	this.folderName = sampleFolder;
+    }
+    
     private char[][] getRandomSample(int index) throws IOException{
 	File[] listOfFiles = new File(folderName).listFiles();
 	List<String> lines = Files.readAllLines(listOfFiles[rnd.nextInt(listOfFiles.length)].toPath());

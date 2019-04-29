@@ -8,9 +8,9 @@ import engine.core.MarioLevelModel;
 import engine.core.MarioTimer;
 
 public class LevelGenerator implements MarioLevelGenerator{
-    private final int maxGaps = 10;
-    private final int maxTurtles = 7;
-    private final int maxCoinBlocks = 10;
+    private int maxGaps;
+    private int maxTurtles;
+    private int maxCoinBlocks;
 
     private double CHANCE_BLOCK_POWER_UP = 0.1;
     private double CHANCE_BLOCK_COIN = 0.3;
@@ -48,6 +48,16 @@ public class LevelGenerator implements MarioLevelGenerator{
 
     int xExit = 0;
     int yExit = 0;
+    
+    public LevelGenerator() {
+	this(10, 7, 10);
+    }
+    
+    public LevelGenerator(int maxGaps, int maxTurtles, int maxCoinBlocks) {
+	this.maxGaps = maxGaps;
+	this.maxTurtles = maxTurtles;
+	this.maxCoinBlocks = maxCoinBlocks;
+    }
 
     private char getBlock(int x, int y) {
 	int currentX = x;
