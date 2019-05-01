@@ -22,7 +22,7 @@ public class GenerateLevel {
     }
     
     public static void main(String[] args) {
-	MarioLevelGenerator generator = new levelGenerators.benWeber.LevelGenerator();
+	MarioLevelGenerator generator = new levelGenerators.notch.LevelGenerator();
 	String level = generator.getGeneratedLevel(new MarioLevelModel(150, 16), new MarioTimer(5*60*60*1000));
 	MarioGame game = new MarioGame();
 	printResults(game.runGame(new agents.robinBaumgarten.Agent(), level, 20, 0, true));

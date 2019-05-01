@@ -91,20 +91,20 @@ public class LevelGenerator implements MarioLevelGenerator{
 
     private void setGroundHeight(MarioLevelModel model, int x, int y, int lastY, int nextY) {
 	int mapHeight = model.getHeight();
-	model.setRectangle(x, y+1, 1, mapHeight - 1 - y, MarioLevelModel.PLATFORM_BACKGROUND);
+	model.setRectangle(x, y+1, 1, mapHeight - 1 - y, MarioLevelModel.GROUND);
 
 	if (y < lastY) {
-	    model.setBlock(x, y, MarioLevelModel.PLATFORM);
+	    model.setBlock(x, y, MarioLevelModel.GROUND);
 	    for (int i = y + 1; i <= lastY; i++) {
-		model.setBlock(x, i, MarioLevelModel.PLATFORM_BACKGROUND);
+		model.setBlock(x, i, MarioLevelModel.GROUND);
 	    }
 	} else if (y < nextY) {
-	    model.setBlock(x, y, MarioLevelModel.PLATFORM);
+	    model.setBlock(x, y, MarioLevelModel.GROUND);
 	    for (int i = y + 1; i <= nextY; i++) {
-		model.setBlock(x, i, MarioLevelModel.PLATFORM_BACKGROUND);
+		model.setBlock(x, i, MarioLevelModel.GROUND);
 	    }
 	} else {
-	    model.setBlock(x, y, MarioLevelModel.PLATFORM);
+	    model.setBlock(x, y, MarioLevelModel.GROUND);
 	}
 	
 	// place the exit

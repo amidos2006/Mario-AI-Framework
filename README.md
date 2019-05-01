@@ -17,11 +17,11 @@ This is an updated version for the Mario-AI framework. This new code will suppor
 
 ### Missing Features
 - Add more stats to MarioResult class similar to Gameplay Metrics
+- Modifying the original Mario levels to include more details
 - Mix the TileType and TileFeature class
 - Adding a simple MCTS agent and simple A* agent
 - Koopa shells can come back to life after stomping on it
 - Adding Monte Mario agent
-- Modifying the original Mario levels to include more details
 - Multiple different backgrounds/palettes that the user can select from.
 - Documenting the whole engine
 - Mimicking the original SMB physics instead of SMW physics

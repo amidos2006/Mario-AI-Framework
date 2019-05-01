@@ -235,6 +235,35 @@ public class MarioLevelModel {
     }
     
     /**
+     * Copy the string level to the current map
+     * @param level the input string level
+     */
+    public void copyFromString(String level) {
+	this.copyFromString(0, 0, 0, 0, this.getWidth(), this.getHeight(), level);
+    }
+    
+    /**
+     * Copy portion from string to the current map
+     * @param targetX the x of the target location
+     * @param targetY the y of the target location
+     * @param sourceX the x from the level string
+     * @param sourceY the y from the level string
+     * @param width the width of the copied portion
+     * @param height the height of the copied protion
+     * @param level the level string
+     */
+    public void copyFromString(int targetX, int targetY, int sourceX, int sourceY, int width, int height, String level) {
+	String[] lines = level.split("\n");
+	for(int y=0; y<height; y++) {
+	    for(int x=0; x<width; x++) {
+		int maxWidth = lines[0].length();
+		int maxHeight = lines.length;
+		this.setBlock(x + targetX, y + targetY, lines[Math.min(y + sourceY, maxHeight - 1)].charAt(Math.min(x + sourceX, maxWidth - 1)));
+	    }
+	}
+    }
+    
+    /**
      * clear the whole map
      */
     public void clearMap() {
