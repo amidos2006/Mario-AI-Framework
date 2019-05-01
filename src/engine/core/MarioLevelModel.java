@@ -149,27 +149,103 @@ public class MarioLevelModel {
     }
     
     /**
-     * create an empty 2D char array
-     * @param width the 1st dimension of the 2D array
-     * @param height the 2nd dimension of the 2D array
-     * @return 2D char array filled with EMPTY
+     * map object for helping
      */
-    public static char[][] createEmptyMap(int width, int height){
-	char[][] map = new char[width][height];
-	for(int x=0; x<map.length; x++) {
-	    for(int y=0; y<map[x].length; y++) {
-		map[x][y] = '-';
-	    }
-	}
-	return map;
+    private char[][] map;
+    
+    /**
+     * create the Level Model
+     * @param levelWidth the width of the level
+     * @param levelHeight the height of the level
+     */
+    public MarioLevelModel(int levelWidth, int levelHeight) {
+	this.map = new char[levelWidth][levelHeight];
     }
     
     /**
-     * create a string from 2D char array
-     * @param map 2D char array where 1st dimension is width and 2nd is height
-     * @return string that is equivalent to map
+     * create a similar clone to the current map
      */
-    public static String createStringMap(char[][] map) {
+    public MarioLevelModel clone() {
+	MarioLevelModel model = new MarioLevelModel(this.getWidth(), this.getHeight());
+	for(int x=0; x<model.getWidth(); x++) {
+	    for(int y=0; y<model.getHeight(); y++) {
+		model.map[x][y] = this.map[x][y];
+	    }
+	}
+	return model;
+    }
+    
+    /**
+     * get map width
+     * @return map width
+     */
+    public int getWidth() {
+	return this.map.length;
+    }
+    
+    /**
+     * get map height 
+     * @return map height
+     */
+    public int getHeight() {
+	return this.map[0].length;
+    }
+    
+    /**
+     * get the value of the tile in certain location
+     * @param x x tile position
+     * @param y y tile position
+     * @return the tile value
+     */
+    public char getBlock(int x, int y) {
+	int currentX = x;
+	int currentY = y;
+	if(x < 0) currentX = 0;
+	if(y < 0) currentY = 0;
+	if(x > this.map.length - 1) currentX = this.map.length - 1;
+	if(y > this.map[0].length - 1) currentY = this.map[0].length - 1;
+	return this.map[currentX][currentY];
+    }
+    
+    /**
+     * set a tile on the map with certain value
+     * @param x the x tile position
+     * @param y the y tile position
+     * @param value the tile value to be set
+     */
+    public void setBlock(int x, int y, char value) {
+	if(x < 0 || y < 0 || x > this.map.length - 1 || y > this.map[0].length - 1) return;
+	this.map[x][y] = value;
+    }
+    
+    /**
+     * set a rectangle area of the map with a certain tile value
+     * @param startX the x tile position of the left upper corner
+     * @param startY the y tile position of the left upper corner
+     * @param width the width of the rectangle
+     * @param height the height of the rectangle
+     * @param value the tile value
+     */
+    public void setRectangle(int startX, int startY, int width, int height, char value) {
+	for(int x=0; x<width; x++) {
+	    for(int y=0; y<height; y++) {
+		this.setBlock(startX + x, startY + y, value);
+	    }
+	}
+    }
+    
+    /**
+     * clear the whole map
+     */
+    public void clearMap() {
+	this.setRectangle(0, 0, this.getWidth(), this.getHeight(), EMPTY);
+    }
+    
+    /**
+     * get the string value of the map
+     * @return the map in form of string
+     */
+    public String getMap() {
 	String result = "";
 	for(int y=0; y<map[0].length; y++) {
 	    for(int x=0; x<map.length; x++) {
@@ -181,14 +257,13 @@ public class MarioLevelModel {
     }
     
     /**
-     * test a level using a specific agent
+     * test the current level using a specific agent
      * @param agent agent to test the level
-     * @param level current level to test
      * @param timer amount of time allowed to test that level
      * @return statistical results about the level
      */
-    public static MarioResult testALevelWithAnAgent(MarioAgent agent, String level, int timer) {
+    public MarioResult testALevelWithAgent(MarioAgent agent, int timer) {
 	MarioGame game = new MarioGame();
-	return game.runGame(agent, level, timer);
+	return game.runGame(agent, this.getMap(), timer);
     }
 }

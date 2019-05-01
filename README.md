@@ -13,6 +13,7 @@ This is an updated version for the Mario-AI framework. This new code will suppor
 - Adding the level generator interface
 - Adding the level generators to the framework
 - Better way to check the observation grid Using TileType and SpriteType
+- Adding event history for the game and agent to MarioResults
 
 ### Missing Features
 - Add more stats to MarioResult class similar to Gameplay Metrics

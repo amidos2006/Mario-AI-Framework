@@ -39,7 +39,6 @@ public class LevelGenerator implements MarioLevelGenerator{
 
     // controls the fun
     Random rand;
-    char[][] map;
 
     // constraints
     int gapCount = 0;
@@ -58,31 +57,16 @@ public class LevelGenerator implements MarioLevelGenerator{
 	this.maxTurtles = maxTurtles;
 	this.maxCoinBlocks = maxCoinBlocks;
     }
-
-    private char getBlock(int x, int y) {
-	int currentX = x;
-	int currentY = y;
-	if(x < 0) currentX = 0;
-	if(y < 0) currentY = 0;
-	if(x > this.map.length - 1) currentX = this.map.length - 1;
-	if(y > this.map[0].length - 1) currentY = this.map[0].length - 1;
-	return this.map[currentX][currentY];
-    }
     
-    private void setBlock(int x, int y, char value) {
-	if(x < 0 || y < 0 || x > this.map.length - 1 || y > this.map[0].length - 1) return;
-	this.map[x][y] = value;
-    }
-    
-    private void placeBlock(int x, int y) {
+    private void placeBlock(MarioLevelModel model, int x, int y) {
 	// choose block type
 	if (rand.nextDouble() < CHANCE_BLOCK_POWER_UP) {
-	    this.setBlock(x, y, MarioLevelModel.SPECIAL_BRICK);
+	    model.setBlock(x, y, MarioLevelModel.SPECIAL_BRICK);
 	} else if (rand.nextDouble() < CHANCE_BLOCK_COIN && coinBlockCount < this.maxCoinBlocks) {
-	    this.setBlock(x, y, MarioLevelModel.COIN_BRICK);
+	    model.setBlock(x, y, MarioLevelModel.COIN_BRICK);
 	    coinBlockCount++;
 	} else {
-	    this.setBlock(x, y, MarioLevelModel.NORMAL_BRICK);
+	    model.setBlock(x, y, MarioLevelModel.NORMAL_BRICK);
 	}
 
 	// place enemies
@@ -97,62 +81,57 @@ public class LevelGenerator implements MarioLevelGenerator{
 		}
 	    }
 	    boolean winged = rand.nextDouble() < CHANCE_WINGED;
-	    this.setBlock(x, y-1, MarioLevelModel.getWingedEnemyVersion(t, winged));
+	    model.setBlock(x, y-1, MarioLevelModel.getWingedEnemyVersion(t, winged));
 	}
     }
 
-    private void placePipe(int x, int y, int height) {
-	for (int i = 1; i <= height; i++) {
-	    this.setBlock(x, y-i, MarioLevelModel.PIPE);
-	    this.setBlock(x+1, y-i, MarioLevelModel.PIPE);
-	}
+    private void placePipe(MarioLevelModel model, int x, int y, int height) {
+	model.setRectangle(x, y-height, 2, height, MarioLevelModel.PIPE);
     }
 
-    private void setGroundHeight(int x, int y, int lastY, int nextY) {
-	int mapHeight = this.map[0].length;
-	for (int i = y + 1; i < mapHeight; i++) {
-	    this.setBlock(x, i, MarioLevelModel.PLATFORM_BACKGROUND);
-	}
+    private void setGroundHeight(MarioLevelModel model, int x, int y, int lastY, int nextY) {
+	int mapHeight = model.getHeight();
+	model.setRectangle(x, y+1, 1, mapHeight - 1 - y, MarioLevelModel.PLATFORM_BACKGROUND);
 
 	if (y < lastY) {
-	    this.setBlock(x, y, MarioLevelModel.PLATFORM);
+	    model.setBlock(x, y, MarioLevelModel.PLATFORM);
 	    for (int i = y + 1; i <= lastY; i++) {
-		this.setBlock(x, i, MarioLevelModel.PLATFORM_BACKGROUND);
+		model.setBlock(x, i, MarioLevelModel.PLATFORM_BACKGROUND);
 	    }
 	} else if (y < nextY) {
-	    this.setBlock(x, y, MarioLevelModel.PLATFORM);
+	    model.setBlock(x, y, MarioLevelModel.PLATFORM);
 	    for (int i = y + 1; i <= nextY; i++) {
-		this.setBlock(x, i, MarioLevelModel.PLATFORM_BACKGROUND);
+		model.setBlock(x, i, MarioLevelModel.PLATFORM_BACKGROUND);
 	    }
 	} else {
-	    this.setBlock(x, y, MarioLevelModel.PLATFORM);
+	    model.setBlock(x, y, MarioLevelModel.PLATFORM);
 	}
 	
 	// place the exit
-	if (x == (this.map.length - 5)) {
-	    this.yExit = y;
+	if (x == (model.getWidth() - 5)) {
+	    this.yExit = y - 1;
 	}
     }
 
-    public String getGeneratedLevel(int levelWidth, int levelHeight, MarioTimer timer) {
+    public String getGeneratedLevel(MarioLevelModel model, MarioTimer timer) {
 	this.rand = new Random();
-	this.map = MarioLevelModel.createEmptyMap(levelWidth, levelHeight);
+	model.clearMap();
 
 	ArrayList<Integer> ground = new ArrayList<Integer>();
 
 	// used to place the ground
-	int lastY = GROUND_MAX_HEIGHT + (int) (rand.nextDouble() * (levelHeight - 1 - GROUND_MAX_HEIGHT));
+	int lastY = GROUND_MAX_HEIGHT + (int) (rand.nextDouble() * (model.getHeight() - 1 - GROUND_MAX_HEIGHT));
 	int y = lastY;
 	int nextY = y;
 	boolean justChanged = false;
 	int length = 0;
-	int landHeight = levelHeight - 1;
+	int landHeight = model.getHeight() - 1;
 
 	// place the ground
-	for (int x = 0; x < levelWidth; x++) {
+	for (int x = 0; x < model.getWidth(); x++) {
 
 	    // need more ground
-	    if (length > GAP_LENGTH && y >= levelHeight) {
+	    if (length > GAP_LENGTH && y >= model.getHeight()) {
 		nextY = landHeight;
 		justChanged = true;
 		length = 1;
@@ -160,16 +139,16 @@ public class LevelGenerator implements MarioLevelGenerator{
 	    // adjust ground level
 	    else if (x > minX && rand.nextDouble() < CHANGE_HILL_CHANGE && !justChanged) {
 		nextY += (int) (GAP_OFFSET + GAP_RANGE * rand.nextDouble());
-		nextY = Math.min(levelHeight - 2, nextY);
+		nextY = Math.min(model.getHeight() - 2, nextY);
 		nextY = Math.max(5, nextY);
 		justChanged = true;
 		length = 1;
 	    }
 	    // add a gap
-	    else if (x > minX && y < levelHeight && rand.nextDouble() < CHANGE_GAP && !justChanged
+	    else if (x > minX && y < model.getHeight() && rand.nextDouble() < CHANGE_GAP && !justChanged
 		    && gapCount < this.maxGaps) {
-		landHeight = Math.min(levelHeight - 1, lastY);
-		nextY = levelHeight;
+		landHeight = Math.min(model.getHeight() - 1, lastY);
+		nextY = model.getHeight();
 		justChanged = true;
 		length = 1;
 		gapCount++;
@@ -178,7 +157,7 @@ public class LevelGenerator implements MarioLevelGenerator{
 		justChanged = false;
 	    }
 
-	    setGroundHeight(x, y, lastY, nextY);
+	    setGroundHeight(model, x, y, lastY, nextY);
 	    ground.add(y);
 
 	    lastY = y;
@@ -187,31 +166,31 @@ public class LevelGenerator implements MarioLevelGenerator{
 
 	// non colliding hills
 	int x = 0;
-	y = levelHeight;
+	y = model.getHeight();
 	for (Integer h : ground) {
-	    if (y == levelHeight) {
+	    if (y == model.getHeight()) {
 		if (x > 10 && rand.nextDouble() < CHANCE_HILL) {
 		    y = (int) (HILL_HEIGHT + rand.nextDouble() * (h - HILL_HEIGHT));
-		    this.setBlock(x, y, MarioLevelModel.PLATFORM);
+		    model.setBlock(x, y, MarioLevelModel.PLATFORM);
 		    for (int i = y + 1; i < h; i++) {
-			this.setBlock(x, i, MarioLevelModel.PLATFORM_BACKGROUND);
+			model.setBlock(x, i, MarioLevelModel.PLATFORM_BACKGROUND);
 		    }
 		}
 	    } else {
 		// end if hitting a wall
 		if (y >= h) {
-		    y = levelHeight;
+		    y = model.getHeight();
 		} else if (rand.nextDouble() < CHANCE_END_HILL) {
-		    this.setBlock(x, y, MarioLevelModel.PLATFORM);
+		    model.setBlock(x, y, MarioLevelModel.PLATFORM);
 		    for (int i = y + 1; i < h; i++) {
-			this.setBlock(x, i, MarioLevelModel.PLATFORM_BACKGROUND);
+			model.setBlock(x, i, MarioLevelModel.PLATFORM_BACKGROUND);
 		    }
 		    
-		    y = levelHeight;
+		    y = model.getHeight();
 		} else {
-		    this.setBlock(x, y, MarioLevelModel.PLATFORM);
+		    model.setBlock(x, y, MarioLevelModel.PLATFORM);
 		    for (int i = y + 1; i < h; i++) {
-			this.setBlock(x, i, MarioLevelModel.PLATFORM_BACKGROUND);
+			model.setBlock(x, i, MarioLevelModel.PLATFORM_BACKGROUND);
 		    }
 
 		    if (rand.nextDouble() < CHANCE_HILL_ENEMY) {
@@ -225,7 +204,7 @@ public class LevelGenerator implements MarioLevelGenerator{
 			    }
 			}
 			boolean winged = rand.nextDouble() < CHANCE_WINGED;
-			this.setBlock(x, y-1, MarioLevelModel.getWingedEnemyVersion(t, winged));
+			model.setBlock(x, y-1, MarioLevelModel.getWingedEnemyVersion(t, winged));
 		    }
 		}
 	    }
@@ -242,7 +221,7 @@ public class LevelGenerator implements MarioLevelGenerator{
 	    if (x > minX && rand.nextDouble() < CHANCE_PIPE) {
 		if (h == lastY && lastlastY <= lastY && x > (lastX + 1)) {
 		    int height = PIPE_MIN_HEIGHT + (int) (Math.random() * PIPE_HEIGHT);
-		    placePipe(x - 1, h, height);
+		    placePipe(model, x - 1, h, height);
 		    lastX = x;
 		}
 	    }
@@ -266,9 +245,9 @@ public class LevelGenerator implements MarioLevelGenerator{
 		    }
 		}
 		boolean winged = rand.nextDouble() < CHANCE_WINGED;
-		char tile = getBlock(x, h - 1);
+		char tile = model.getBlock(x, h - 1);
 		if (tile == MarioLevelModel.EMPTY) {
-		    this.setBlock(x, h - 1, MarioLevelModel.getWingedEnemyVersion(t, winged));
+		    model.setBlock(x, h - 1, MarioLevelModel.getWingedEnemyVersion(t, winged));
 		}
 	    }
 	    x++;
@@ -276,37 +255,37 @@ public class LevelGenerator implements MarioLevelGenerator{
 
 	// platforms
 	x = 0;
-	y = levelHeight;
+	y = model.getHeight();
 	for (Integer h : ground) {
 	    int max = 0;
 
 	    // find the highest object
 	    for (max = 0; max < h; max++) {
-		int tile = getBlock(x, max);
+		int tile = model.getBlock(x, max);
 		if (tile != 0) {
 		    break;
 		}
 	    }
 
-	    if (y == levelHeight) {
+	    if (y == model.getHeight()) {
 		if (x > minX && rand.nextDouble() < CHANCE_PLATFORM) {
 		    y = max - PLATFORM_HEIGHT; // (int)(-5*rand.nextDouble()*(h - 0));
 
 		    if (y >= 1 && h - max > 1) {
-			placeBlock(x, y);
+			placeBlock(model, x, y);
 		    } else {
-			y = levelHeight;
+			y = model.getHeight();
 		    }
 		}
 	    } else {
 		// end if hitting a wall
 		if (y >= (max + 1)) {
-		    y = levelHeight;
+		    y = model.getHeight();
 		} else if (rand.nextDouble() < CHANCE_END_PLATFORM) {
-		    placeBlock(x, y);
-		    y = levelHeight;
+		    placeBlock(model, x, y);
+		    y = model.getHeight();
 		} else {
-		    placeBlock(x, y);
+		    placeBlock(model, x, y);
 		}
 	    }
 	    x++;
@@ -318,18 +297,18 @@ public class LevelGenerator implements MarioLevelGenerator{
 	    if (x > 5 && rand.nextDouble() < CHANCE_COIN) {
 		y = h - (int) (1 + Math.random() * COIN_HEIGHT);
 
-		char tile = getBlock(x, y);
+		char tile = model.getBlock(x, y);
 		if (tile == MarioLevelModel.EMPTY) {
-		    this.setBlock(x, y, MarioLevelModel.COIN);
+		    model.setBlock(x, y, MarioLevelModel.COIN);
 		}
 	    }
 
 	    x++;
 	}
 	// place the exit
-	this.xExit = this.map.length - 5;
-	this.setBlock(this.xExit, this.yExit, MarioLevelModel.MARIO_EXIT);
-	return MarioLevelModel.createStringMap(map);
+	this.xExit = model.getWidth() - 5;
+	model.setBlock(this.xExit, this.yExit, MarioLevelModel.MARIO_EXIT);
+	return model.getMap();
     }
 
     public String getGeneratorName() {

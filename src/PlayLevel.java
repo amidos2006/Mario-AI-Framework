@@ -11,7 +11,7 @@ public class PlayLevel {
 	System.out.println("****************************************************************");
 	System.out.println("Game Status: " + result.getGameStatus().toString() + 
 		" Percentage Completion: " + result.getCompletionPercentage());
-	System.out.println("Lives: " + result.getNumLives() + " Coins: " + result.getNumCollectedCoins() + 
+	System.out.println("Lives: " + result.getCurrentLives() + " Coins: " + result.getCurrentCoins() + 
 		" Remaining Time: " + (int)Math.ceil(result.getRemainingTime() / 1000f)); 
 	System.out.println("Mario State: " + result.getMarioMode() +
 		" (Mushrooms: " + result.getNumCollectedMushrooms() + " Fire Flowers: " + result.getNumCollectedFireflower() + ")");

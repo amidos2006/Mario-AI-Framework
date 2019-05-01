@@ -6,6 +6,7 @@ import engine.core.MarioSprite;
 import engine.effects.DeathEffect;
 import engine.graphics.MarioImage;
 import engine.helper.Assets;
+import engine.helper.EventType;
 import engine.helper.SpriteType;
 
 public class BulletBill extends MarioSprite {
@@ -65,6 +66,7 @@ public class BulletBill extends MarioSprite {
 		    }
 		    this.world.removeSprite(this);
 		} else {
+		    this.world.addEvent(EventType.HURT, this.type.getValue());
 		    world.mario.getHurt();
 		}
 	    }
@@ -97,6 +99,7 @@ public class BulletBill extends MarioSprite {
 		if(this.graphics != null) {
 		    this.world.addEffect(new DeathEffect(this.x, this.y - 7, this.graphics.flipX, 43, -1));
 		}
+		this.world.addEvent(EventType.SHELL_KILL, this.type.getValue());
 		this.world.removeSprite(this);
 		return true;
 	    }

@@ -7,6 +7,7 @@ import engine.effects.DeathEffect;
 import engine.effects.SquishEffect;
 import engine.graphics.MarioImage;
 import engine.helper.Assets;
+import engine.helper.EventType;
 import engine.helper.SpriteType;
 
 public class Enemy extends MarioSprite {
@@ -88,10 +89,11 @@ public class Enemy extends MarioSprite {
 				this.world.addEffect(new SquishEffect(this.x, this.y - 7));
 			    }
 			}
-			this.world.stompKill += 1;
+			this.world.addEvent(EventType.STOMP_KILL, this.type.getValue());
 			this.world.removeSprite(this);
 		    }
 		} else {
+		    this.world.addEvent(EventType.HURT, this.type.getValue());
 		    world.mario.getHurt();
 		}
 	    }
@@ -266,7 +268,7 @@ public class Enemy extends MarioSprite {
 	    if (yD > -height && yD < shell.height) {
 		xa = shell.facing * 2;
 		ya = -5;
-		this.world.shellKill += 1;
+		this.world.addEvent(EventType.SHELL_KILL, this.type.getValue());
 		if(this.graphics != null) {
 		    if(this.type == SpriteType.GREEN_KOOPA || this.type == SpriteType.GREEN_KOOPA_WINGED) {
 			this.world.addEffect(new DeathEffect(this.x, this.y, this.graphics.flipX, 42, -5));
@@ -299,7 +301,7 @@ public class Enemy extends MarioSprite {
 
 		xa = fireball.facing * 2;
 		ya = -5;
-		this.world.fireKill += 1;
+		this.world.addEvent(EventType.FIRE_KILL, this.type.getValue());
 		if(this.graphics != null) {
 		    if(this.type == SpriteType.GREEN_KOOPA || this.type == SpriteType.GREEN_KOOPA_WINGED) {
 			this.world.addEffect(new DeathEffect(this.x, this.y, this.graphics.flipX, 42, -5));

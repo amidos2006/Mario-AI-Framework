@@ -15,7 +15,6 @@ public class LevelGenerator implements MarioLevelGenerator{
     private String folderName = "levels/original/";
     
     private Random rnd;
-    private char[][] map;
     
     public LevelGenerator() {
 	this("levels/original/", 10);
@@ -30,35 +29,36 @@ public class LevelGenerator implements MarioLevelGenerator{
 	this.folderName = sampleFolder;
     }
     
-    private char[][] getRandomSample(int index) throws IOException{
+    private char[][] getRandomSample(int index, int levelHeight) throws IOException{
 	File[] listOfFiles = new File(folderName).listFiles();
 	List<String> lines = Files.readAllLines(listOfFiles[rnd.nextInt(listOfFiles.length)].toPath());
-	char[][] sample = MarioLevelModel.createEmptyMap(sampleWidth, this.map[0].length);
+	char[][] sample = new char[sampleWidth][levelHeight];
 	for(int y=0; y<lines.size(); y++) {
 	    for(int x=0; x<sampleWidth; x++) {
-		sample[x][y] = lines.get(y).charAt(index * sampleWidth + x);
+		int width = lines.get(y).length();
+		sample[x][y] = lines.get(y).charAt(Math.min(index * sampleWidth + x, width - 1));
 	    }
 	}
 	return sample;
     }
     
     @Override
-    public String getGeneratedLevel(int levelWidth, int levelHeight, MarioTimer timer) {
+    public String getGeneratedLevel(MarioLevelModel model, MarioTimer timer) {
 	rnd = new Random();
-	map = MarioLevelModel.createEmptyMap(levelWidth, levelHeight);
-	for(int i=0; i<levelWidth / sampleWidth; i++){
+	model.clearMap();
+	for(int i=0; i<model.getWidth() / sampleWidth; i++){
 	    try {
-		char[][] sample = this.getRandomSample(i);
+		char[][] sample = this.getRandomSample(i, model.getHeight());
 		for(int x=0; x<sample.length; x++) {
 		    for(int y=0; y<sample[x].length; y++) {
-			map[x+i*sampleWidth][y] = sample[x][y];
+			model.setBlock(x + i*sampleWidth, y, sample[x][y]);
 		    }
 		}
 	    } catch (IOException e) {
 		e.printStackTrace();
 	    }
 	}
-	return MarioLevelModel.createStringMap(map);
+	return model.getMap();
     }
 
     @Override

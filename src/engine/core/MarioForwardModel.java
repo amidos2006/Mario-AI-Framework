@@ -2,7 +2,10 @@ package engine.core;
 
 import java.util.ArrayList;
 
+import engine.helper.EventType;
 import engine.helper.GameStatus;
+import engine.helper.SpriteType;
+import engine.helper.TileType;
 
 public class MarioForwardModel {
     /**
@@ -15,6 +18,15 @@ public class MarioForwardModel {
     public final int obsGridHeight = MarioGame.tileHeight;
     
     private MarioWorld world;
+    
+    //stats
+    private int fallKill;
+    private int stompKill;
+    private int fireKill;
+    private int shellKill;
+    private int mushrooms;
+    private int flowers;
+    private int breakBlock;
     
     /**
      * Create a forward model object
@@ -29,7 +41,15 @@ public class MarioForwardModel {
      * @return a clone from the current forward model state
      */
     public MarioForwardModel clone() {
-	return new MarioForwardModel(this.world.clone());
+	MarioForwardModel model = new MarioForwardModel(this.world.clone());
+	model.fallKill = this.fallKill;
+	model.stompKill = this.stompKill;
+	model.fireKill = this.fireKill;
+	model.shellKill = this.shellKill;
+	model.mushrooms = this.mushrooms;
+	model.flowers = this.flowers;
+	model.breakBlock = this.breakBlock;
+	return model;
     }
     
     /**
@@ -38,6 +58,32 @@ public class MarioForwardModel {
      */
     public void advance(boolean[] actions) {
 	this.world.update(actions);
+	for(MarioEvent e:this.world.lastFrameEvents) {
+	    if(e.getEventType() == EventType.FIRE_KILL.getValue()) {
+		this.fireKill += 1;
+	    }
+	    if(e.getEventType() == EventType.STOMP_KILL.getValue()) {
+		this.stompKill += 1;
+	    }
+	    if(e.getEventType() == EventType.FALL_KILL.getValue()) {
+		this.fallKill += 1;
+	    }
+	    if(e.getEventType() == EventType.SHELL_KILL.getValue()) {
+		this.shellKill += 1;
+	    }
+	    if(e.getEventType() == EventType.COLLECT.getValue()) {
+		if(e.getEventParam() == SpriteType.FIRE_FLOWER.getValue()) {
+		    this.flowers += 1;
+		}
+		if(e.getEventParam() == SpriteType.MUSHROOM.getValue()) {
+		    this.mushrooms += 1;
+		}
+	    }
+	    if(e.getEventType() == EventType.BUMP.getValue() && 
+		    e.getEventParam() == TileType.BRICK.getValue() && e.getMarioState() > 0) {
+		this.breakBlock += 1;
+	    }
+	}
     }
     
     /**
@@ -147,7 +193,7 @@ public class MarioForwardModel {
      * @return number of enemies killed in the game
      */
     public int getKillsTotal() {
-	return this.world.fallKill + this.world.stompKill + this.world.fireKill + this.world.shellKill;
+	return this.fallKill + this.fireKill + this.shellKill + this.stompKill;
     }
     
     /**
@@ -155,7 +201,7 @@ public class MarioForwardModel {
      * @return number of enemies killed by fireballs
      */
     public int getKillsByFire() {
-	return this.world.fireKill;
+	return this.fireKill;
     }
     
     /**
@@ -163,7 +209,7 @@ public class MarioForwardModel {
      * @return number of enemies killed by stomping
      */
     public int getKillsByStomp() {
-	return this.world.stompKill;
+	return this.stompKill;
     }
     
     /**
@@ -171,7 +217,7 @@ public class MarioForwardModel {
      * @return number of enemies killed by a koopa shell
      */
     public int getKillsByShell() {
-	return this.world.shellKill;
+	return this.shellKill;
     }
     
     /**
@@ -179,7 +225,7 @@ public class MarioForwardModel {
      * @return the number of enemies that fell from the game screen
      */
     public int getKillsByFall() {
-	return this.world.fallKill;
+	return this.fallKill;
     }
     
     /**
@@ -195,7 +241,7 @@ public class MarioForwardModel {
      * @return the number of collected mushrooms by mario
      */
     public int getNumCollectedMushrooms() {
-	return this.world.mushrooms;
+	return this.mushrooms;
     }
     
     /**
@@ -203,7 +249,7 @@ public class MarioForwardModel {
      * @return the number of collected fire flowers by mario
      */
     public int getNumCollectedFireflower() {
-	return this.world.flowers;
+	return this.flowers;
     }
     
     /**
@@ -219,7 +265,7 @@ public class MarioForwardModel {
      * @return the number of destroyed bricks by large or fire mario
      */
     public int getNumDestroyedBricks() {
-	return this.world.breakBlock;
+	return this.breakBlock;
     }
     
     /**

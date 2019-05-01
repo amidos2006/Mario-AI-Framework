@@ -6,6 +6,7 @@ import engine.core.MarioSprite;
 import engine.effects.DeathEffect;
 import engine.graphics.MarioImage;
 import engine.helper.Assets;
+import engine.helper.EventType;
 import engine.helper.SpriteType;
 
 public class Shell extends MarioSprite {
@@ -132,8 +133,10 @@ public class Shell extends MarioSprite {
 		    }
 		} else {
 		    if (facing != 0) {
+			world.addEvent(EventType.HURT, this.type.getValue());
 			world.mario.getHurt();
 		    } else {
+			world.addEvent(EventType.KICK, this.type.getValue());
 			world.mario.kick(this);
 			facing = world.mario.facing;
 		    }
@@ -255,6 +258,7 @@ public class Shell extends MarioSprite {
 
 	if (xD > -16 && xD < 16) {
 	    if (yD > -height && yD < shell.height) {
+		this.world.addEvent(EventType.SHELL_KILL, this.type.getValue());
 		this.world.removeSprite(this);
 		if(this != shell) {
 		    this.world.removeSprite(shell);

@@ -6,9 +6,11 @@ import java.util.ArrayList;
 
 import engine.effects.*;
 import engine.graphics.MarioBackground;
+import engine.helper.EventType;
 import engine.helper.GameStatus;
 import engine.helper.SpriteType;
 import engine.helper.TileFeatures;
+import engine.helper.TileType;
 import engine.sprites.*;
 
 public class MarioWorld {
@@ -22,9 +24,9 @@ public class MarioWorld {
     public boolean visuals;
     public int currentTick;
     //Status
-    public int coins, lives, mushrooms, flowers, breakBlock;
-    public int shellKill, fireKill, stompKill, fallKill;
-    public int numJumps, maxXJump, jumpAirTime;
+    public int coins, lives;
+    public ArrayList<MarioEvent> lastFrameEvents;
+    
     
     private ArrayList<MarioSprite> sprites;
     private ArrayList<Shell> shellsToCheck;
@@ -45,6 +47,7 @@ public class MarioWorld {
 	this.addedSprites = new ArrayList<>();
 	this.removedSprites = new ArrayList<>();
 	this.effects = new ArrayList<>();
+	this.lastFrameEvents = new ArrayList<>();
     }
     
     public void initializeVisuals(GraphicsConfiguration graphicsConfig) {
@@ -125,17 +128,18 @@ public class MarioWorld {
 	//stats
 	world.coins = this.coins;
 	world.lives = this.lives;
-	world.mushrooms = this.mushrooms;
-	world.flowers = this.flowers;
-	world.breakBlock = this.breakBlock;
-	world.fallKill = this.fallKill;
-	world.fireKill = this.fireKill;
-	world.shellKill = this.shellKill;
-	world.stompKill = this.stompKill;
-	world.numJumps = this.numJumps;
-	world.maxXJump = this.maxXJump;
-	world.jumpAirTime = this.jumpAirTime;
 	return world;
+    }
+    
+    public void addEvent(EventType eventType, int eventParam) {
+	int marioState=0;
+	if(this.mario.isLarge) {
+	    marioState = 1;
+	}
+	if(this.mario.isFire) {
+	    marioState = 2;
+	}
+	this.lastFrameEvents.add(new MarioEvent(eventType, eventParam, mario.x, mario.y, marioState, this.currentTick));
     }
     
     public void addEffect(MarioEffect effect) {
@@ -168,10 +172,12 @@ public class MarioWorld {
     }
 
     public void win() {
+	this.addEvent(EventType.WIN, 0);
 	this.gameStatus = GameStatus.WIN;
     }
 
     public void lose() {
+	this.addEvent(EventType.LOSE, 0);
 	this.gameStatus = GameStatus.LOSE;
 	this.mario.alive = false;
     }
@@ -323,6 +329,8 @@ public class MarioWorld {
 	    this.cameraX = this.level.width - MarioGame.width;
 	}
 	
+	this.lastFrameEvents.clear();
+	
 	this.fireballsOnScreen = 0;
 	for(MarioSprite sprite:sprites) {
 	    if(sprite.x < cameraX - 64 || sprite.x > cameraX + MarioGame.width + 64 || sprite.y > MarioGame.height + 32) {
@@ -331,7 +339,7 @@ public class MarioWorld {
 		}
 		this.removeSprite(sprite);
 		if(this.isEnemy(sprite) && sprite.y > MarioGame.height + 32) {
-		    this.fallKill += 1;
+		    this.addEvent(EventType.FALL_KILL, sprite.type.getValue());
 		}
 		continue;
 	    }
@@ -431,14 +439,15 @@ public class MarioWorld {
 
 	if (features.contains(TileFeatures.BUMPABLE)) {
 	    bumpInto(xTile, yTile - 1);
+	    this.addEvent(EventType.BUMP, TileType.QUESTION_BLOCK.getValue());
 	    level.setBlock(xTile, yTile, 14);
 	    level.setShiftIndex(xTile, yTile, 4);
 
 	    if (features.contains(TileFeatures.SPECIAL)) {
 		if (!this.mario.isLarge) {
-			addSprite(new Mushroom(this.visuals, xTile * 16 + 9, yTile * 16 + 8));
+		    addSprite(new Mushroom(this.visuals, xTile * 16 + 9, yTile * 16 + 8));
 		} else {
-			addSprite(new FireFlower(this.visuals, xTile * 16 + 9, yTile * 16 + 8));
+		    addSprite(new FireFlower(this.visuals, xTile * 16 + 9, yTile * 16 + 8));
 		}
 	    } else if(features.contains(TileFeatures.LIFE)){
 		addSprite(new LifeMushroom(this.visuals, xTile * 16 + 9, yTile * 16 + 8));
@@ -453,7 +462,7 @@ public class MarioWorld {
 	if (features.contains(TileFeatures.BREAKABLE)) {
 	    bumpInto(xTile, yTile - 1);
 	    if (canBreakBricks) {
-		this.breakBlock += 1;
+		this.addEvent(EventType.BUMP, TileType.BRICK.getValue());
 		level.setBlock(xTile, yTile, 0);
 		if(this.visuals) {
 		    for (int xx = 0; xx < 2; xx++) {
@@ -472,6 +481,7 @@ public class MarioWorld {
     public void bumpInto(int xTile, int yTile) {
 	int block = level.getBlock(xTile, yTile);
 	if (TileFeatures.getTileType(block).contains(TileFeatures.PICKABLE)) {
+	    this.addEvent(EventType.COLLECT, TileType.COIN.getValue());
 	    this.mario.collectCoin();
 	    level.setBlock(xTile, yTile, 0);
 	    if(this.visuals) {

@@ -1,6 +1,7 @@
 package engine.core;
 
 import java.awt.image.VolatileImage;
+import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 
@@ -220,6 +221,8 @@ public class MarioGame{
 	MarioTimer agentTimer = new MarioTimer(MarioGame.maxTime);
 	this.agent.initialize(new MarioForwardModel(this.world.clone()), agentTimer);
 	
+	ArrayList<MarioEvent> gameEvents = new ArrayList<>();
+	ArrayList<MarioAgentEvent> agentEvents = new ArrayList<>();
 	while(this.world.gameStatus == GameStatus.RUNNING) {
 	    if(!this.pause) {
 		//get actions
@@ -233,6 +236,10 @@ public class MarioGame{
 		}
 		// update world
 		this.world.update(actions);
+		gameEvents.addAll(this.world.lastFrameEvents);
+		agentEvents.add(new MarioAgentEvent(actions, this.world.mario.x, 
+			this.world.mario.y, (this.world.mario.isLarge?1:0) + (this.world.mario.isFire?1:0), 
+			this.world.mario.onGround, this.world.currentTick));
 	    }
 	    
 	    //render world
@@ -249,6 +256,6 @@ public class MarioGame{
               }
 	    }
 	}
-	return new MarioResult(this.world);
+	return new MarioResult(this.world, gameEvents, agentEvents);
     }
 }

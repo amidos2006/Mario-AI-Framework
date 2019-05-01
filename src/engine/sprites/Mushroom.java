@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import engine.core.MarioSprite;
 import engine.graphics.MarioImage;
 import engine.helper.Assets;
+import engine.helper.EventType;
 import engine.helper.SpriteType;
 
 public class Mushroom extends MarioSprite {
@@ -50,6 +51,7 @@ public class Mushroom extends MarioSprite {
 	float yMarioD = world.mario.y - y;
 	if (xMarioD > -16 && xMarioD < 16) {
 	    if (yMarioD > -height && yMarioD < world.mario.height) {
+		world.addEvent(EventType.COLLECT, this.type.getValue());
 		world.mario.getMushroom();
 		world.removeSprite(this);
 	    }

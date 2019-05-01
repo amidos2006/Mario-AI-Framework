@@ -5,9 +5,11 @@ import java.awt.Graphics;
 import engine.core.MarioSprite;
 import engine.graphics.MarioImage;
 import engine.helper.Assets;
+import engine.helper.EventType;
 import engine.helper.MarioActions;
 import engine.helper.SpriteType;
 import engine.helper.TileFeatures;
+import engine.helper.TileType;
 
 public class Mario extends MarioSprite{
     public boolean isLarge, isFire;
@@ -24,7 +26,6 @@ public class Mario extends MarioSprite{
     
     //stats
     private float xJumpStart = -100;
-    private int jumpAirTime = 0;
     
     private final float GROUND_INERTIA = 0.89f;
     private final float AIR_INERTIA = 0.89f;
@@ -66,7 +67,6 @@ public class Mario extends MarioSprite{
         sprite.invulnerableTime = invulnerableTime;
         sprite.jumpTime = jumpTime;
         sprite.xJumpStart = xJumpStart;
-        sprite.jumpAirTime = jumpAirTime;
         return (MarioSprite) sprite;
     }
     
@@ -163,6 +163,7 @@ public class Mario extends MarioSprite{
 	int block = world.level.getBlock(xTile, yTile);
 
 	if (TileFeatures.getTileType(block).contains(TileFeatures.PICKABLE)) {
+	    this.world.addEvent(EventType.COLLECT, TileType.COIN.getValue());
 	    this.collectCoin();
 	    world.level.setBlock(xTile, yTile, 0);
 	}
@@ -288,8 +289,7 @@ public class Mario extends MarioSprite{
 			isBlocking(x - width, y - 4 - height, 0, -4) || 
 			isBlocking(x + width, y - 4 - height, 0, -4))){
 		    this.xJumpStart = this.x;
-		    this.jumpAirTime = 0;
-		    this.world.numJumps += 1;
+		    this.world.addEvent(EventType.JUMP, 0);
 		}
 	    } else if (jumpTime > 0) {
 		xa += xJumpSpeed;
@@ -327,18 +327,9 @@ public class Mario extends MarioSprite{
 	onGround = false;
 	move(xa, 0);
 	move(0, ya);
-	if(!onGround && this.xJumpStart >= 0) {
-	    this.jumpAirTime += 1;
-	}
 	if(!wasOnGround && onGround && this.xJumpStart >= 0) {
-	    if(Math.abs(this.x - this.xJumpStart) > this.world.maxXJump) {
-		this.world.maxXJump = (int)Math.abs(this.x - this.xJumpStart);
-	    }
-	    if(this.jumpAirTime > this.world.jumpAirTime) {
-		this.world.jumpAirTime = this.jumpAirTime;
-	    }
+	    this.world.addEvent(EventType.LAND, 0);
 	    this.xJumpStart = -100;
-	    this.jumpAirTime = 0;
 	}
 
 	if (x < 0) {
@@ -407,7 +398,9 @@ public class Mario extends MarioSprite{
 	    }
 	    invulnerableTime = 32;
 	} else {
-	    this.world.lose();
+	    if(this.world != null) {
+		this.world.lose();
+	    }
 	}
     }
     
@@ -421,7 +414,6 @@ public class Mario extends MarioSprite{
 	} else {
 	    this.collectCoin();
 	}
-	this.world.flowers++;
     }
 
     public void getMushroom() {
@@ -433,7 +425,6 @@ public class Mario extends MarioSprite{
 	} else {
 	    this.collectCoin();
 	}
-	this.world.mushrooms++;
     }
 
     public void kick(Shell shell) {

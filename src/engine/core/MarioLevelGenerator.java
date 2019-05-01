@@ -3,11 +3,9 @@ package engine.core;
 public interface MarioLevelGenerator {
     /**
      * Generate a playable mario level
-     * @param levelWidth the width of the level in tiles
-     * @param timer maximum time that the generator can run under
-     * @return a playable mario level
+     * @param model contain a model of the level
      */
-    String getGeneratedLevel(int levelWidth, int levelHeight, MarioTimer timer);
+    String getGeneratedLevel(MarioLevelModel model, MarioTimer timer);
     
     /**
      * Return the name of the level generator

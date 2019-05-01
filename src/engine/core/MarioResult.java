@@ -1,16 +1,26 @@
 package engine.core;
 
+import java.util.ArrayList;
+
+import engine.helper.EventType;
 import engine.helper.GameStatus;
+import engine.helper.SpriteType;
+import engine.helper.TileType;
 
 public class MarioResult {
     private MarioWorld world;
+    private ArrayList<MarioEvent> gameEvents;
+    private ArrayList<MarioAgentEvent> agentEvents;
     
     /**
      * Create a mario result object
      * @param world the current level world that is being used. This class uses the world object to get cleaner statistics.
+     * @param all the events that happens in the playthrough of the game
      */
-    public MarioResult(MarioWorld world) {
+    public MarioResult(MarioWorld world, ArrayList<MarioEvent> gameEvents, ArrayList<MarioAgentEvent> agentEvents) {
 	this.world = world;
+	this.gameEvents = gameEvents;
+	this.agentEvents = agentEvents;
     }
     
     /**
@@ -53,11 +63,34 @@ public class MarioResult {
     }
     
     /**
+     * Get all the game events that happen in the game
+     * @return an arrayList of all possible events that happened in a mario game
+     */
+    public ArrayList<MarioEvent> getGameEvents(){
+	return this.gameEvents;
+    }
+    
+    /**
+     * Get all the actions that the agent has been taking during the game
+     * @return an arraylist that contains all the actions the agent has taken during game play
+     */
+    public ArrayList<MarioAgentEvent> getAgentEvents(){
+	return this.agentEvents;
+    }
+    
+    /**
      * get the number of enemies killed in the game
      * @return number of enemies killed in the game
      */
     public int getKillsTotal() {
-	return this.world.fallKill + this.world.stompKill + this.world.fireKill + this.world.shellKill;
+	int kills = 0;
+	for(MarioEvent e:this.gameEvents) {
+	    if(e.getEventType() == EventType.STOMP_KILL.getValue() || e.getEventType() == EventType.FIRE_KILL.getValue() || 
+		    e.getEventType() == EventType.FALL_KILL.getValue() || e.getEventType() == EventType.SHELL_KILL.getValue()) {
+		kills += 1;
+	    }
+	}
+	return kills;
     }
     
     /**
@@ -65,7 +98,13 @@ public class MarioResult {
      * @return number of enemies killed by fireballs
      */
     public int getKillsByFire() {
-	return this.world.fireKill;
+	int kills = 0;
+	for(MarioEvent e:this.gameEvents) {
+	    if(e.getEventType() == EventType.FIRE_KILL.getValue()) {
+		kills += 1;
+	    }
+	}
+	return kills;
     }
     
     /**
@@ -73,7 +112,13 @@ public class MarioResult {
      * @return number of enemies killed by stomping
      */
     public int getKillsByStomp() {
-	return this.world.stompKill;
+	int kills = 0;
+	for(MarioEvent e:this.gameEvents) {
+	    if(e.getEventType() == EventType.STOMP_KILL.getValue()) {
+		kills += 1;
+	    }
+	}
+	return kills;
     }
     
     /**
@@ -81,7 +126,13 @@ public class MarioResult {
      * @return number of enemies killed by a koopa shell
      */
     public int getKillsByShell() {
-	return this.world.shellKill;
+	int kills = 0;
+	for(MarioEvent e:this.gameEvents) {
+	    if(e.getEventType() == EventType.SHELL_KILL.getValue()) {
+		kills += 1;
+	    }
+	}
+	return kills;
     }
     
     /**
@@ -89,7 +140,13 @@ public class MarioResult {
      * @return the number of enemies that fell from the game screen
      */
     public int getKillsByFall() {
-	return this.world.fallKill;
+	int kills = 0;
+	for(MarioEvent e:this.gameEvents) {
+	    if(e.getEventType() == EventType.FALL_KILL.getValue()) {
+		kills += 1;
+	    }
+	}
+	return kills;
     }
     
     /**
@@ -97,15 +154,33 @@ public class MarioResult {
      * @return the number of jumps performed by mario during the game
      */
     public int getNumJumps() {
-	return this.world.numJumps;
+	int jumps = 0;
+	for(MarioEvent e:this.gameEvents) {
+	    if(e.getEventType() == EventType.JUMP.getValue()) {
+		jumps += 1;
+	    }
+	}
+	return jumps;
     }
     
     /**
      * get the maximum x distance traversed by mario
      * @return the maximum x distance traversed mario
      */
-    public int getMaxXJump() {
-	return this.world.maxXJump;
+    public float getMaxXJump() {
+	float maxXJump = 0;
+	float startX = -100;
+	for(MarioEvent e:this.gameEvents) {
+	    if(e.getEventType() == EventType.JUMP.getValue()) {
+		startX = e.getMarioX();
+	    }
+	    if(e.getEventType() == EventType.LAND.getValue()) {
+		if(Math.abs(e.getMarioX() - startX) > maxXJump) {
+		    maxXJump = Math.abs(e.getMarioX() - startX);
+		}
+	    }
+	}
+	return maxXJump;
     }
     
     /**
@@ -113,15 +188,35 @@ public class MarioResult {
      * @return the maximum amount of frames mario is being in the air
      */
     public int getMaxJumpAirTime() {
-	return this.world.jumpAirTime;
+	int maxAirJump = 0;
+	int startTime = -100;
+	for(MarioEvent e:this.gameEvents) {
+	    if(e.getEventType() == EventType.JUMP.getValue()) {
+		startTime = e.getTime();
+	    }
+	    if(e.getEventType() == EventType.LAND.getValue()) {
+		if(e.getTime() - startTime > maxAirJump) {
+		    maxAirJump = e.getTime() - startTime;
+		}
+	    }
+	}
+	return maxAirJump;
     }
     
     /**
-     * get the number 100 coins collected by mario
-     * @return number of 100 coins collected by mario
+     * get the number 100 coins collected by mario and 1 ups found
+     * @return number of 100 coins collected by mario and 1 ups found
      */
-    public int getNumLives() {
+    public int getCurrentLives() {
 	return this.world.lives;
+    }
+    
+    /**
+     * get the number of coins that mario have by end of the game
+     * @return the number of coins that mario have by end of the game
+     */
+    public int getCurrentCoins() {
+	return this.world.coins;
     }
     
     /**
@@ -129,7 +224,13 @@ public class MarioResult {
      * @return the number of collected mushrooms by mario
      */
     public int getNumCollectedMushrooms() {
-	return this.world.mushrooms;
+	int collect = 0;
+	for(MarioEvent e:this.gameEvents) {
+	    if(e.getEventType() == EventType.COLLECT.getValue() && e.getEventParam() == SpriteType.MUSHROOM.getValue()) {
+		collect += 1;
+	    }
+	}
+	return collect;
     }
     
     /**
@@ -137,15 +238,27 @@ public class MarioResult {
      * @return the number of collected fire flowers by mario
      */
     public int getNumCollectedFireflower() {
-	return this.world.flowers;
+	int collect = 0;
+	for(MarioEvent e:this.gameEvents) {
+	    if(e.getEventType() == EventType.COLLECT.getValue() && e.getEventParam() == SpriteType.FIRE_FLOWER.getValue()) {
+		collect += 1;
+	    }
+	}
+	return collect;
     }
     
     /**
      * get the number of coins collected by mario
      * @return the number of collected coins by mario
      */
-    public int getNumCollectedCoins() {
-	return this.world.coins;
+    public int getNumCollectedTileCoins() {
+	int collect = 0;
+	for(MarioEvent e:this.gameEvents) {
+	    if(e.getEventType() == EventType.COLLECT.getValue() && e.getEventParam() == TileType.COIN.getValue()) {
+		collect += 1;
+	    }
+	}
+	return collect;
     }
     
     /**
@@ -153,6 +266,13 @@ public class MarioResult {
      * @return the number of destroyed bricks by large or fire mario
      */
     public int getNumDestroyedBricks() {
-	return this.world.breakBlock;
+	int bricks = 0;
+	for(MarioEvent e:this.gameEvents) {
+	    if(e.getEventType() == EventType.BUMP.getValue() && 
+		    e.getEventParam() == TileType.BRICK.getValue() && e.getMarioState() > 0) {
+		bricks += 1;
+	    }
+	}
+	return bricks;
     }
 }
