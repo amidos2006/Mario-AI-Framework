@@ -5,7 +5,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 
 import engine.core.MarioGame;
-import engine.helper.TileFeatures;
+import engine.helper.TileFeature;
 
 public class MarioTilemap extends MarioGraphics{
     public Image[][] sheet;
@@ -42,8 +42,8 @@ public class MarioTilemap extends MarioGraphics{
 			this.moveShift[xTile][yTile] = 0;
 		    }
 		}
-		ArrayList<TileFeatures> features = TileFeatures.getTileType(this.currentIndeces[xTile][yTile]);
-		if(features.contains(TileFeatures.ANIMATED)) {
+		ArrayList<TileFeature> features = TileFeature.getTileType(this.currentIndeces[xTile][yTile]);
+		if(features.contains(TileFeature.ANIMATED)) {
 		    if(this.animationIndex == 0) {
 			this.indexShift[xTile][yTile] = (this.indexShift[xTile][yTile] + 1) % 3;
 		    }

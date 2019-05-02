@@ -9,9 +9,7 @@ public enum SpriteType {
     NONE(0),
     UNDEF(-42),
     MARIO(-31), 
-    //Common between detail 0 and 1
     FIREBALL(16),
-    //Enemies Detail 0
     GOOMBA(2, 16), 
     GOOMBA_WINGED(3, 16), 
     RED_KOOPA(4, 0), 
@@ -25,13 +23,7 @@ public enum SpriteType {
     MUSHROOM(12), 
     FIRE_FLOWER(13), 
     SHELL(14), 
-    LIFE_MUSHROOM(15),
-    //Enemies Detail 1
-    STOMPABLE_ENEMY(2),
-    NONSTOMPABLE_ENEMY(8),
-    SPECIAL_ITEM(12),
-    //Enemies Detail 2
-    ENEMY(1);
+    LIFE_MUSHROOM(15);
 
     private int value;
     private int startIndex;
@@ -58,55 +50,5 @@ public enum SpriteType {
 	    return new FlowerEnemy(visuals, xTile * 16 + 17, yTile * 16 + 18);
 	}
 	return new Enemy(visuals, xTile * 16 + 8, yTile * 16 + 15, dir, this);
-    }
-
-    public int getSpriteTypeGeneralization(int detail) {
-	switch (detail) {
-	case (0):
-	    switch (this) {
-	    case MARIO:
-		return NONE.getValue();
-	    default:
-		this.getValue();
-	    }
-	case (1):
-	    switch (this) {
-	    case MARIO:
-		return NONE.getValue();
-	    case FIREBALL:
-		return FIREBALL.getValue();
-	    case MUSHROOM:
-	    case LIFE_MUSHROOM:
-	    case FIRE_FLOWER:
-		return SPECIAL_ITEM.getValue();
-	    case BULLET_BILL:
-	    case SHELL:
-	    case GOOMBA:
-	    case GOOMBA_WINGED:
-	    case GREEN_KOOPA:
-	    case GREEN_KOOPA_WINGED:
-	    case RED_KOOPA:
-	    case RED_KOOPA_WINGED:
-		return STOMPABLE_ENEMY.getValue();
-	    case SPIKY:
-	    case SPIKY_WINGED:
-	    case ENEMY_FLOWER:
-		return NONSTOMPABLE_ENEMY.getValue();
-	    default:
-		NONE.getValue();
-	    }
-	case (2):
-	    switch (this) {
-	    case FIREBALL:
-	    case MARIO:
-	    case MUSHROOM:
-	    case LIFE_MUSHROOM:
-	    case FIRE_FLOWER:
-		return NONE.getValue();
-	    default:
-		return ENEMY.getValue();
-	    }
-	}
-	return UNDEF.getValue();
     }
 }

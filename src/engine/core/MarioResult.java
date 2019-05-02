@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import engine.helper.EventType;
 import engine.helper.GameStatus;
 import engine.helper.SpriteType;
-import engine.helper.TileType;
 
 public class MarioResult {
     private MarioWorld world;
@@ -254,7 +253,7 @@ public class MarioResult {
     public int getNumCollectedTileCoins() {
 	int collect = 0;
 	for(MarioEvent e:this.gameEvents) {
-	    if(e.getEventType() == EventType.COLLECT.getValue() && e.getEventParam() == TileType.COIN.getValue()) {
+	    if(e.getEventType() == EventType.COLLECT.getValue() && e.getEventParam() == MarioForwardModel.OBS_COIN) {
 		collect += 1;
 	    }
 	}
@@ -269,7 +268,7 @@ public class MarioResult {
 	int bricks = 0;
 	for(MarioEvent e:this.gameEvents) {
 	    if(e.getEventType() == EventType.BUMP.getValue() && 
-		    e.getEventParam() == TileType.BRICK.getValue() && e.getMarioState() > 0) {
+		    e.getEventParam() == MarioForwardModel.OBS_BRICK && e.getMarioState() > 0) {
 		bricks += 1;
 	    }
 	}

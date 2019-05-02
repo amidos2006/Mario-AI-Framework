@@ -9,8 +9,7 @@ import engine.graphics.MarioBackground;
 import engine.helper.EventType;
 import engine.helper.GameStatus;
 import engine.helper.SpriteType;
-import engine.helper.TileFeatures;
-import engine.helper.TileType;
+import engine.helper.TileFeature;
 import engine.sprites.*;
 
 public class MarioWorld {
@@ -210,7 +209,7 @@ public class MarioWorld {
         	if(currentY > level.tileHeight - 1) {
         	    currentY = level.tileHeight - 1;
         	}
-        	ret[obsX][obsY] = this.level.getBlockValueGeneralization(currentX, currentY, detail);
+        	ret[obsX][obsY] = MarioForwardModel.getBlockValueGeneralization(this.level.getBlock(currentX, currentY), detail);
             }
         }
         return ret;
@@ -239,7 +238,7 @@ public class MarioWorld {
             {
                 int obsX = sprite.getMapX() - centerXInMap + MarioGame.tileWidth / 2;
                 int obsY = sprite.getMapY() - centerYInMap + MarioGame.tileHeight / 2;
-                ret[obsX][obsY] = sprite.type.getSpriteTypeGeneralization(detail);
+                ret[obsX][obsY] = MarioForwardModel.getSpriteTypeGeneralization(sprite.type, detail);
             }
         }
         return ret;
@@ -269,7 +268,7 @@ public class MarioWorld {
         	if(currentY > level.tileHeight - 1) {
         	    currentY = level.tileHeight - 1;
         	}
-        	ret[obsX][obsY] = this.level.getBlockValueGeneralization(x, y, sceneDetail);;
+        	ret[obsX][obsY] = MarioForwardModel.getBlockValueGeneralization(this.level.getBlock(x, y), sceneDetail);
             }
         }
 
@@ -286,7 +285,7 @@ public class MarioWorld {
                 {
                 int obsX = sprite.getMapX() - centerXInMap + MarioGame.tileWidth / 2;
                 int obsY = sprite.getMapY() - centerYInMap + MarioGame.tileHeight / 2;
-                int tmp = sprite.type.getSpriteTypeGeneralization(enemiesDetail);
+                int tmp = MarioForwardModel.getSpriteTypeGeneralization(sprite.type, enemiesDetail);
                 if (tmp != SpriteType.NONE.getValue()) {
                     ret[obsX][obsY] = tmp;
                 }
@@ -378,8 +377,8 @@ public class MarioWorld {
 		}
 
 		if (dir != 0) {
-		    ArrayList<TileFeatures> features = TileFeatures.getTileType(this.level.getBlock(x, y));
-		    if (features.contains(TileFeatures.SPAWNER)) {
+		    ArrayList<TileFeature> features = TileFeature.getTileType(this.level.getBlock(x, y));
+		    if (features.contains(TileFeature.SPAWNER)) {
 			if (this.currentTick % 100 == 0) {
 			    addSprite(new BulletBill(this.visuals, x * 16 + 8 + dir * 8, y * 16 + 15, dir));
 			}
@@ -435,21 +434,21 @@ public class MarioWorld {
     
     public void bump(int xTile, int yTile, boolean canBreakBricks) {
 	int block = this.level.getBlock(xTile, yTile);
-	ArrayList<TileFeatures> features = TileFeatures.getTileType(block);
+	ArrayList<TileFeature> features = TileFeature.getTileType(block);
 
-	if (features.contains(TileFeatures.BUMPABLE)) {
+	if (features.contains(TileFeature.BUMPABLE)) {
 	    bumpInto(xTile, yTile - 1);
-	    this.addEvent(EventType.BUMP, TileType.QUESTION_BLOCK.getValue());
+	    this.addEvent(EventType.BUMP, block);
 	    level.setBlock(xTile, yTile, 14);
 	    level.setShiftIndex(xTile, yTile, 4);
 
-	    if (features.contains(TileFeatures.SPECIAL)) {
+	    if (features.contains(TileFeature.SPECIAL)) {
 		if (!this.mario.isLarge) {
 		    addSprite(new Mushroom(this.visuals, xTile * 16 + 9, yTile * 16 + 8));
 		} else {
 		    addSprite(new FireFlower(this.visuals, xTile * 16 + 9, yTile * 16 + 8));
 		}
-	    } else if(features.contains(TileFeatures.LIFE)){
+	    } else if(features.contains(TileFeature.LIFE)){
 		addSprite(new LifeMushroom(this.visuals, xTile * 16 + 9, yTile * 16 + 8));
 	    } else {
 		mario.collectCoin();
@@ -459,10 +458,10 @@ public class MarioWorld {
 	    }
 	}
 
-	if (features.contains(TileFeatures.BREAKABLE)) {
+	if (features.contains(TileFeature.BREAKABLE)) {
 	    bumpInto(xTile, yTile - 1);
 	    if (canBreakBricks) {
-		this.addEvent(EventType.BUMP, TileType.BRICK.getValue());
+		this.addEvent(EventType.BUMP, MarioForwardModel.OBS_BRICK);
 		level.setBlock(xTile, yTile, 0);
 		if(this.visuals) {
 		    for (int xx = 0; xx < 2; xx++) {
@@ -480,8 +479,8 @@ public class MarioWorld {
 
     public void bumpInto(int xTile, int yTile) {
 	int block = level.getBlock(xTile, yTile);
-	if (TileFeatures.getTileType(block).contains(TileFeatures.PICKABLE)) {
-	    this.addEvent(EventType.COLLECT, TileType.COIN.getValue());
+	if (TileFeature.getTileType(block).contains(TileFeature.PICKABLE)) {
+	    this.addEvent(EventType.COLLECT, block);
 	    this.mario.collectCoin();
 	    level.setBlock(xTile, yTile, 0);
 	    if(this.visuals) {

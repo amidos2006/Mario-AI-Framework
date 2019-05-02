@@ -8,8 +8,7 @@ import engine.helper.Assets;
 import engine.helper.EventType;
 import engine.helper.MarioActions;
 import engine.helper.SpriteType;
-import engine.helper.TileFeatures;
-import engine.helper.TileType;
+import engine.helper.TileFeature;
 
 public class Mario extends MarioSprite{
     public boolean isLarge, isFire;
@@ -162,8 +161,8 @@ public class Mario extends MarioSprite{
 	boolean blocking = world.level.isBlocking(xTile, yTile, xa, ya);
 	int block = world.level.getBlock(xTile, yTile);
 
-	if (TileFeatures.getTileType(block).contains(TileFeatures.PICKABLE)) {
-	    this.world.addEvent(EventType.COLLECT, TileType.COIN.getValue());
+	if (TileFeature.getTileType(block).contains(TileFeature.PICKABLE)) {
+	    this.world.addEvent(EventType.COLLECT, block);
 	    this.collectCoin();
 	    world.level.setBlock(xTile, yTile, 0);
 	}

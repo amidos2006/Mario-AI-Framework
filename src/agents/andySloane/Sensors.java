@@ -2,7 +2,6 @@ package agents.andySloane;
 
 import engine.core.MarioForwardModel;
 import engine.core.MarioGame;
-import engine.helper.SpriteType;
 
 public class Sensors {
     private String[][] asciiScene;
@@ -23,9 +22,9 @@ public class Sensors {
 	for (int x = 0; x < enemiesScene.length; ++x)
 	    for (int y = 0; y < enemiesScene[0].length; ++y) {
 		int enemy = enemiesScene[x][y];
-		if (enemy == SpriteType.NONE.getValue())
+		if (enemy == MarioForwardModel.OBS_NONE)
 		    continue;
-		if (enemy == SpriteType.FIREBALL.getValue())
+		if (enemy == MarioForwardModel.OBS_FIREBALL)
 		    fireballsOnScreen++;
 		asciiScene[x][y] = asciiEnemy(enemy);
 	    }
@@ -72,35 +71,35 @@ public class Sensors {
     }
 
     private String asciiEnemy(int enemySquare) {
-	if(enemySquare == SpriteType.GOOMBA.getValue()) {
+	if(enemySquare == MarioForwardModel.OBS_GOOMBA) {
 	    return "G";
 	}
-	if(enemySquare == SpriteType.RED_KOOPA.getValue() || enemySquare == SpriteType.GREEN_KOOPA.getValue()) {
+	if(enemySquare == MarioForwardModel.OBS_RED_KOOPA || enemySquare == MarioForwardModel.OBS_GREEN_KOOPA) {
 	    return "n";
 	}
-	if(enemySquare == SpriteType.GOOMBA_WINGED.getValue() || enemySquare == SpriteType.RED_KOOPA_WINGED.getValue() || 
-		enemySquare == SpriteType.GREEN_KOOPA_WINGED.getValue()) {
+	if(enemySquare == MarioForwardModel.OBS_GOOMBA_WINGED || enemySquare == MarioForwardModel.OBS_RED_KOOPA_WINGED || 
+		enemySquare == MarioForwardModel.OBS_GREEN_KOOPA_WINGED) {
 	    return "w";
 	}
-	if(enemySquare == SpriteType.SHELL.getValue()) {
+	if(enemySquare == MarioForwardModel.OBS_SHELL) {
 	    return "D";
 	}
-	if(enemySquare == SpriteType.SPIKY.getValue()) {
+	if(enemySquare == MarioForwardModel.OBS_SPIKY) {
 	    return "^";
 	}
-	if(enemySquare == SpriteType.SPIKY_WINGED.getValue()) {
+	if(enemySquare == MarioForwardModel.OBS_SPIKY_WINGED) {
 	    return "W";
 	}
-	if(enemySquare == SpriteType.BULLET_BILL.getValue()) {
+	if(enemySquare == MarioForwardModel.OBS_BULLET_BILL) {
 	    return "<";
 	}
-	if(enemySquare == SpriteType.ENEMY_FLOWER.getValue()) {
+	if(enemySquare == MarioForwardModel.OBS_ENEMY_FLOWER) {
 	    return "V";
 	}
-	if(enemySquare == SpriteType.FIRE_FLOWER.getValue()) {
+	if(enemySquare == MarioForwardModel.OBS_FIRE_FLOWER) {
 	    return "F";
 	}
-	if(enemySquare == SpriteType.FIREBALL.getValue()) {
+	if(enemySquare == MarioForwardModel.OBS_FIREBALL) {
 	    return "*";
 	}
 	return "" + enemySquare;

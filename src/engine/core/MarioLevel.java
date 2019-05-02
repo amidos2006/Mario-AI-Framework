@@ -7,8 +7,7 @@ import engine.graphics.MarioImage;
 import engine.graphics.MarioTilemap;
 import engine.helper.Assets;
 import engine.helper.SpriteType;
-import engine.helper.TileFeatures;
-import engine.helper.TileType;
+import engine.helper.TileFeature;
 
 public class MarioLevel {
     
@@ -303,10 +302,10 @@ public class MarioLevel {
     
     public boolean isBlocking(int xTile, int yTile, float xa, float ya) {
 	int block = this.getBlock(xTile, yTile);
-	ArrayList<TileFeatures> features = TileFeatures.getTileType(block);
-	boolean blocking = features.contains(TileFeatures.BLOCK_ALL);
-	blocking |= (ya < 0) && features.contains(TileFeatures.BLOCK_UPPER);
-	blocking |= (ya > 0) && features.contains(TileFeatures.BLOCK_LOWER);
+	ArrayList<TileFeature> features = TileFeature.getTileType(block);
+	boolean blocking = features.contains(TileFeature.BLOCK_ALL);
+	blocking |= (ya < 0) && features.contains(TileFeature.BLOCK_UPPER);
+	blocking |= (ya > 0) && features.contains(TileFeature.BLOCK_LOWER);
 
 	return blocking;
     }
@@ -367,89 +366,6 @@ public class MarioLevel {
 	return  c == 'X' || c == '#' || c == '@' || c == '!' || c == 'B' || c == 'C' || 
 		c == 'Q' || c == '<' || c == '>' || c == '[' || c == ']' || c == '?' ||
 		c == 'S' || c == 'U' || c == 'D' || c == '%' || c == 't' || c == 'T';
-    }
-    
-    public int getBlockValueGeneralization(int xTile, int yTile, int detail) {
-	int el = this.getBlock(xTile, yTile);
-	if (el == 0) {
-	    return TileType.NONE.getValue();
-	}
-	switch (detail) {
-	case (0):
-	    switch (el) {
-	    // invisble blocks
-	    case 48:
-	    case 49:
-		return TileType.NONE.getValue();
-	    // brick blocks
-	    case 6:
-	    case 7:
-	    case 50:
-	    case 51:
-		return TileType.BRICK.getValue();
-	    // ? blocks
-	    case 8:
-	    case 11:
-		return TileType.QUESTION_BLOCK.getValue();
-	    }
-	    return el + 16;
-	case (1):
-	    switch (el) {
-	    // invisble blocks
-	    case 48:
-	    case 49:
-	    // body for jumpthrough platform
-	    case 47:
-		return TileType.NONE.getValue();
-	    // solid blocks
-	    case 1:
-	    case 2:
-	    case 14:
-		return TileType.SOLID.getValue();
-	    // bullet bill blocks
-	    case 3:
-	    case 4:
-	    case 5:
-		return TileType.BULLET_BILL.getValue();
-	    // pipe blocks
-	    case 18:
-	    case 19:
-	    case 20:
-	    case 21:
-		return TileType.PIPE.getValue();
-	    // brick blocks
-	    case 6:
-	    case 7:
-	    case 50:
-	    case 51:
-		return TileType.BRICK.getValue();
-	    // ? blocks
-	    case 8:
-	    case 11:
-		return TileType.QUESTION_BLOCK.getValue();
-	    // coin
-	    case 15:
-		return TileType.COIN.getValue();
-	    // Jump through platforms
-	    case 43:
-	    case 44:
-	    case 45:
-		return TileType.PLATFORM.getValue();
-	    }
-	    return 0;
-	case (2):
-	    switch (el) {
-	    // invisible blocks
-	    case 48:
-	    case 49:
-	    // body for jumpthrough platform
-	    case 47:
-		return TileType.NONE.getValue();
-	    }
-	    // everything else is "something", so it is 100
-	    return TileType.SCENE_OBJECT.getValue();
-	}
-	return TileType.UNDEF.getValue();
     }
     
     private int findFirstFloor(String[] lines, int x) {

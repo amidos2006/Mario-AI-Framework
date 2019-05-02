@@ -35,8 +35,8 @@ All the level generators are in `src/levelGenerators/` folder, feel free to use 
 - ~~Better way to check the observation grid Using TileType and SpriteType~~
 - ~~Adding event history for the game and agent to MarioResults~~
 - ~~Modifying the original Mario levels to include more details~~
-- Add more stats to MarioResult class similar to Gameplay Metrics
 - Mix the TileType and TileFeature class
+- Add more stats to MarioResult class similar to Gameplay Metrics
 - Adding a simple MCTS agent and simple A* agent
 - Koopa shells can come back to life after stomping on it
 - Adding Monte Mario agent
