@@ -115,7 +115,7 @@ public class MarioLevel {
 		    this.levelTiles[x][y] = 47;
 		    break;
 		case '*':
-		    //bullet bill neck
+		    //bullet bill
 		    tempIndex = 0;
 		    if(y > 0 && lines[y-1].charAt(x) == '*') {
 			tempIndex += 1;
@@ -124,6 +124,18 @@ public class MarioLevel {
 			tempIndex += 1;
 		    }
 		    this.levelTiles[x][y] = 3 + tempIndex;
+		    break;
+		case 'B':
+		    //bullet bill head
+		    this.levelTiles[x][y] = 3;
+		    break;
+		case 'b':
+		    //bullet bill neck and body
+		    tempIndex = 0;
+		    if(y > 1 && lines[y-2].charAt(x) == 'B') {
+			tempIndex += 1;
+		    }
+		    this.levelTiles[x][y] = 4 + tempIndex;
 		    break;
 		case '?':
 		case '@':
@@ -150,7 +162,6 @@ public class MarioLevel {
 		    this.levelTiles[x][y] = 14;
 		    break;
 		case 'S':
-		case 'B':
 		    //normal block
 		    this.levelTiles[x][y] = 6;
 		    break;

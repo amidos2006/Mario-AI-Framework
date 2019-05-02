@@ -9,7 +9,7 @@ public class MarioLevelModel {
     //game tiles symbols
     public static final char GROUND = 'X';
     public static final char PYRAMID_BLOCK = '#';
-    public static final char NORMAL_BRICK = 'B';
+    public static final char NORMAL_BRICK = 'S';
     public static final char COIN_BRICK = 'C';
     public static final char LIFE_BRICK = 'L';
     public static final char SPECIAL_BRICK = 'U';

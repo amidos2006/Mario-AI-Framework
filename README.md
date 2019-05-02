@@ -14,10 +14,10 @@ This is an updated version for the Mario-AI framework. This new code will suppor
 - Adding the level generators to the framework
 - Better way to check the observation grid Using TileType and SpriteType
 - Adding event history for the game and agent to MarioResults
+- Modifying the original Mario levels to include more details
 
 ### Missing Features
 - Add more stats to MarioResult class similar to Gameplay Metrics
-- Modifying the original Mario levels to include more details
 - Mix the TileType and TileFeature class
 - Adding a simple MCTS agent and simple A* agent
 - Koopa shells can come back to life after stomping on it
