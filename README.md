@@ -46,4 +46,4 @@ All the level generators are in `src/levelGenerators/` folder, feel free to use 
 - Adding the learning track interface
 
 ### Copyrights
-Mario is a Nintendo character which the authors doesn't own any rights to it. The framework is based on the core source code of Mario-AI framework which was a modification to Infinite Mario Bros by Notch.
+Mario is a Nintendo character which the authors doesn't own any rights to it. This framework by Ahmed Khalifa. Based on the original Mario AI Framework by Sergey Karakovskiy, Noor Shaker and Julian Togelius, which in turn was based on Infinite Mario Bros by Markus Persson.
