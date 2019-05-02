@@ -1,6 +1,11 @@
 # Mario-AI Framework: 10th Anniversary Edition
 This is an updated version for the Mario-AI framework. This new code will support better interface for planning/level generation/learning (future). We will also provide multiple different planning agents, level generators, original levels, and generated levels from previous years. Also, the framework is compatible with VGLC processed notations: https://github.com/TheVGLC/TheVGLC.
 
+### How to use
+Download the repo and run either `PlayLevel.java` or `GenerateLevel.java` from the `src/` folder to test the framework.
+All the playing agents are in `src/agents/` folder, feel free to use any in your work. Check `PlayLevel.java` to see how to run an automated playthrough.
+All the level generators are in `src/levelGenerators/` folder, feel free to use any in your work. Check `GenerateLevel.java` to see how to run a level generator.
+
 ### Features
 - Better Interface for the framework
 - Faster framework
