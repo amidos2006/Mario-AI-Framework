@@ -136,8 +136,8 @@ public class MarioResult {
     
     /**
      * get Num of kills for a certain enemy Type
-     * @param enemyType
-     * @return
+     * @param enemyType the enemy type from SpriteType
+     * @return number of a certain type of enemy that has been killed by Mario
      */
     public int getMarioNumKills(int enemyType) {
 	int kills = 0;
@@ -149,6 +149,34 @@ public class MarioResult {
 	    }
 	}
 	return kills;
+    }
+    
+    /**
+     * Get number of times mario got hit by an enemy
+     * @return number of times mario got hurt
+     */
+    public int getMarioNumHurts() {
+	int hurt = 0;
+	for (MarioEvent e : this.gameEvents) {
+	    if (e.getEventType() == EventType.HURT.getValue()) {
+		hurt += 1;
+	    }
+	}
+	return hurt;
+    }
+    
+    /**
+     * Number of times mario hit question mark block
+     * @return number of question mark block mario hit
+     */
+    public int getNumQuestionBlock() {
+	int bump = 0;
+	for (MarioEvent e : this.gameEvents) {
+	    if (e.getEventType() == EventType.BUMP.getValue() && e.getEventParam() == MarioForwardModel.OBS_QUESTION_BLOCK) {
+		bump += 1;
+	    }
+	}
+	return bump;
     }
     
     /**
