@@ -135,6 +135,23 @@ public class MarioResult {
     }
     
     /**
+     * get Num of kills for a certain enemy Type
+     * @param enemyType
+     * @return
+     */
+    public int getMarioNumKills(int enemyType) {
+	int kills = 0;
+	for (MarioEvent e : this.gameEvents) {
+	    if ((e.getEventType() == EventType.SHELL_KILL.getValue()
+		    || e.getEventType() == EventType.FIRE_KILL.getValue()
+		    || e.getEventType() == EventType.STOMP_KILL.getValue()) && e.getEventParam() == enemyType) {
+		kills += 1;
+	    }
+	}
+	return kills;
+    }
+    
+    /**
      * get the number of enemies that fell from the game screen
      * @return the number of enemies that fell from the game screen
      */

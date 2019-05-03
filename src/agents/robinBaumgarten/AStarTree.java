@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import engine.core.MarioForwardModel;
 import engine.core.MarioTimer;
+import engine.helper.GameStatus;
 
 public class AStarTree {
     public SearchNode bestPosition;
@@ -74,7 +75,6 @@ public class AStarTree {
 	
 	bestPosition = startPos;
 	furthestPosition = startPos;
-
     }
 
     private ArrayList<boolean[]> extractPlan() {
@@ -117,7 +117,8 @@ public class AStarTree {
     public boolean[] optimise(MarioForwardModel model, MarioTimer timer) {
 	int planAhead = 2;
 	int stepsPerSearch = 2;
-
+	
+	MarioForwardModel originalModel = model.clone();
 	ticksBeforeReplanning--;
 	requireReplanning = false;
 	if (ticksBeforeReplanning <= 0 || currentActionPlan.size() == 0 || requireReplanning) {
@@ -125,7 +126,7 @@ public class AStarTree {
 	    if (currentActionPlan.size() < planAhead) {
 		planAhead = currentActionPlan.size();
 	    }
-
+	    
 	    // simulate ahead to predicted future state, and then plan for this future state
 	    for (int i = 0; i < planAhead; i++) {
 		model.advance(currentActionPlan.get(i));
@@ -133,6 +134,11 @@ public class AStarTree {
 	    startSearch(model, stepsPerSearch);
 	    ticksBeforeReplanning = planAhead;
 	}
+	if(model.getGameStatus() == GameStatus.LOSE) {
+	    startSearch(originalModel, stepsPerSearch);
+	}
+	System.out.println("\tMario After: " + bestPosition.sceneSnapshot.getGameStatus() + ", " + bestPosition.sceneSnapshot.getMarioFloatPos()[0] + ", " + bestPosition.sceneSnapshot.getMarioFloatPos()[1] + ", " + bestPosition.sceneSnapshot.getMarioFloatVelocity()[0]);
+	System.out.println("------------------------------");
 	search(timer);
 
 	boolean[] action = new boolean[5];

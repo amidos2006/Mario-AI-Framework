@@ -20,6 +20,8 @@ public class Agent implements MarioAgent{
 
     @Override
     public boolean[] getActions(MarioForwardModel model, MarioTimer timer) {
+	System.out.println("------------------------------");
+	System.out.println("\tMario Original: " + model.getGameStatus() + ", " + model.getMarioFloatPos()[0] + ", " + model.getMarioFloatPos()[1] + ", " + model.getMarioFloatVelocity()[0]);
 	action = this.tree.optimise(model, timer);
 	return action;
     }

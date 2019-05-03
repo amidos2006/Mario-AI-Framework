@@ -3,4 +3,4 @@ plugins:
   - jekyll-favicon
 favicon:
   source: favicon.png
-  path: /img
+  path: img/
