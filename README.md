@@ -8,6 +8,7 @@
 This is an updated version for the Mario-AI framework. This new code will support better interface for planning track, level generation track, and possibly the learning track in the future. The framework comes with multiple different planning agents, level generators and thousands of levels that varies between generated levels and original mario level. Also, the framework is compatible with [Video Game Level Corpus (VGLC)](https://github.com/TheVGLC/TheVGLC) processed notations.
 
 <h3 id="features">Features</h3>
+
 ------
 - Better Interface for the framework
 - Faster framework
@@ -24,6 +25,7 @@ This is an updated version for the Mario-AI framework. This new code will suppor
 - A human readable level files
 
 <h3 id="use">How To Use</h3>
+
 ------
 #### Planning Track
 Download the repo and run the [`PlayLevel.java`](https://github.com/amidos2006/Mario-AI-Framework/blob/master/src/PlayLevel.java) file. It will run [`robinBaumgarten`](https://github.com/amidos2006/Mario-AI-Framework/tree/master/src/agents/robinBaumgarten) A* agent on the [first Mario level](https://github.com/amidos2006/Mario-AI-Framework/blob/master/levels/original/lvl-1.txt) from the original Super Mario Bros. The game will run for 20 time ticks and with Mario starting as small mario and visuals appearing. To change the agent just change the package name of the agent in the following code
@@ -48,6 +50,7 @@ String level = generator.getGeneratedLevel(new MarioLevelModel(150, 16), new Mar
 If you want to play the level by yourself or change the AI playing agent check the Planning Track subsection.
 
 <h3 id="papers">Related Papers</h3>
+
 ------
 The following paper describes the Mario AI benchmark:
 - [[2012] The Mario AI Benchmark and Competitions](http://julian.togelius.com/Karakovskiy2012The.pdf) by Sergey Karakovskiy and Julian Togelius. Published in the IEEE Transactions on Computational Intelligence and AI in Games (TCIAG), volume 4 issue 1, 55-67.
@@ -79,6 +82,7 @@ The following list show all any papers that doesn't fit in the previous categori
 We are very sorry, if we forgot any Mario-AI research paper. In that case, please [contact us](mailto:ahmed@akhalifa.com) to add it to the list.
 
 <h3 id="missing">Missing Features</h3>
+
 ------
 - ~~The MarioAI framework core engine~~
 - ~~Implementing a forward model and multiple different observations (based around mario/based around the screen center)~~
@@ -104,5 +108,6 @@ We are very sorry, if we forgot any Mario-AI research paper. In that case, pleas
 - Adding the learning track interface
 
 <h3 id="copyrights">Copyrights</h3>
+
 ------
 This framework is not endorsed by Nintendo and only intended for research purposes. Mario is a Nintendo character which the authors doesn't own any rights to it. This framework by [Ahmed Khalifa](https://scholar.google.com/citations?user=DRcyg5kAAAAJ&hl=en), based on the original Mario AI Framework by [Sergey Karakovskiy](https://scholar.google.se/citations?user=6cEAqn8AAAAJ&hl=en), [Noor Shaker](https://scholar.google.com/citations?user=OK9tw1AAAAAJ&hl=en), and [Julian Togelius](https://scholar.google.com/citations?user=lr4I9BwAAAAJ&hl=en), which in turn was based on [Infinite Mario Bros](https://fantendo.fandom.com/wiki/Infinite_Mario_Bros.) by Markus Persson.
