@@ -100,6 +100,8 @@ We are very sorry, if we forgot any Mario-AI research paper. In that case, pleas
 - ~~Better way to check the observation grid Using TileType and SpriteType~~
 - ~~Adding event history for the game and agent to MarioResults~~
 - ~~Modifying the original Mario levels to include more details~~
+- Adapt more agents to the new Mario-Framework
+- Adapt more level generator to the new Mario-Framework
 - Add more stats to MarioResult class similar to Gameplay Metrics
 - Mix the TileType and TileFeature class
 - Adding a simple MCTS agent and simple A* agent
