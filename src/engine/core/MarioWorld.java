@@ -18,6 +18,7 @@ public class MarioWorld {
     public int fireballsOnScreen = 0;
     public int currentTimer = -1;
     public float cameraX;
+    public float cameraY;
     public Mario mario;
     public MarioLevel level;
     public boolean visuals;
@@ -107,6 +108,7 @@ public class MarioWorld {
 	MarioWorld world = new MarioWorld();
 	world.visuals = false;
 	world.cameraX = this.cameraX;
+	world.cameraY = this.cameraY;
 	world.fireballsOnScreen = this.fireballsOnScreen;
 	world.gameStatus = this.gameStatus;
 	world.pauseTimer = this.pauseTimer;
@@ -321,18 +323,25 @@ public class MarioWorld {
 	}
 	this.currentTick += 1;
 	this.cameraX = this.mario.x - MarioGame.width / 2;
+	if(this.cameraX + MarioGame.width > this.level.width) {
+	    this.cameraX = this.level.width - MarioGame.width;
+	}
 	if(this.cameraX < 0) {
 	    this.cameraX = 0;
 	}
-	if(this.cameraX + MarioGame.width > this.level.width) {
-	    this.cameraX = this.level.width - MarioGame.width;
+	this.cameraY = this.mario.y - MarioGame.height / 2;
+	if(this.cameraY + MarioGame.height > this.level.height) {
+	    this.cameraY = this.level.height - MarioGame.height;
+	}
+	if(this.cameraY < 0) {
+	    this.cameraY = 0;
 	}
 	
 	this.lastFrameEvents.clear();
 	
 	this.fireballsOnScreen = 0;
 	for(MarioSprite sprite:sprites) {
-	    if(sprite.x < cameraX - 64 || sprite.x > cameraX + MarioGame.width + 64 || sprite.y > MarioGame.height + 32) {
+	    if(sprite.x < cameraX - 64 || sprite.x > cameraX + MarioGame.width + 64 || sprite.y > this.level.height + 32) {
 		if(sprite.type == SpriteType.MARIO) {
 		    this.lose();
 		}
@@ -346,10 +355,10 @@ public class MarioWorld {
 		this.fireballsOnScreen += 1;
 	    }
 	}
-	this.level.update((int)cameraX);
+	this.level.update((int)cameraX, (int)cameraY);
 	
 	for (int x = (int) cameraX / 16 - 1; x <= (int) (cameraX + MarioGame.width) / 16 + 1; x++) {
-	    for (int y = 0; y <= MarioGame.height / 16 + 1; y++) {
+	    for (int y = (int) cameraY / 16 - 1; y <= (int) (cameraY + MarioGame.height) / 16 + 1; y++) {
 		int dir = 0;
 		if (x * 16 + 8 > mario.x + 16)
 		    dir = -1;
@@ -495,7 +504,7 @@ public class MarioWorld {
     
     public void render(Graphics og) {
 	for(int i=0; i<backgrounds.length; i++) {
-	    this.backgrounds[i].render(og, (int)cameraX, 0);
+	    this.backgrounds[i].render(og, (int)cameraX, (int)cameraY);
 	}
 	for(MarioSprite sprite:sprites) {
 	    if(sprite.type == SpriteType.MUSHROOM || sprite.type == SpriteType.LIFE_MUSHROOM ||
@@ -503,7 +512,7 @@ public class MarioWorld {
 		sprite.render(og);
 	    }
 	}
-	this.level.render(og, (int) cameraX);
+	this.level.render(og, (int) cameraX, (int)cameraY);
 	for(MarioSprite sprite:sprites) {
 	    if(sprite.type != SpriteType.MUSHROOM && sprite.type != SpriteType.LIFE_MUSHROOM &&
 		    sprite.type != SpriteType.FIRE_FLOWER && sprite.type != SpriteType.ENEMY_FLOWER) {
@@ -516,7 +525,7 @@ public class MarioWorld {
 		i--;
 		continue;
 	    }
-	    this.effects.get(i).render(og, cameraX, 0);
+	    this.effects.get(i).render(og, cameraX, cameraY);
 	}
     }
 }

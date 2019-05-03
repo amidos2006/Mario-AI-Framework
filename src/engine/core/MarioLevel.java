@@ -264,10 +264,10 @@ public class MarioLevel {
 	    this.exitTileX = lines[0].length() - 1;
 	    this.exitTileY = findFirstFloor(lines, this.exitTileX);
 	}
-	for(int y=this.exitTileY; y>1; y--) {
+	for(int y=this.exitTileY; y>Math.max(1, this.exitTileY - 11); y--) {
 	    this.levelTiles[this.exitTileX][y] = 40;
 	}
-	this.levelTiles[this.exitTileX][1] = 39;
+	this.levelTiles[this.exitTileX][Math.max(1, this.exitTileY - 11)] = 39;
 	
 	if(visuals) {
 	    this.graphics = new MarioTilemap(Assets.level, this.levelTiles);
@@ -383,14 +383,14 @@ public class MarioLevel {
 	return -1;
     }
     
-    public void update(int cameraX) {
+    public void update(int cameraX, int cameraY) {
 	
     }
     
-    public void render(Graphics og, int cameraX) {
-	this.graphics.render(og, cameraX, 0);
+    public void render(Graphics og, int cameraX, int cameraY) {
+	this.graphics.render(og, cameraX, cameraY);
 	if(cameraX+MarioGame.width >= this.exitTileX * 16) {
-	    this.flag.render(og, this.exitTileX * 16 - 8 - cameraX, 34);
+	    this.flag.render(og, this.exitTileX * 16 - 8 - cameraX, Math.max(1, this.exitTileY - 11) * 16 + 16 - cameraY);
 	}
     }
 }

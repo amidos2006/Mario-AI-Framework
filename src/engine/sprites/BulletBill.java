@@ -51,7 +51,7 @@ public class BulletBill extends MarioSprite {
     @Override
     public void render(Graphics og) {
 	super.render(og);
-	this.graphics.render(og, (int) (this.x - this.world.cameraX), (int) this.y);
+	this.graphics.render(og, (int) (this.x - this.world.cameraX), (int) (this.y - this.world.cameraY));
     }
 
     public void collideCheck() {

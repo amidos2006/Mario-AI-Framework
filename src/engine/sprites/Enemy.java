@@ -345,13 +345,13 @@ public class Enemy extends MarioSprite {
 	    if (type != SpriteType.RED_KOOPA && type != SpriteType.GREEN_KOOPA && type != SpriteType.RED_KOOPA_WINGED
 		    && type != SpriteType.GREEN_KOOPA_WINGED) {
 		this.wingGraphics.flipX = false;
-		this.wingGraphics.render(og, (int) (this.x - this.world.cameraX - 6), (int) this.y - 6);
+		this.wingGraphics.render(og, (int) (this.x - this.world.cameraX - 6), (int) (this.y - this.world.cameraY - 6));
 		this.wingGraphics.flipX = true;
-		this.wingGraphics.render(og, (int) (this.x - this.world.cameraX + 22), (int) this.y - 6);
+		this.wingGraphics.render(og, (int) (this.x - this.world.cameraX + 22), (int) (this.y - this.world.cameraY - 6));
 	    }
 	}
 
-	this.graphics.render(og, (int) (this.x - this.world.cameraX), (int) this.y);
+	this.graphics.render(og, (int) (this.x - this.world.cameraX), (int) (this.y - this.world.cameraY));
 
 	if (winged) {
 	    if (type == SpriteType.RED_KOOPA || type == SpriteType.GREEN_KOOPA || type == SpriteType.RED_KOOPA_WINGED
@@ -361,7 +361,7 @@ public class Enemy extends MarioSprite {
 		    shiftX = 17;
 		}
 		this.wingGraphics.flipX = this.graphics.flipX;
-		this.wingGraphics.render(og, (int) (this.x - this.world.cameraX + shiftX), (int) this.y - 8);
+		this.wingGraphics.render(og, (int) (this.x - this.world.cameraX + shiftX), (int) (this.y - this.world.cameraY - 8));
 	    }
 	}
     }
