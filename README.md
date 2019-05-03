@@ -70,6 +70,9 @@ The following list show all the papers that talk about level generation in Mario
 - [[2013] Patterns as Objectives for Level Generation](http://julian.togelius.com/Dahlskog2013Patterns.pdf) by Steve Dahlskog and Julian Togelius. Published in the Proceedings of the Workshop on Design Patterns in Games at FDG.
 - [[2014] Procedural Content Generation Using Patterns as Objectives](http://julian.togelius.com/Dahlskog2014Procedural.pdf) by Steve Dahlskog and Julian Togelius. Published in the Proceedings of EvoGames, part of EvoStar.
 - [[2014] A Comparative Evaluation of Procedural Level Generators in the Mario AI Framework](http://julian.togelius.com/Horn2014Comparative.pdf) by Britton Horn, Steve Dahlskog, Noor Shaker, Gillian Smith and Julian Togelius. Published in the Proceedings of Foundations of Digital Games.
+- [[2014] Experiments in Map Generation using Markov Chains](http://www.fdg2014.org/papers/fdg2014_paper_29.pdf) by Sam Snodgrass and Santiago Ontañón. Published in the procceding of Foundation of Digital Games.
+- [[2014] A Hierarchical Approach to Generating Maps Using Markov Chains](https://www.aaai.org/ocs/index.php/AIIDE/AIIDE14/paper/viewPaper/8984) by Sam Snodgrass and Santiago Ontanon. Published in the Proceedings of the Tenth Annual AAAI Conference on Artificial Intelligence and Interactive Digital Entertainment.
+- [[2015] A Hierarchical MdMC Approach to 2D Video Game Map Generation](https://www.aaai.org/ocs/index.php/AIIDE/AIIDE15/paper/download/11518/11380) by Sam Snodgrass and Santiago Ontañón. Published in the Eleventh Artificial Intelligence and Interactive Digital Entertainment Conference.
 - [[2018] Generating Levels That Teach Mechanics](https://arxiv.org/pdf/1807.06734.pdf) by Michael Cerny Green, Ahmed Khalifa, Gabriella A. B. Barros, Andy Nealen and Julian Togelius. Published in the proceeding of Foundation of Digital Games.
 - [[2018] Evolving Mario Levels in the Latent Space of a Deep Convolutional Generative Adversarial Network](https://arxiv.org/pdf/1805.00728.pdf) by Vanessa Volz, Jacob Schrum, Jialin Liu, Simon M. Lucas, Adam Smith and Sebastian Risi. Published in the proceeding of the ACM Conference on Genetic and Evolutionary Computation.
 - [[2019] Intentional Computational Level Design](https://arxiv.org/pdf/1904.08972.pdf) by Ahmed Khalifa, Michael Cerny Green, Gabriella A. B. Barros and Julian Togelius. Published in the proceeding of the ACM Conference on Genetic and Evolutionary Computation.
@@ -97,8 +100,8 @@ We are very sorry, if we forgot any Mario-AI research paper. In that case, pleas
 - ~~Better way to check the observation grid Using TileType and SpriteType~~
 - ~~Adding event history for the game and agent to MarioResults~~
 - ~~Modifying the original Mario levels to include more details~~
-- Mix the TileType and TileFeature class
 - Add more stats to MarioResult class similar to Gameplay Metrics
+- Mix the TileType and TileFeature class
 - Adding a simple MCTS agent and simple A* agent
 - Koopa shells can come back to life after stomping on it
 - Adding Monte Mario agent
