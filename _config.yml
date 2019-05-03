@@ -1,4 +1,4 @@
 theme: jekyll-theme-cayman
 favicon:
-  source: custom-favicon-png-or.svg
-  path: /assets/img
+  source: favicon.png
+  path: /img
