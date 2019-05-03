@@ -34,7 +34,11 @@ Download the repo and run the [`GenerateLevel.java`](https://github.com/amidos20
 ```
 MarioLevelGenerator generator = new levelGenerators.notch.LevelGenerator();
 ```
-to any of the other package names of the other generator that can be found in in [`src/levelGenerators/`](https://github.com/amidos2006/Mario-AI-Framework/tree/master/src/levelGenerators) folder, feel free to use any in your work. If you want to play the level by yourself or change the AI playing agent check the Planning Track subsection.
+to any of the other package names of the other generator that can be found in in [`src/levelGenerators/`](https://github.com/amidos2006/Mario-AI-Framework/tree/master/src/levelGenerators) folder, feel free to use any in your work. The generators runs for maximum time of 5 hours to generate a level of 150x16 tiles using the following line:
+```
+String level = generator.getGeneratedLevel(new MarioLevelModel(150, 16), new MarioTimer(5*60*60*1000));
+```
+If you want to play the level by yourself or change the AI playing agent check the Planning Track subsection.
 
 ### Related Papers
 ------
