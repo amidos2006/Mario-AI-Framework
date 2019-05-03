@@ -1,3 +1,5 @@
+![Robin Baumgarten A* Algorithm](https://raw.githubusercontent.com/amidos2006/Mario-AI-Framework/master/img/frameworkAD.gif)
+
 This is an updated version for the Mario-AI framework. This new code will support better interface for planning track, level generation track, and possibly the learning track in the future. The framework comes with multiple different planning agents, level generators and thousands of levels that varies between generated levels and original mario level. Also, the framework is compatible with [Video Game Level Corpus (VGLC)](https://github.com/TheVGLC/TheVGLC) processed notations.
 
 ### Features
