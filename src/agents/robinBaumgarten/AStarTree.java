@@ -137,8 +137,6 @@ public class AStarTree {
 	if(model.getGameStatus() == GameStatus.LOSE) {
 	    startSearch(originalModel, stepsPerSearch);
 	}
-	System.out.println("\tMario After: " + bestPosition.sceneSnapshot.getGameStatus() + ", " + bestPosition.sceneSnapshot.getMarioFloatPos()[0] + ", " + bestPosition.sceneSnapshot.getMarioFloatPos()[1] + ", " + bestPosition.sceneSnapshot.getMarioFloatVelocity()[0]);
-	System.out.println("------------------------------");
 	search(timer);
 
 	boolean[] action = new boolean[5];

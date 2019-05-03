@@ -60,19 +60,9 @@ public class SearchNode {
 
     public float simulatePos() {
 	this.sceneSnapshot = parentPos.sceneSnapshot.clone();
-	
-	System.out.println(Helper.getActionString(action) + ":"); 
-	System.out.println("\tBefore: " + this.sceneSnapshot.getMarioFloatPos()[0] + ", " + 
-				this.sceneSnapshot.getMarioFloatPos()[1] + ", " + 
-				this.sceneSnapshot.getMarioFloatVelocity()[0] + ", " +
-				this.sceneSnapshot.getGameStatus());
 	for (int i = 0; i < repetitions; i++) {
 	    this.sceneSnapshot.advance(action);
 	}
-	System.out.println("\tAfter: " + this.sceneSnapshot.getMarioFloatPos()[0] + ", " + 
-				this.sceneSnapshot.getMarioFloatPos()[1] + ", " + 
-				this.sceneSnapshot.getMarioFloatVelocity()[0] + ", " + 
-				this.sceneSnapshot.getGameStatus());
 	int marioDamage = Helper.getMarioDamage(this.sceneSnapshot, this.parentPos.sceneSnapshot);
 	remainingTime = 
 		calcRemainingTime(this.sceneSnapshot.getMarioFloatPos()[0],this.sceneSnapshot.getMarioFloatVelocity()[0]) + 
