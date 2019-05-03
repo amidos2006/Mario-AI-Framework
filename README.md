@@ -1,5 +1,20 @@
 This is an updated version for the Mario-AI framework. This new code will support better interface for planning track, level generation track, and possibly the learning track in the future. The framework comes with multiple different planning agents, level generators and thousands of levels that varies between generated levels and original mario level. Also, the framework is compatible with [Video Game Level Corpus (VGLC)](https://github.com/TheVGLC/TheVGLC) processed notations.
 
+### Features
+- Better Interface for the framework
+- Faster framework
+- Using the original mario art
+- Eleven different playing agents
+- Agents now have a forward model, no more hacks for that
+- Observation grids can be centered around mario or can reflect the current screen.
+- Helper classes to check the observation grid instead of comparing integers
+- Five different level generators
+- Level generator have a forward model to test the levels
+- Thousands of generated levels from winners of the level generation track
+- Fifteen levels from the original mario bros
+- Support event history for major game events
+- A human readable level files
+
 ### How to use
 ------
 #### Planning Track
@@ -20,20 +35,25 @@ MarioLevelGenerator generator = new levelGenerators.notch.LevelGenerator();
 ```
 to any of the other package names of the other generator that can be found in in [`src/levelGenerators/`](https://github.com/amidos2006/Mario-AI-Framework/tree/master/src/levelGenerators) folder, feel free to use any in your work. If you want to play the level by yourself or change the AI playing agent check the Planning Track subsection.
 
-### Features
-- Better Interface for the framework
-- Faster framework
-- Using the original mario art
-- Eleven different playing agents
-- Agents now have a forward model, no more hacks for that
-- Observation grids can be centered around mario or can reflect the current screen.
-- Helper classes to check the observation grid instead of comparing integers
-- Five different level generators
-- Level generator have a forward model to test the levels
-- Thousands of generated levels from winners of the level generation track
-- Fifteen levels from the original mario bros
-- Support event history for major game events
-- A human readable level files
+### Related Papers
+The following paper describes the Mario AI benchmark:
+- [[2012] The Mario AI Benchmark and Competitions](http://julian.togelius.com/Karakovskiy2012The.pdf) by Sergey Karakovskiy and Julian Togelius. Published in the IEEE Transactions on Computational Intelligence and AI in Games (TCIAG), volume 4 issue 1, 55-67.
+
+The following list show all the papers that talk about playing the game in Mario-AI framework:
+- [[2009] Super Mario Evolution](http://julian.togelius.com/Togelius2009Super.pdf) by Julian Togelius, Sergey Karakovskiy, Jan Koutnik and Jurgen Schmidhuber. Published in the proceedings of the IEEE Symposium on Computational Intelligence and Games.
+- [[2010] The 2009 Mario AI Competition](http://julian.togelius.com/Togelius2010The.pdf) by Julian Togelius, Sergey Karakovskiy and Robin Baumgarten. Published in the proceedings of the IEEE Congress on Evolutionary Computation (CEC).
+
+The following list show all the papers that talk about level generation in Mario-AI framework:
+- [[2010] The 2010 Mario AI Championship: Level Generation Track](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6003769) by Noor Shaker, Julian Togelius, Georgios N. Yannakakis, Ben Weber, Tomoyuki Shimizu, Tomonori Hashiyama, Nathan Sorenson, Philippe Pasquier, Peter Mawhorter, Glen Takahashi, Gillian Smith, and Robin Baumgarten. Published in the IEEE Transactions on Computational Intelligence and Games.
+- [[2010] Towards Automatic Personalized Content Generation for Platform Games](https://www.aaai.org/ocs/index.php/AIIDE/AIIDE10/paper/viewFile/2135/2546) by Noor Shaker, Georgios Yannakakis and Julian Togelius. Published in the procedings of AIIDE Conference on AI and Interactive Digital Entertainment.
+- [[2018] Generating Levels That Teach Mechanics](https://arxiv.org/pdf/1807.06734.pdf) by Michael Cerny Green, Ahmed Khalifa, Gabriella A. B. Barros, Andy Nealen and Julian Togelius. Published in the proceeding of Foundation of Digital Games.
+- [[2018] Evolving Mario Levels in the Latent Space of a Deep Convolutional Generative Adversarial Network](https://arxiv.org/pdf/1805.00728.pdf) by Vanessa Volz, Jacob Schrum, Jialin Liu, Simon M. Lucas, Adam Smith and Sebastian Risi. Published in the proceeding of GECCO.
+- [[2019] Intentional Computational Level Design](https://arxiv.org/pdf/1904.08972.pdf) by Ahmed Khalifa, Michael Cerny Green, Gabriella A. B. Barros and Julian Togelius. Published in the proceeding of GECCO.
+
+The following list show all any papers that doesn't fit in the previous categories but still uses Mario-AI framework:
+- [[2009] Modeling Player Experience in Super Mario Bros](http://julian.togelius.com/Pedersen2009Modeling.pdf) by Chris Pedersen, Julian Togelius and Georgios N. Yannakakis. Published in the Proceedings of the IEEE Symposium on Computational Intelligence and Games.
+
+We are very sorry, if we forgot any Mario-AI research paper. In that case, please [contact us](mailto:ahmed@akhalifa.com) to add it to the list.
 
 ### Missing Features
 - ~~The MarioAI framework core engine~~
@@ -60,4 +80,4 @@ to any of the other package names of the other generator that can be found in in
 - Adding the learning track interface
 
 ### Copyrights
-This framework is not endorsed by Nintendo and only intended for research purposes. Mario is a Nintendo character which the authors doesn't own any rights to it. This framework by Ahmed Khalifa, based on the original Mario AI Framework by Sergey Karakovskiy, Noor Shaker and Julian Togelius, which in turn was based on Infinite Mario Bros by Markus Persson.
+This framework is not endorsed by Nintendo and only intended for research purposes. Mario is a Nintendo character which the authors doesn't own any rights to it. This framework by [Ahmed Khalifa](https://scholar.google.com/citations?user=DRcyg5kAAAAJ&hl=en), based on the original Mario AI Framework by [Sergey Karakovskiy](https://scholar.google.se/citations?user=6cEAqn8AAAAJ&hl=en), [Noor Shaker](https://scholar.google.com/citations?user=OK9tw1AAAAAJ&hl=en), and [Julian Togelius](https://scholar.google.com/citations?user=lr4I9BwAAAAJ&hl=en), which in turn was based on [Infinite Mario Bros](https://fantendo.fandom.com/wiki/Infinite_Mario_Bros.) by Markus Persson.
