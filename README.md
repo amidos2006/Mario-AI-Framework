@@ -7,6 +7,8 @@
 
 This is an updated version for the Mario-AI framework. This new code will support better interface for planning track, level generation track, and possibly the learning track in the future. The framework comes with multiple different planning agents, level generators and thousands of levels that varies between generated levels and original mario level. Also, the framework is compatible with [Video Game Level Corpus (VGLC)](https://github.com/TheVGLC/TheVGLC) processed notations.
 
+If you want to check the old framework, feel free to check the [old website](https://sites.google.com/site/noormario/home?pli=1).
+
 <h3 id="features">Features</h3>
 
 ------
