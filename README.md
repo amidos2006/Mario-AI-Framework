@@ -1,4 +1,7 @@
 <p align="center">
+Features - How To Use - Related Papers - Missing Features - Copyrights
+</p>
+<p align="center">
   <img width="300" height="300" alt="Robin Baumgarten A* agent" src="https://raw.githubusercontent.com/amidos2006/Mario-AI-Framework/master/img/frameworkAD.gif">
 </p>
 
@@ -20,7 +23,7 @@ This is an updated version for the Mario-AI framework. This new code will suppor
 - Support event history for major game events
 - A human readable level files
 
-### How to use
+### How To Use
 ------
 #### Planning Track
 Download the repo and run the [`PlayLevel.java`](https://github.com/amidos2006/Mario-AI-Framework/blob/master/src/PlayLevel.java) file. It will run [`robinBaumgarten`](https://github.com/amidos2006/Mario-AI-Framework/tree/master/src/agents/robinBaumgarten) A* agent on the [first Mario level](https://github.com/amidos2006/Mario-AI-Framework/blob/master/levels/original/lvl-1.txt) from the original Super Mario Bros. The game will run for 20 time ticks and with Mario starting as small mario and visuals appearing. To change the agent just change the package name of the agent in the following code
