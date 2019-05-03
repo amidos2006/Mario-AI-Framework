@@ -2,5 +2,4 @@ theme: jekyll-theme-cayman
 plugins:
   - jekyll-favicon
 favicon:
-  source: favicon.png
-  path: https://raw.githubusercontent.com/amidos2006/Mario-AI-Framework/master/img/
+  source: https://raw.githubusercontent.com/amidos2006/Mario-AI-Framework/master/img/favicon.png
