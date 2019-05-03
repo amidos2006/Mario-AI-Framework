@@ -1,4 +1,3 @@
-# Mario-AI Framework: 10th Anniversary Edition
 This is an updated version for the Mario-AI framework. This new code will support better interface for planning/level generation/learning (future). We will also provide multiple different planning agents, level generators, original levels, and generated levels from previous years. Also, the framework is compatible with VGLC processed notations: https://github.com/TheVGLC/TheVGLC.
 
 ### How to use
