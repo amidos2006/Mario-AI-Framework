@@ -1,4 +1,6 @@
 theme: jekyll-theme-cayman
+plugins:
+  - jekyll-favicon
 favicon:
   source: favicon.png
   path: /img
