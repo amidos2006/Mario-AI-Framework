@@ -1,3 +1,4 @@
+<head><link rel="icon" type="image/png" href="https://raw.githubusercontent.com/amidos2006/Mario-AI-Framework/master/img/favicon.png"/></head>
 <p align="center">
 <a href="#features">Features</a> &mdash; <a href="#use">How To Use</a> &mdash; <a href="#papers">Related Papers</a> &mdash; <a href="#missing">Missing Features</a> &mdash; <a href="#copyrights">Copyrights</a>
 </p>
