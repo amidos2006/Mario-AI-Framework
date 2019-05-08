@@ -3,6 +3,7 @@
 </p>
 <p align="center">
   <img width="300" height="300" alt="Robin Baumgarten A* agent" src="https://raw.githubusercontent.com/amidos2006/Mario-AI-Framework/master/img/frameworkAD.gif">
+  
   Current Framework Version: 0.8.0
 </p>
 
