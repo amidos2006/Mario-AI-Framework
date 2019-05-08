@@ -46,6 +46,11 @@ public class MarioGame{
      */
     public boolean pause = false;
     
+    /**
+     * events that kills the player when it happens only care about type and param
+     */
+    private MarioEvent[] killEvents;
+    
     //visualization
     private JFrame window = null;
     private MarioRender render = null;
@@ -57,6 +62,14 @@ public class MarioGame{
      */
     public MarioGame() {
 	
+    }
+    
+    /**
+     * Create a mario game with a different forward model where the player on certain event
+     * @param killPlayer events that will kill the player
+     */
+    public MarioGame(MarioEvent[] killEvents) {
+	this.killEvents = killEvents;
     }
     
     private int getDelay(int fps) {
@@ -196,7 +209,7 @@ public class MarioGame{
     }
     
     private MarioResult gameLoop(String level, int timer, int marioState, boolean visual, int fps) {
-	this.world = new MarioWorld();
+	this.world = new MarioWorld(this.killEvents);
 	this.world.visuals = visual;
 	this.world.initializeLevel(level, 1000 * timer);
 	if(visual) {

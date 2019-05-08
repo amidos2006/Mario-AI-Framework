@@ -27,7 +27,7 @@ public class MarioWorld {
     public int coins, lives;
     public ArrayList<MarioEvent> lastFrameEvents;
     
-    
+    private MarioEvent[] killEvents;
     private ArrayList<MarioSprite> sprites;
     private ArrayList<Shell> shellsToCheck;
     private ArrayList<Fireball> fireballsToCheck;
@@ -38,7 +38,7 @@ public class MarioWorld {
     
     private MarioBackground[] backgrounds = new MarioBackground[2];
     
-    public MarioWorld() {
+    public MarioWorld(MarioEvent[] killEvents) {
 	this.pauseTimer = 0;
 	this.gameStatus = GameStatus.RUNNING;
 	this.sprites = new ArrayList<>();
@@ -48,6 +48,7 @@ public class MarioWorld {
 	this.removedSprites = new ArrayList<>();
 	this.effects = new ArrayList<>();
 	this.lastFrameEvents = new ArrayList<>();
+	this.killEvents = killEvents;
     }
     
     public void initializeVisuals(GraphicsConfiguration graphicsConfig) {
@@ -105,7 +106,7 @@ public class MarioWorld {
     }
     
     public MarioWorld clone() {
-	MarioWorld world = new MarioWorld();
+	MarioWorld world = new MarioWorld(this.killEvents);
 	world.visuals = false;
 	world.cameraX = this.cameraX;
 	world.cameraY = this.cameraY;
@@ -439,6 +440,15 @@ public class MarioWorld {
         sprites.removeAll(removedSprites);
         addedSprites.clear();
         removedSprites.clear();
+        
+        //punishing forward model
+        if(this.killEvents != null) {
+	    for(MarioEvent k:this.killEvents) {
+		if(this.lastFrameEvents.contains(k)) {
+		    this.lose();
+		}
+	    }
+	}
     }
     
     public void bump(int xTile, int yTile, boolean canBreakBricks) {
@@ -447,7 +457,7 @@ public class MarioWorld {
 
 	if (features.contains(TileFeature.BUMPABLE)) {
 	    bumpInto(xTile, yTile - 1);
-	    this.addEvent(EventType.BUMP, block);
+	    this.addEvent(EventType.BUMP, MarioForwardModel.OBS_QUESTION_BLOCK);
 	    level.setBlock(xTile, yTile, 14);
 	    level.setShiftIndex(xTile, yTile, 4);
 
