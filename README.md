@@ -2,7 +2,10 @@
 <a href="#features">Features</a> &mdash; <a href="#use">How To Use</a> &mdash; <a href="#papers">Related Papers</a> &mdash; <a href="#missing">Missing Features</a> &mdash; <a href="#copyrights">Copyrights</a>
 </p>
 <p align="center">
-  <img width="300" height="300" alt="Robin Baumgarten A* agent" src="https://raw.githubusercontent.com/amidos2006/Mario-AI-Framework/master/img/frameworkAD.gif">
+<img width="300" height="300" alt="Robin Baumgarten A* agent" src="https://raw.githubusercontent.com/amidos2006/Mario-AI-Framework/master/img/frameworkAD.gif">
+</p>
+<p align="center">
+  <b>Current Framework Version: 0.8.0</b>
 </p>
 
 This is an updated version for the Mario-AI framework. This new code will support better interface for planning track, level generation track, and possibly the learning track in the future. The framework comes with multiple different planning agents, level generators and thousands of levels that varies between generated levels and original mario level. Also, the framework is compatible with [Video Game Level Corpus (VGLC)](https://github.com/TheVGLC/TheVGLC) processed notations.
