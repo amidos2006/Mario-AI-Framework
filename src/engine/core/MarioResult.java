@@ -169,10 +169,24 @@ public class MarioResult {
      * Number of times mario hit question mark block
      * @return number of question mark block mario hit
      */
-    public int getNumQuestionBlock() {
+    public int getNumBumpQuestionBlock() {
 	int bump = 0;
 	for (MarioEvent e : this.gameEvents) {
 	    if (e.getEventType() == EventType.BUMP.getValue() && e.getEventParam() == MarioForwardModel.OBS_QUESTION_BLOCK) {
+		bump += 1;
+	    }
+	}
+	return bump;
+    }
+    
+    /**
+     * Number of times mario hit brick block
+     * @return number of brick block mario hit
+     */
+    public int getNumBumpBrick() {
+	int bump = 0;
+	for (MarioEvent e : this.gameEvents) {
+	    if (e.getEventType() == EventType.BUMP.getValue() && e.getEventParam() == MarioForwardModel.OBS_BRICK) {
 		bump += 1;
 	    }
 	}
