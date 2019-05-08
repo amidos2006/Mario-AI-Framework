@@ -102,6 +102,9 @@ We are very sorry, if we forgot any Mario-AI research paper. In that case, pleas
 - ~~Better way to check the observation grid Using TileType and SpriteType~~
 - ~~Adding event history for the game and agent to MarioResults~~
 - ~~Modifying the original Mario levels to include more details~~
+- ~~Adding Punishing Model to the Engine where the player dies when certain basic event fires~~
+- Allow the punishing model to tackle more complex events that need to be infered
+- Allow Agent debugging by drawing the searched trajectories like the Robin A* video
 - Adapt more agents to the new Mario-Framework
 - Adapt more level generator to the new Mario-Framework
 - Add more stats to MarioResult class similar to Gameplay Metrics
