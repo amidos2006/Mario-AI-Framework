@@ -455,7 +455,7 @@ public class MarioWorld {
 	int block = this.level.getBlock(xTile, yTile);
 	ArrayList<TileFeature> features = TileFeature.getTileType(block);
 
-	if (features.contains(TileFeature.BUMPABLE)) {
+	if (this.mario.alive && features.contains(TileFeature.BUMPABLE)) {
 	    bumpInto(xTile, yTile - 1);
 	    this.addEvent(EventType.BUMP, MarioForwardModel.OBS_QUESTION_BLOCK);
 	    level.setBlock(xTile, yTile, 14);
@@ -498,7 +498,7 @@ public class MarioWorld {
 
     public void bumpInto(int xTile, int yTile) {
 	int block = level.getBlock(xTile, yTile);
-	if (TileFeature.getTileType(block).contains(TileFeature.PICKABLE)) {
+	if (this.mario.alive && TileFeature.getTileType(block).contains(TileFeature.PICKABLE)) {
 	    this.addEvent(EventType.COLLECT, block);
 	    this.mario.collectCoin();
 	    level.setBlock(xTile, yTile, 0);
