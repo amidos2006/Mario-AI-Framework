@@ -10,65 +10,65 @@ import engine.helper.MarioActions;
 import engine.helper.SpriteType;
 import engine.helper.TileFeature;
 
-public class Mario extends MarioSprite{
+public class Mario extends MarioSprite {
     public boolean isLarge, isFire;
     public boolean onGround, wasOnGround, isDucking, canShoot, mayJump;
     public boolean[] actions = null;
     public int jumpTime = 0;
-    
+
     private float xJumpSpeed, yJumpSpeed = 0;
-    private int invulnerableTime = 0; 
-    
+    private int invulnerableTime = 0;
+
     private float marioFrameSpeed = 0;
-    private boolean oldLarge, oldFire = false;    
+    private boolean oldLarge, oldFire = false;
     private MarioImage graphics = null;
-    
-    //stats
+
+    // stats
     private float xJumpStart = -100;
-    
+
     private final float GROUND_INERTIA = 0.89f;
     private final float AIR_INERTIA = 0.89f;
     private final int POWERUP_TIME = 3;
-    
+
     public Mario(boolean visuals, float x, float y) {
 	super(x + 8, y + 15, SpriteType.MARIO);
 	this.isLarge = this.oldLarge = false;
 	this.isFire = this.oldFire = false;
 	this.width = 4;
 	this.height = 24;
-	if(visuals) {
+	if (visuals) {
 	    graphics = new MarioImage(Assets.smallMario, 0);
 	}
     }
-    
+
     @Override
     public MarioSprite clone() {
-        Mario sprite = new Mario(false, x - 8, y - 15);
-        sprite.xa = this.xa;
-        sprite.ya = this.ya;
-        sprite.initialCode = this.initialCode;
-        sprite.width = this.width;
-        sprite.height = this.height;
-        sprite.facing = this.facing;
-        sprite.isLarge = isLarge;
-        sprite.isFire = isFire;
-        sprite.wasOnGround = wasOnGround;
-        sprite.onGround = onGround;
-        sprite.isDucking = isDucking;
-        sprite.canShoot = canShoot;
-        sprite.mayJump = mayJump;
-        sprite.actions = new boolean[this.actions.length];
-        for(int i=0; i<this.actions.length; i++) {
-            sprite.actions[i] = this.actions[i];
-        }
-        sprite.xJumpSpeed = xJumpSpeed;
-        sprite.yJumpSpeed = yJumpSpeed;
-        sprite.invulnerableTime = invulnerableTime;
-        sprite.jumpTime = jumpTime;
-        sprite.xJumpStart = xJumpStart;
-        return (MarioSprite) sprite;
+	Mario sprite = new Mario(false, x - 8, y - 15);
+	sprite.xa = this.xa;
+	sprite.ya = this.ya;
+	sprite.initialCode = this.initialCode;
+	sprite.width = this.width;
+	sprite.height = this.height;
+	sprite.facing = this.facing;
+	sprite.isLarge = isLarge;
+	sprite.isFire = isFire;
+	sprite.wasOnGround = wasOnGround;
+	sprite.onGround = onGround;
+	sprite.isDucking = isDucking;
+	sprite.canShoot = canShoot;
+	sprite.mayJump = mayJump;
+	sprite.actions = new boolean[this.actions.length];
+	for (int i = 0; i < this.actions.length; i++) {
+	    sprite.actions[i] = this.actions[i];
+	}
+	sprite.xJumpSpeed = xJumpSpeed;
+	sprite.yJumpSpeed = yJumpSpeed;
+	sprite.invulnerableTime = invulnerableTime;
+	sprite.jumpTime = jumpTime;
+	sprite.xJumpStart = xJumpStart;
+	return (MarioSprite) sprite;
     }
-    
+
     private boolean move(float xa, float ya) {
 	while (xa > 8) {
 	    if (!move(8, 0))
@@ -171,23 +171,26 @@ public class Mario extends MarioSprite{
 	}
 	return blocking;
     }
-    
+
     public void updateGraphics() {
-	boolean currentLarge, currentFire;
-	if(this.world.pauseTimer > 0) {
-	    currentLarge = (this.world.pauseTimer / 2) % 2 == 0? this.oldLarge:this.isLarge;
-	    currentFire  = (this.world.pauseTimer / 2) % 2 == 0? this.oldFire:this.isFire;
+	if(!this.alive) {
+	    return;
 	}
-	else {
+	
+	boolean currentLarge, currentFire;
+	if (this.world.pauseTimer > 0) {
+	    currentLarge = (this.world.pauseTimer / 2) % 2 == 0 ? this.oldLarge : this.isLarge;
+	    currentFire = (this.world.pauseTimer / 2) % 2 == 0 ? this.oldFire : this.isFire;
+	} else {
 	    currentLarge = this.isLarge;
 	    currentFire = this.isFire;
 	}
 	if (currentLarge) {
 	    this.graphics.sheet = Assets.mario;
-	    if(currentFire) {
+	    if (currentFire) {
 		this.graphics.sheet = Assets.fireMario;
 	    }
-	    
+
 	    graphics.originX = 16;
 	    graphics.originY = 31;
 	    graphics.width = graphics.height = 32;
@@ -197,12 +200,12 @@ public class Mario extends MarioSprite{
 	    graphics.originY = 15;
 	    graphics.width = graphics.height = 16;
 	}
-	
+
 	this.marioFrameSpeed += Math.abs(xa) + 5;
 	if (Math.abs(xa) < 0.5f) {
 	    this.marioFrameSpeed = 0;
 	}
-	
+
 	graphics.visible = ((invulnerableTime / 2) & 1) == 0;
 	graphics.flipX = facing == -1;
 
@@ -230,7 +233,7 @@ public class Mario extends MarioSprite{
 		    frameIndex = 4;
 	    }
 	}
-	
+
 	if (onGround && ((facing == -1 && xa > 0) || (facing == 1 && xa < 0))) {
 	    if (xa > 1 || xa < -1)
 		frameIndex = currentLarge ? 8 : 7;
@@ -239,17 +242,21 @@ public class Mario extends MarioSprite{
 	if (currentLarge && isDucking) {
 	    frameIndex = 13;
 	}
-	
+
 	graphics.index = frameIndex;
     }
-    
+
     @Override
     public void update() {
-        if (invulnerableTime > 0) {
-            invulnerableTime--;
-        }
-        this.wasOnGround = this.onGround;
+	if(!this.alive) {
+	    return;
+	}
 	
+	if (invulnerableTime > 0) {
+	    invulnerableTime--;
+	}
+	this.wasOnGround = this.onGround;
+
 	float sideWaysSpeed = actions[MarioActions.SPEED.getValue()] ? 1.2f : 0.6f;
 
 	if (onGround) {
@@ -259,7 +266,7 @@ public class Mario extends MarioSprite{
 		isDucking = false;
 	    }
 	}
-	
+
 	if (isLarge) {
 	    height = isDucking ? 12 : 24;
 	} else {
@@ -284,9 +291,8 @@ public class Mario extends MarioSprite{
 		jumpTime = 7;
 		ya = jumpTime * yJumpSpeed;
 		onGround = false;
-		if (!(isBlocking(x, y - 4 - height, 0, -4) || 
-			isBlocking(x - width, y - 4 - height, 0, -4) || 
-			isBlocking(x + width, y - 4 - height, 0, -4))){
+		if (!(isBlocking(x, y - 4 - height, 0, -4) || isBlocking(x - width, y - 4 - height, 0, -4)
+			|| isBlocking(x + width, y - 4 - height, 0, -4))) {
 		    this.xJumpStart = this.x;
 		    this.world.addEvent(EventType.JUMP, 0);
 		}
@@ -314,7 +320,7 @@ public class Mario extends MarioSprite{
 	if (actions[MarioActions.SPEED.getValue()] && canShoot && isFire && world.fireballsOnScreen < 2) {
 	    world.addSprite(new Fireball(this.graphics != null, x + facing * 6, y - 20, facing));
 	}
-	
+
 	canShoot = !actions[MarioActions.SPEED.getValue()];
 
 	mayJump = onGround && !actions[MarioActions.JUMP.getValue()];
@@ -326,7 +332,7 @@ public class Mario extends MarioSprite{
 	onGround = false;
 	move(xa, 0);
 	move(0, ya);
-	if(!wasOnGround && onGround && this.xJumpStart >= 0) {
+	if (!wasOnGround && onGround && this.xJumpStart >= 0) {
 	    this.world.addEvent(EventType.LAND, 0);
 	    this.xJumpStart = -100;
 	}
@@ -352,13 +358,16 @@ public class Mario extends MarioSprite{
 	if (!onGround) {
 	    ya += 3;
 	}
-	
-	if(this.graphics != null) {
+
+	if (this.graphics != null) {
 	    this.updateGraphics();
 	}
     }
-    
+
     public void stomp(Enemy enemy) {
+	if (!this.alive) {
+	    return;
+	}
 	float targetY = enemy.y - enemy.height / 2;
 	move(0, targetY - y);
 
@@ -371,19 +380,22 @@ public class Mario extends MarioSprite{
     }
 
     public void stomp(Shell shell) {
-	    float targetY = shell.y - shell.height / 2;
-	    move(0, targetY - y);
+	if (!this.alive) {
+	    return;
+	}
+	float targetY = shell.y - shell.height / 2;
+	move(0, targetY - y);
 
-	    xJumpSpeed = 0;
-	    yJumpSpeed = -1.9f;
-	    jumpTime = 8;
-	    ya = jumpTime * yJumpSpeed;
-	    onGround = false;
-	    invulnerableTime = 1;
+	xJumpSpeed = 0;
+	yJumpSpeed = -1.9f;
+	jumpTime = 8;
+	ya = jumpTime * yJumpSpeed;
+	onGround = false;
+	invulnerableTime = 1;
     }
 
     public void getHurt() {
-	if (invulnerableTime > 0)
+	if (invulnerableTime > 0 || !this.alive)
 	    return;
 
 	if (isLarge) {
@@ -397,13 +409,17 @@ public class Mario extends MarioSprite{
 	    }
 	    invulnerableTime = 32;
 	} else {
-	    if(this.world != null) {
+	    if (this.world != null) {
 		this.world.lose();
 	    }
 	}
     }
-    
+
     public void getFlower() {
+	if(!this.alive) {
+	    return;
+	}
+	
 	if (!isFire) {
 	    world.pauseTimer = 3 * POWERUP_TIME;
 	    this.oldFire = this.isFire;
@@ -416,6 +432,10 @@ public class Mario extends MarioSprite{
     }
 
     public void getMushroom() {
+	if(!this.alive) {
+	    return;
+	}
+	
 	if (!isLarge) {
 	    world.pauseTimer = 3 * POWERUP_TIME;
 	    this.oldFire = this.isFire;
@@ -427,10 +447,18 @@ public class Mario extends MarioSprite{
     }
 
     public void kick(Shell shell) {
+	if(!this.alive) {
+	    return;
+	}
+	
 	invulnerableTime = 1;
     }
 
     public void stomp(BulletBill bill) {
+	if(!this.alive) {
+	    return;
+	}
+	
 	float targetY = bill.y - bill.height / 2;
 	move(0, targetY - y);
 
@@ -441,22 +469,30 @@ public class Mario extends MarioSprite{
 	onGround = false;
 	invulnerableTime = 1;
     }
-    
+
     public String getMarioType() {
-	if(isFire) {
+	if (isFire) {
 	    return "fire";
 	}
-	if(isLarge) {
+	if (isLarge) {
 	    return "large";
 	}
 	return "small";
     }
-    
+
     public void collect1Up() {
+	if(!this.alive) {
+	    return;
+	}
+	
 	this.world.lives++;
     }
 
     public void collectCoin() {
+	if(!this.alive) {
+	    return;
+	}
+	
 	this.world.coins++;
 	if (this.world.coins % 100 == 0) {
 	    collect1Up();
@@ -465,8 +501,8 @@ public class Mario extends MarioSprite{
 
     @Override
     public void render(Graphics og) {
-        super.render(og);
-        
-        this.graphics.render(og, (int)(this.x - this.world.cameraX), (int)(this.y - this.world.cameraY));
+	super.render(og);
+
+	this.graphics.render(og, (int) (this.x - this.world.cameraX), (int) (this.y - this.world.cameraY));
     }
 }

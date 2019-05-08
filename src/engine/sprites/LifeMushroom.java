@@ -47,9 +47,6 @@ public class LifeMushroom extends MarioSprite {
     }
 
     public void collideCheck() {
-	if(!world.mario.alive) {
-	    return;
-	}
 	float xMarioD = world.mario.x - x;
 	float yMarioD = world.mario.y - y;
 	if (xMarioD > -16 && xMarioD < 16) {
