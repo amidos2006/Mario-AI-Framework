@@ -73,6 +73,7 @@ public class MarioEvent {
     @Override
     public boolean equals(Object obj) {
         MarioEvent otherEvent = (MarioEvent)obj;
-        return this.eventType == otherEvent.eventType && this.eventParam == otherEvent.eventParam;
+        return this.eventType == otherEvent.eventType && 
+        	(this.eventParam == 0 || this.eventParam == otherEvent.eventParam);
     }
 }
