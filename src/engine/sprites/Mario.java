@@ -453,16 +453,10 @@ public class Mario extends MarioSprite{
     }
     
     public void collect1Up() {
-	if(!this.alive) {
-	    return;
-	}
 	this.world.lives++;
     }
 
     public void collectCoin() {
-	if(!this.alive) {
-	    return;
-	}
 	this.world.coins++;
 	if (this.world.coins % 100 == 0) {
 	    collect1Up();
