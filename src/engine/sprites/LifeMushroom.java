@@ -47,6 +47,10 @@ public class LifeMushroom extends MarioSprite {
     }
 
     public void collideCheck() {
+	if(!this.alive) {
+	    return;
+	}
+	
 	float xMarioD = world.mario.x - x;
 	float yMarioD = world.mario.y - y;
 	if (xMarioD > -16 && xMarioD < 16) {
@@ -69,6 +73,10 @@ public class LifeMushroom extends MarioSprite {
     }
 
     public void bumpCheck(int xTile, int yTile) {
+	if(!this.alive) {
+	    return;
+	}
+	
 	if (x + width > xTile * 16 && x - width < xTile * 16 + 16 && yTile == (int) ((y - 1) / 16)) {
 	    facing = -world.mario.facing;
 	    ya = -10;
@@ -160,6 +168,10 @@ public class LifeMushroom extends MarioSprite {
 
     @Override
     public void update() {
+	if(!this.alive) {
+	    return;
+	}
+	
 	if (life < 9) {
 	    y--;
 	    life++;

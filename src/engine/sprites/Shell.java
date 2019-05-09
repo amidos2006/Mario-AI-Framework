@@ -50,6 +50,8 @@ public class Shell extends MarioSprite {
 
     @Override
     public void update() {
+	if(!this.alive) return;
+	
 	super.update();
 
 	float sideWaysSpeed = 11f;
@@ -96,6 +98,8 @@ public class Shell extends MarioSprite {
     }
 
     public boolean fireballCollideCheck(Fireball fireball) {
+	if(!this.alive) return false;
+	
 	float xD = fireball.x - x;
 	float yD = fireball.y - y;
 
@@ -246,6 +250,8 @@ public class Shell extends MarioSprite {
     }
 
     public void bumpCheck(int xTile, int yTile) {
+	if(!this.alive) return;
+	
 	if (x + width > xTile * 16 && x - width < xTile * 16 + 16 && yTile == (int) ((y - 1) / 16)) {
 	    facing = -world.mario.facing;
 	    ya = -10;
@@ -253,6 +259,8 @@ public class Shell extends MarioSprite {
     }
 
     public boolean shellCollideCheck(Shell shell) {
+	if(!this.alive) return false;
+	
 	float xD = shell.x - x;
 	float yD = shell.y - y;
 
