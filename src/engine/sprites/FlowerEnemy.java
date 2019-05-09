@@ -44,6 +44,10 @@ public class FlowerEnemy extends Enemy {
 
     @Override
     public void update() {
+	if(!this.alive) {
+	    return;
+	}
+	
 	if (ya > 0) {
 	    if (y >= yStart) {
 		y = yStart;

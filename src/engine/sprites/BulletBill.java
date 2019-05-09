@@ -39,6 +39,10 @@ public class BulletBill extends MarioSprite {
 
     @Override
     public void update() {
+	if(!this.alive) {
+	    return;
+	}
+	
 	super.update();
 	float sideWaysSpeed = 4f;
 	xa = facing * sideWaysSpeed;
@@ -55,6 +59,10 @@ public class BulletBill extends MarioSprite {
     }
 
     public void collideCheck() {
+	if(!this.alive) {
+	    return;
+	}
+	
 	float xMarioD = world.mario.x - x;
 	float yMarioD = world.mario.y - y;
 	if (xMarioD > -16 && xMarioD < 16) {
@@ -79,6 +87,10 @@ public class BulletBill extends MarioSprite {
     }
 
     public boolean fireballCollideCheck(Fireball fireball) {
+	if(!this.alive) {
+	    return false;
+	}
+	
 	float xD = fireball.x - x;
 	float yD = fireball.y - y;
 
@@ -91,6 +103,10 @@ public class BulletBill extends MarioSprite {
     }
 
     public boolean shellCollideCheck(Shell shell) {
+	if(!this.alive) {
+	    return false;
+	}
+	
 	float xD = shell.x - x;
 	float yD = shell.y - y;
 

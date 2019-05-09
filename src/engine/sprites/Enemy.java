@@ -69,6 +69,10 @@ public class Enemy extends MarioSprite {
     }
 
     public void collideCheck() {
+	if(!this.alive) {
+	    return;
+	}
+	
 	float xMarioD = world.mario.x - x;
 	float yMarioD = world.mario.y - y;
 	if (xMarioD > -width * 2 - 4 && xMarioD < width * 2 + 4) {
@@ -100,7 +104,7 @@ public class Enemy extends MarioSprite {
 	}
     }
 
-    public void updateGraphics() {
+    private void updateGraphics() {
 	wingTime++;
 	this.wingGraphics.index = 32 + wingTime / 4 % 2;
 
@@ -120,6 +124,10 @@ public class Enemy extends MarioSprite {
 
     @Override
     public void update() {
+	if(!this.alive) {
+	    return;
+	}
+	
 	float sideWaysSpeed = 1.75f;
 
 	if (xa > 2) {
@@ -261,6 +269,10 @@ public class Enemy extends MarioSprite {
     }
 
     public boolean shellCollideCheck(Shell shell) {
+	if(!this.alive) {
+	    return false;
+	}
+	
 	float xD = shell.x - x;
 	float yD = shell.y - y;
 
@@ -291,6 +303,10 @@ public class Enemy extends MarioSprite {
     }
 
     public boolean fireballCollideCheck(Fireball fireball) {
+	if(!this.alive) {
+	    return false;
+	}
+	
 	float xD = fireball.x - x;
 	float yD = fireball.y - y;
 
@@ -321,6 +337,10 @@ public class Enemy extends MarioSprite {
     }
 
     public void bumpCheck(int xTile, int yTile) {
+	if(!this.alive) {
+	    return;
+	}
+	
 	if (x + width > xTile * 16 && x - width < xTile * 16 + 16 && yTile == (int) ((y - 1) / 16)) {
 	    xa = -world.mario.facing * 2;
 	    ya = -5;
