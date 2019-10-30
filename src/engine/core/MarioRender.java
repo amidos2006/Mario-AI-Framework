@@ -24,9 +24,9 @@ public class MarioRender extends JComponent implements FocusListener {
     public MarioRender(float scale) {
         this.setFocusable(true);
         this.setEnabled(true);
-        this.scale = scale;
+        this.scale = MarioGame.windowScale;
 
-        Dimension size = new Dimension((int)(256 * scale), (int)(240 * scale));
+        Dimension size = new Dimension((int)(MarioGame.width * this.scale), (int)(MarioGame.height * this.scale));
 
         setPreferredSize(size);
         setMinimumSize(size);
@@ -56,7 +56,7 @@ public class MarioRender extends JComponent implements FocusListener {
 	    drawStringDropShadow(og, "Buttons: " + pressedButtons, 0, 2, 1);
 	}
 	if (scale > 1) {
-	    g.drawImage(image, 0, 0, (int) (256 * scale), (int) (240 * scale), null);
+	    g.drawImage(image, 0, 0, (int) (MarioGame.width * this.scale), (int) (MarioGame.height * this.scale), null);
 	} else {
 	    g.drawImage(image, 0, 0, null);
 	}

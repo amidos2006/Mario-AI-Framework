@@ -20,14 +20,23 @@ public class MarioGame{
      * extra time before reporting that the agent is taking more time that it should
      */
     public static final long graceTime = 10;
-    /**
+	/**
+	 * Window dimensions
+	 */
+	private static final int windowWidth = 1920;
+	private static final int windowHeight = 1080;
+	/**
+	 * World scale in window
+	 */
+	public static final float windowScale = windowHeight / 256f;
+	/**
      * Screen width
      */
-    public static final int width = 256;
+    public static final int width = (int)(windowWidth / windowScale);
     /**
      * Screen height
      */
-    public static final int height = 256;
+    public static final int height = (int)(windowHeight / windowScale);
     /**
      * Screen width in tiles
      */
@@ -66,7 +75,7 @@ public class MarioGame{
     
     /**
      * Create a mario game with a different forward model where the player on certain event
-     * @param killPlayer events that will kill the player
+     * @param killEvents events that will kill the player
      */
     public MarioGame(MarioEvent[] killEvents) {
 	this.killEvents = killEvents;
