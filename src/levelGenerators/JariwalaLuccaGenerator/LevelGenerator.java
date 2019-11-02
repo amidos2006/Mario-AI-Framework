@@ -4,7 +4,33 @@ import engine.core.MarioLevelGenerator;
 import engine.core.MarioLevelModel;
 import engine.core.MarioTimer;
 
+import java.util.HashMap;
+
 public class LevelGenerator implements MarioLevelGenerator {
+
+    private double LO_GROUND_CHANCE = 0.0;
+    private double HI_GROUND_CHANCE = 0.0;
+    private double PLAT_CHANCE = 0.1;
+    private double GAP_CHANCE = 0.2;
+    private double HILL_CHANCE = 0.1;
+    private double LOWPIPE_CHANCE = 0.2;
+    private double HIGHPIPE_CHANCE = 0.2;
+    private double LOWPIPEPLANT_CHANCE = 0.1;
+    private double HIGHPIPEPLANT_CHANCE = 0.1;
+    private double GOOBA1_CHANCE = 0.2;
+    private double GOOBA2_CHANCE = 0.2;
+    private double KOOPA2_CHANCE = 0.2;
+    private double KOOPA3_CHANCE = 0.2;
+    private double MIX1_CHANCE = 0.2;
+    private double MIX2_CHANCE = 0.2;
+    private double EMPTY_CHANCE = 0.2;
+    private double RAMP_CHANCE = 0.1;
+
+
+    HashMap<String, Double> inner = new HashMap<String, Double>();
+    HashMap<String, HashMap> outer = new HashMap<String, HashMap>();
+
+
 
     // Hand-made level chunks
     // Each occupies a rectangular area positioned along the bottom of the map
@@ -35,14 +61,14 @@ public class LevelGenerator implements MarioLevelGenerator {
             "XXXXX";
 
     private final String HI_GROUND = "" +
-            "XXXX" + "\n" +
+            "----" + "\n" +
             "XXXX" + "\n" +
             "XXXX" + "\n" +
             "XXXX" + "\n" +
             "XXXX";
 
     private final String PLAT = "" +
-            "-XXXXX-" + "\n" +
+            "-SSSSS-" + "\n" +
             "-------" + "\n" +
             "-------" + "\n" +
             "-------" + "\n" +
@@ -135,9 +161,30 @@ public class LevelGenerator implements MarioLevelGenerator {
             "XXXXXXX";
 
     private final String MIX1 = "" +
+            "---!--R---" + "\n" +
+            "-SS---SS--" + "\n" +
+            "------r--o" + "\n" +
+            "XXXXXXXXXX" + "\n" +
+            "XXXXXXXXXX";
+
+    private final String MIX2 = "" +
+            "----------" + "\n" +
+            "-oo------!" + "\n" +
+            "--g-----g-" + "\n" +
+            "XXX-%%-XXX" + "\n" +
+            "XXX----XXX";
+
+    private final String EMPTY = "" +
             "----------" + "\n" +
             "----------" + "\n" +
             "----------" + "\n" +
+            "XXXXXXXXXX" + "\n" +
+            "XXXXXXXXXX";
+
+    private final String RAMP = "" +
+            "--------##" + "\n" +
+            "-------###" + "\n" +
+            "------####" + "\n" +
             "XXXXXXXXXX" + "\n" +
             "XXXXXXXXXX";
 
@@ -145,8 +192,51 @@ public class LevelGenerator implements MarioLevelGenerator {
             LO_GROUND,
             HI_GROUND,
             PLAT,
-            GAP
+            GAP,
+            HILL,
+            LOWPIPE,
+            HIGHPIPE,
+            LOWPIPEPLANT,
+            HIGHPIPEPLANT,
+            GOOMBA1,
+            GOOMBA2,
+            KOOPA1,
+            KOOPA2,
+            KOOPA3,
+            MIX1,
+            MIX2,
+            EMPTY,
+            RAMP
     };
+
+    private  final Double[] LEVEL_CHUNKS_VALUES = {
+        LO_GROUND_CHANCE,
+        HI_GROUND_CHANCE,
+        PLAT_CHANCE,
+        GAP_CHANCE,
+        HILL_CHANCE,
+        LOWPIPE_CHANCE,
+        HIGHPIPE_CHANCE,
+        LOWPIPEPLANT_CHANCE,
+        HIGHPIPEPLANT_CHANCE,
+        GOOBA1_CHANCE,
+        GOOBA2_CHANCE,
+        KOOPA2_CHANCE,
+        KOOPA3_CHANCE,
+        MIX1_CHANCE,
+        MIX2_CHANCE,
+        EMPTY_CHANCE,
+        RAMP_CHANCE
+    };
+
+    public void createHash() {
+        for(int i = 0; i < LEVEL_CHUNKS.length; i++) {
+            inner.put(LEVEL_CHUNKS[i], LEVEL_CHUNKS_VALUES[i]);
+        }
+        for(int i = 0; i < LEVEL_CHUNKS.length; i++) {
+            outer.put(LEVEL_CHUNKS[i], inner);
+        }
+    }
 
     // The level model for this level
     private MarioLevelModel marioLevelModel;
