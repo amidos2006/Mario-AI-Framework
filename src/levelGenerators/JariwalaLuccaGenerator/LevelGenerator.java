@@ -9,6 +9,27 @@ public class LevelGenerator implements MarioLevelGenerator {
     // Hand-made level chunks
     // Each occupies a rectangular area positioned along the bottom of the map
     // with air above it.
+
+    /*
+        X = ground
+        S = Brick
+        ! = coin power up block
+        g = goomba
+        k = koopa (green)
+        r = koppa (red)
+        R = koppa (red + flying)
+        @ = power up
+        t = pipe normal
+        T = pipe with pirana plant
+        # = block
+        1 = ???
+        M = mario
+        F = Flag
+        C = multi hit coin block?
+        % = mushroom floating platform
+        o = coin
+*/
+
     private final String LO_GROUND = "" +
             "XXXXX" + "\n" +
             "XXXXX";
@@ -28,6 +49,90 @@ public class LevelGenerator implements MarioLevelGenerator {
             "-------";
 
     private final String GAP = "---";
+
+    private final String HILL = "" +
+            "----#--#----" + "\n" +
+            "---##--##---" + "\n" +
+            "--###--###--" + "\n" +
+            "-####--####-" + "\n" +
+            "#####--#####";
+
+    private final String FLAG = "" +
+            "-" + "\n" +
+            "F" + "\n" +
+            "#" + "\n" +
+            "X" + "\n" +
+            "X";
+
+    private final String START = "" +
+            "---" + "\n" +
+            "---" + "\n" +
+            "-M-" + "\n" +
+            "XXX" + "\n" +
+            "XXX";
+
+    private final String LOWPIPE = "" +
+            "----" + "\n" +
+            "-tt-" + "\n" +
+            "-tt-" + "\n" +
+            "XXXX" + "\n" +
+            "XXXX";
+
+    private final String HIGHPIPE = "" +
+            "-tt-" + "\n" +
+            "-tt-" + "\n" +
+            "-tt-" + "\n" +
+            "XXXX" + "\n" +
+            "XXXX";
+
+    private final String LOWPIPEPLANT = "" +
+            "----" + "\n" +
+            "-TT-" + "\n" +
+            "-TT-" + "\n" +
+            "XXXX" + "\n" +
+            "XXXX";
+
+    private final String HIGHPIPEPLANT = "" +
+            "-TT-" + "\n" +
+            "-TT-" + "\n" +
+            "-TT-" + "\n" +
+            "XXXX" + "\n" +
+            "XXXX";
+
+    private final String GOOMBA1 = "" +
+            "-------" + "\n" +
+            "-------" + "\n" +
+            "-g--g--" + "\n" +
+            "XXXXXXX" + "\n" +
+            "XXXXXXX";
+
+    private final String GOOMBA2 = "" +
+            "--XXX--" + "\n" +
+            "-------" + "\n" +
+            "-g-g-g-" + "\n" +
+            "XXXXXXX" + "\n" +
+            "XXXXXXX";
+
+    private final String KOOPA1 = "" +
+            "-------" + "\n" +
+            "-------" + "\n" +
+            "-r-g-g-" + "\n" +
+            "XXXXXXX" + "\n" +
+            "XXXXXXX";
+
+    private final String KOOPA2 = "" +
+            "-------" + "\n" +
+            "-------" + "\n" +
+            "--k-k--" + "\n" +
+            "XXXXXXX" + "\n" +
+            "XXXXXXX";
+
+    private final String KOOPA3 = "" +
+            "---R---" + "\n" +
+            "--XXX--" + "\n" +
+            "-------" + "\n" +
+            "XXXXXXX" + "\n" +
+            "XXXXXXX";
 
     private final String[] LEVEL_CHUNKS = {
             LO_GROUND,
