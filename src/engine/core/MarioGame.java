@@ -23,8 +23,8 @@ public class MarioGame{
 	/**
 	 * Window dimensions
 	 */
-	private static final int windowWidth = 2550;
-	private static final int windowHeight = 700;
+	private static final int windowWidth = 1600;
+	private static final int windowHeight = 900;
 	/**
 	 * World scale in window
 	 */
