@@ -107,7 +107,7 @@ public class LevelGenerator implements MarioLevelGenerator {
             "XXXXXXX";
 
     private final String GOOMBA2 = "" +
-            "--XXX--" + "\n" +
+            "--SSS--" + "\n" +
             "-------" + "\n" +
             "-g-g-g-" + "\n" +
             "XXXXXXX" + "\n" +
@@ -129,10 +129,17 @@ public class LevelGenerator implements MarioLevelGenerator {
 
     private final String KOOPA3 = "" +
             "---R---" + "\n" +
-            "--XXX--" + "\n" +
+            "--SSS--" + "\n" +
             "-------" + "\n" +
             "XXXXXXX" + "\n" +
             "XXXXXXX";
+
+    private final String MIX1 = "" +
+            "----------" + "\n" +
+            "----------" + "\n" +
+            "----------" + "\n" +
+            "XXXXXXXXXX" + "\n" +
+            "XXXXXXXXXX";
 
     private final String[] LEVEL_CHUNKS = {
             LO_GROUND,
