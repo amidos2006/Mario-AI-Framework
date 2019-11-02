@@ -7,11 +7,11 @@ import engine.core.MarioTimer;
 public class LevelGenerator implements MarioLevelGenerator {
 
     // Hand-made level chunks
-    // Each occupies a rectangular area of the map positioned along the
-    // bottom of the map with air above it
+    // Each occupies a rectangular area positioned along the bottom of the map
+    // with air above it.
     private final String LO_GROUND = "" +
             "XXXXX" + "\n" +
-            "XXXXX" + "\n";
+            "XXXXX";
 
     private final String HI_GROUND = "" +
             "XXXX" + "\n" +
@@ -48,7 +48,7 @@ public class LevelGenerator implements MarioLevelGenerator {
      * @return The height (how tall in blocks) of the chunk
      */
     private int getChunkHeight(String chunk) {
-        int numLines = 0;
+        int numLines = 1;
 
         // Iterate over chunk, one char at a time
         for (char c : chunk.toCharArray()) {
@@ -76,6 +76,7 @@ public class LevelGenerator implements MarioLevelGenerator {
             // to next column in level map
             if (block == '\n') {
                 y++;
+                x = cursorPos;
             } else {
                 marioLevelModel.setBlock(x, y, block);
                 x++;
@@ -90,6 +91,18 @@ public class LevelGenerator implements MarioLevelGenerator {
     public String getGeneratedLevel(MarioLevelModel model, MarioTimer timer) {
         // Store the given model so other methods have access
         this.marioLevelModel = model;
+
+        // Set everything in the map to empty
+        model.setRectangle(0, 0, model.getWidth(), model.getHeight(), MarioLevelModel.EMPTY);
+
+        // Test adding chunks
+        for (int i = 0; i < 2; i++) {
+            for (String chunk : LEVEL_CHUNKS) {
+                addChunkToMap(chunk);
+            }
+        }
+
+        System.out.println(model.getMap());
 
         return null;
     }
