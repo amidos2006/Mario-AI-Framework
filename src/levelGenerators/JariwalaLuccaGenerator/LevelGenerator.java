@@ -85,11 +85,11 @@ public class LevelGenerator implements MarioLevelGenerator {
             "#####--#####";
 
     private final String FLAG = "" +
-            "-" + "\n" +
-            "F" + "\n" +
-            "#" + "\n" +
-            "X" + "\n" +
-            "X";
+            "---" + "\n" +
+            "-F-" + "\n" +
+            "-#-" + "\n" +
+            "XXX" + "\n" +
+            "XXX";
 
     private final String START = "" +
             "---" + "\n" +
@@ -164,7 +164,7 @@ public class LevelGenerator implements MarioLevelGenerator {
     private final String MIX1 = "" +
             "---!--R---" + "\n" +
             "-SS---SS--" + "\n" +
-            "------r--o" + "\n" +
+            "-----r---o" + "\n" +
             "XXXXXXXXXX" + "\n" +
             "XXXXXXXXXX";
 
@@ -324,19 +324,21 @@ public class LevelGenerator implements MarioLevelGenerator {
     public String getGeneratedLevel(MarioLevelModel model, MarioTimer timer) {
         // Store the given model so other methods have access
         this.marioLevelModel = model;
-
-        // Create the Markov hashmaps
-        createHash();
+        String currentChunk = START;
 
         // Set everything in the map to empty
         model.setRectangle(0, 0, model.getWidth(), model.getHeight(), MarioLevelModel.EMPTY);
 
-        // Test adding chunks
-        for (int i = 0; i < 2; i++) {
-            for (String chunk : LEVEL_CHUNKS) {
-                addChunkToMap(chunk);
-            }
+        addChunkToMap(currentChunk);
+
+        while (cursorPos < model.getWidth()-6) {
+            currentChunk = getNextChunk(currentChunk);
+            addChunkToMap(currentChunk);
         }
+
+        addChunkToMap(FLAG);
+
+        System.out.println(model.getMap());
 
         return model.getMap();
     }
