@@ -19,6 +19,7 @@ public class LevelGenerator implements MarioLevelGenerator {
     private double HIGHPIPEPLANT_CHANCE = 0.1;
     private double GOOBA1_CHANCE = 0.2;
     private double GOOBA2_CHANCE = 0.2;
+    private double KOOPA1_CHANCE = 0.2;
     private double KOOPA2_CHANCE = 0.2;
     private double KOOPA3_CHANCE = 0.2;
     private double MIX1_CHANCE = 0.2;
@@ -209,7 +210,7 @@ public class LevelGenerator implements MarioLevelGenerator {
             RAMP
     };
 
-    private  final Double[] LEVEL_CHUNKS_VALUES = {
+    private final Double[] LEVEL_CHUNKS_VALUES = {
         LO_GROUND_CHANCE,
         HI_GROUND_CHANCE,
         PLAT_CHANCE,
@@ -221,6 +222,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         HIGHPIPEPLANT_CHANCE,
         GOOBA1_CHANCE,
         GOOBA2_CHANCE,
+        KOOPA1_CHANCE,
         KOOPA2_CHANCE,
         KOOPA3_CHANCE,
         MIX1_CHANCE,
@@ -230,10 +232,10 @@ public class LevelGenerator implements MarioLevelGenerator {
     };
 
     public void createHash() {
-        for(int i = 0; i < LEVEL_CHUNKS.length; i++) {
+        for (int i = 0; i < LEVEL_CHUNKS.length; i++) {
             inner.put(LEVEL_CHUNKS[i], LEVEL_CHUNKS_VALUES[i]);
         }
-        for(int i = 0; i < LEVEL_CHUNKS.length; i++) {
+        for (int i = 0; i < LEVEL_CHUNKS.length; i++) {
             outer.put(LEVEL_CHUNKS[i], inner);
         }
     }
@@ -243,6 +245,35 @@ public class LevelGenerator implements MarioLevelGenerator {
 
     // The next x-coordinate to write to during generation
     private int cursorPos = 0;
+
+    private String getNextChunk(String lastChunk) {
+        // Map of weights of next chunks
+        HashMap<String, Double> weights = outer.get(lastChunk);
+
+        // Get total weight of all choices
+        double weightSum = 0;
+        for (Double weight : weights.values()) {
+            weightSum += weight;
+        }
+
+        // Pick a random number [0, weightSum)
+        double rand = weightSum * Math.random();
+        double cumulativeWeight = 0;
+
+        // Select chunk based on random value
+        for (String chunk : weights.keySet()) {
+            // Accumulate weight of next chunk
+            cumulativeWeight += weights.get(chunk);
+
+            if (rand <= cumulativeWeight) {
+                // Found randomly selected chunk
+                return chunk;
+            }
+        }
+
+        // Shouldn't get here unless something went wrong in the accumulate weight loop
+        return null;
+    }
 
     /**
      * Get the height of the given chunk
@@ -294,6 +325,9 @@ public class LevelGenerator implements MarioLevelGenerator {
         // Store the given model so other methods have access
         this.marioLevelModel = model;
 
+        // Create the Markov hashmaps
+        createHash();
+
         // Set everything in the map to empty
         model.setRectangle(0, 0, model.getWidth(), model.getHeight(), MarioLevelModel.EMPTY);
 
@@ -304,9 +338,7 @@ public class LevelGenerator implements MarioLevelGenerator {
             }
         }
 
-        System.out.println(model.getMap());
-
-        return null;
+        return model.getMap();
     }
 
     @Override
