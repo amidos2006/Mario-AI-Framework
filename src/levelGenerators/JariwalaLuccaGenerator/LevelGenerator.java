@@ -78,8 +78,8 @@ public class LevelGenerator implements MarioLevelGenerator {
             "--###--###--" + "\n" +
             "-####--####-" + "\n" +
             "#####--#####" + "\n" +
-            "XXXXXXXXXXXX" + "\n" +
-            "XXXXXXXXXXXX";
+            "XXXXX--XXXXX" + "\n" +
+            "XXXXX--XXXXX";
 
     private final String FLAG = "" +
             "-----------" + "\n" +
