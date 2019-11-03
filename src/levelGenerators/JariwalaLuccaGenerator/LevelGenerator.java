@@ -249,6 +249,11 @@ public class LevelGenerator implements MarioLevelGenerator {
     // The next x-coordinate to write to during generation
     private int cursorPos = 0;
 
+    /**
+     * Selects a chunk based on the given previous chunk
+     * @param lastChunk The current chunk to base the next one on
+     * @return A String representing the selected chunk
+     */
     private String getNextChunk(String lastChunk) {
         // Map of weights of next chunks
         HashMap<String, Double> weights = outer.get(lastChunk);
