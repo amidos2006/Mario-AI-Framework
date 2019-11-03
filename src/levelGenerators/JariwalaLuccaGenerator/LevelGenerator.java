@@ -26,6 +26,7 @@ public class LevelGenerator implements MarioLevelGenerator {
     private double MIX2_CHANCE = 0.2;
     private double EMPTY_CHANCE = 0.2;
     private double RAMP_CHANCE = 0.1;
+    private double START_CHANCE = 0.0;
 
 
     HashMap<String, Double> inner = new HashMap<String, Double>();
@@ -207,7 +208,8 @@ public class LevelGenerator implements MarioLevelGenerator {
             MIX1,
             MIX2,
             EMPTY,
-            RAMP
+            RAMP,
+            START
     };
 
     private final Double[] LEVEL_CHUNKS_VALUES = {
@@ -228,7 +230,8 @@ public class LevelGenerator implements MarioLevelGenerator {
         MIX1_CHANCE,
         MIX2_CHANCE,
         EMPTY_CHANCE,
-        RAMP_CHANCE
+        RAMP_CHANCE,
+        START_CHANCE
     };
 
     public void createHash() {
@@ -322,6 +325,7 @@ public class LevelGenerator implements MarioLevelGenerator {
 
     @Override
     public String getGeneratedLevel(MarioLevelModel model, MarioTimer timer) {
+        createHash();
         // Store the given model so other methods have access
         this.marioLevelModel = model;
         String currentChunk = START;
