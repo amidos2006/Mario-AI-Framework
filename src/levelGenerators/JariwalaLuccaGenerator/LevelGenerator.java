@@ -227,7 +227,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         gapTable.put(GOOMBA2, 0.3);
         gapTable.put(RAMP, 0.3);
         gapTable.put(HIGHPIPEPLANT, 0.3);
-        gapTable.put(GAP, 0.1);
+        gapTable.put(KOOPA3, 0.1);
         transitionMaps.put(GAP, gapTable);
 
         // HILL chunk transition table
