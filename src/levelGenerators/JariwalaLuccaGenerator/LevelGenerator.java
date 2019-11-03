@@ -219,6 +219,63 @@ public class LevelGenerator implements MarioLevelGenerator {
         goomba2Table.put(LOWPIPE, 0.3);
         goomba2Table.put(LOWPIPEPLANT, 0.1);
         transitionMaps.put(GOOMBA2, goomba2Table);
+
+        // KOOPA1 chunk transition table
+        HashMap<String, Double> koopaTable = new HashMap<>();
+        koopaTable.put(HILL, 0.3);
+        koopaTable.put(PLAT, 0.2);
+        koopaTable.put(GAP, 0.1);
+        koopaTable.put(LOWPIPE, 0.2);
+        koopaTable.put(HIGHPIPE, 0.2);
+        transitionMaps.put(KOOPA1, koopaTable);
+
+        // KOOPA2 chunk transition table
+        transitionMaps.put(KOOPA2, koopaTable);
+
+        // KOOPA3 chunk transition table
+        transitionMaps.put(KOOPA3, koopaTable);
+
+        // MIX1 chunk transition table
+        HashMap<String, Double> mixTable = new HashMap<>();
+        mixTable.put(EMPTY, 0.2);
+        mixTable.put(HI_GROUND, 0.2);
+        mixTable.put(PLAT, 0.2);
+        mixTable.put(GAP, 0.3);
+        mixTable.put(LOWPIPEPLANT, 0.1);
+        transitionMaps.put(MIX1, mixTable);
+
+        // MIX2 chunk transition table
+        transitionMaps.put(MIX2, mixTable);
+
+        // EMPTY chunk transition table
+        HashMap<String, Double> emptyTable = new HashMap<>();
+        emptyTable.put(GOOMBA1, 0.1);
+        emptyTable.put(GOOMBA2, 0.1);
+        emptyTable.put(KOOPA1, 0.1);
+        emptyTable.put(KOOPA2, 0.1);
+        emptyTable.put(KOOPA3, 0.1);
+        emptyTable.put(LOWPIPEPLANT, 0.1);
+        emptyTable.put(HIGHPIPEPLANT, 0.1);
+        emptyTable.put(GAP, 0.3);
+        transitionMaps.put(EMPTY, emptyTable);
+
+        // RAMP chunk transition table
+        HashMap<String, Double> rampTable = new HashMap<>();
+        rampTable.put(GOOMBA1, 0.1);
+        rampTable.put(GOOMBA2, 0.1);
+        rampTable.put(KOOPA1, 0.2);
+        rampTable.put(KOOPA2, 0.2);
+        rampTable.put(KOOPA3, 0.1);
+        rampTable.put(GAP, 0.3);
+        transitionMaps.put(RAMP, rampTable);
+
+        // START chunk transition table
+        HashMap<String, Double> startTable = new HashMap<>();
+        startTable.put(HI_GROUND, 0.2);
+        startTable.put(EMPTY, 0.6);
+        startTable.put(LOWPIPE, 0.1);
+        startTable.put(PLAT, 0.1);
+        transitionMaps.put(START, startTable);
     }
 
     // The level model for this level
