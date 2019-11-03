@@ -337,10 +337,7 @@ public class LevelGenerator implements MarioLevelGenerator {
 
         // START chunk transition table
         HashMap<String, Double> startTable = new HashMap<>();
-        startTable.put(HI_GROUND, 0.2);
-        startTable.put(EMPTY, 0.6);
-        startTable.put(LOWPIPE, 0.1);
-        startTable.put(PLAT, 0.1);
+        startTable.put(EMPTY, 1.0);
         transitionMaps.put(START, startTable);
     }
 
