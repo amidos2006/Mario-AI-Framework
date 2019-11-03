@@ -77,7 +77,9 @@ public class LevelGenerator implements MarioLevelGenerator {
             "---##--##---" + "\n" +
             "--###--###--" + "\n" +
             "-####--####-" + "\n" +
-            "#####--#####";
+            "#####--#####" + "\n" +
+            "XXXXXXXXXXXX" + "\n" +
+            "XXXXXXXXXXXX";
 
     private final String FLAG = "" +
             "-----------" + "\n" +
@@ -166,8 +168,8 @@ public class LevelGenerator implements MarioLevelGenerator {
     private final String MIX2 = "" +
             "----------" + "\n" +
             "-oo------!" + "\n" +
-            "--g-----g-" + "\n" +
-            "XXX-%%-XXX" + "\n" +
+            "--g-%%--g-" + "\n" +
+            "XXX----XXX" + "\n" +
             "XXX----XXX";
 
     private final String EMPTY = "" +
@@ -225,7 +227,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         // GAP chunk transition table
         HashMap<String, Double> gapTable = new HashMap<>();
         gapTable.put(GOOMBA2, 0.3);
-        gapTable.put(RAMP, 0.3);
+        gapTable.put(HILL, 0.3);
         gapTable.put(HIGHPIPEPLANT, 0.3);
         gapTable.put(KOOPA3, 0.1);
         transitionMaps.put(GAP, gapTable);
