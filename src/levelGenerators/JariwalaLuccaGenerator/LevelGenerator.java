@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 public class LevelGenerator implements MarioLevelGenerator {
 
-    private double LO_GROUND_CHANCE = 0.0;
     private double HI_GROUND_CHANCE = 0.0;
     private double PLAT_CHANCE = 0.1;
     private double GAP_CHANCE = 0.2;
@@ -57,10 +56,6 @@ public class LevelGenerator implements MarioLevelGenerator {
         o = coin
 */
 
-    private final String LO_GROUND = "" +
-            "XXXXX" + "\n" +
-            "XXXXX";
-
     private final String HI_GROUND = "" +
             "----" + "\n" +
             "XXXX" + "\n" +
@@ -85,11 +80,11 @@ public class LevelGenerator implements MarioLevelGenerator {
             "#####--#####";
 
     private final String FLAG = "" +
-            "---" + "\n" +
-            "-F-" + "\n" +
-            "-#-" + "\n" +
-            "XXX" + "\n" +
-            "XXX";
+            "-----------" + "\n" +
+            "-F---------" + "\n" +
+            "-#---------" + "\n" +
+            "XXXXXXXXXXXX" + "\n" +
+            "XXXXXXXXXXXX";
 
     private final String START = "" +
             "---" + "\n" +
@@ -190,7 +185,6 @@ public class LevelGenerator implements MarioLevelGenerator {
             "XXXXXXXXXX";
 
     private final String[] LEVEL_CHUNKS = {
-            LO_GROUND,
             HI_GROUND,
             PLAT,
             GAP,
@@ -212,6 +206,78 @@ public class LevelGenerator implements MarioLevelGenerator {
     };
 
     public void createHash() {
+        // HI_GROUND chunk transition table
+        HashMap<String, Double> hiGroundTable = new HashMap<>();
+        hiGroundTable.put(HILL, 0.3);
+        hiGroundTable.put(GAP, 0.3);
+        hiGroundTable.put(LOWPIPE, 0.3);
+        hiGroundTable.put(LOWPIPEPLANT, 0.1);
+        transitionMaps.put(HI_GROUND, hiGroundTable);
+
+        // PLAT chunk transition table
+        HashMap<String, Double> platTable = new HashMap<>();
+        platTable.put(MIX1, 0.3);
+        platTable.put(EMPTY, 0.3);
+        platTable.put(MIX2, 0.3);
+        platTable.put(GOOMBA2, 0.1);
+        transitionMaps.put(PLAT, platTable);
+
+        // GAP chunk transition table
+        HashMap<String, Double> gapTable = new HashMap<>();
+        gapTable.put(GOOMBA2, 0.3);
+        gapTable.put(RAMP, 0.3);
+        gapTable.put(HIGHPIPEPLANT, 0.3);
+        gapTable.put(GAP, 0.1);
+        transitionMaps.put(GAP, gapTable);
+
+        // HILL chunk transition table
+        HashMap<String, Double> hillTable = new HashMap<>();
+        hillTable.put(KOOPA3, 0.3);
+        hillTable.put(GAP, 0.3);
+        hillTable.put(LOWPIPE, 0.3);
+        hillTable.put(LOWPIPEPLANT, 0.1);
+        transitionMaps.put(HILL, hillTable);
+
+        // LOWPIPE chunk transition table
+        HashMap<String, Double> lowPipeTable = new HashMap<>();
+        lowPipeTable.put(HILL, 0.3);
+        lowPipeTable.put(GAP, 0.3);
+        lowPipeTable.put(HIGHPIPEPLANT, 0.3);
+        lowPipeTable.put(GOOMBA1, 0.1);
+        transitionMaps.put(LOWPIPE, lowPipeTable);
+
+        // HIGHPIPE chunk transition table
+        HashMap<String, Double> highPipeTable = new HashMap<>();
+        highPipeTable.put(HILL, 0.3);
+        highPipeTable.put(GAP, 0.3);
+        highPipeTable.put(LOWPIPE, 0.3);
+        highPipeTable.put(LOWPIPEPLANT, 0.1);
+        transitionMaps.put(HIGHPIPE, highPipeTable);
+
+        // LOWPIPEPLANT chunk transition table
+        HashMap<String, Double> lowPipePlantTable = new HashMap<>();
+        lowPipePlantTable.put(RAMP, 0.3);
+        lowPipePlantTable.put(GAP, 0.3);
+        lowPipePlantTable.put(GOOMBA2, 0.3);
+        lowPipePlantTable.put(KOOPA3, 0.1);
+        transitionMaps.put(LOWPIPEPLANT, lowPipePlantTable);
+
+        // HIGHPIPEPLANT chunk transition table
+        HashMap<String, Double> highPipePlantTable = new HashMap<>();
+        highPipePlantTable.put(HILL, 0.3);
+        highPipePlantTable.put(GAP, 0.3);
+        highPipePlantTable.put(MIX1, 0.3);
+        highPipePlantTable.put(LOWPIPEPLANT, 0.1);
+        transitionMaps.put(HIGHPIPEPLANT, highPipePlantTable);
+
+        // GOOMBA1 chunk transition table
+        HashMap<String, Double> goomba1Table = new HashMap<>();
+        goomba1Table.put(PLAT, 0.3);
+        goomba1Table.put(MIX2, 0.3);
+        goomba1Table.put(LOWPIPE, 0.3);
+        goomba1Table.put(GAP, 0.1);
+        transitionMaps.put(GOOMBA1, goomba1Table);
+
         // GOOMBA2 chunk transition table
         HashMap<String, Double> goomba2Table = new HashMap<>();
         goomba2Table.put(HILL, 0.3);
@@ -375,7 +441,7 @@ public class LevelGenerator implements MarioLevelGenerator {
 
         addChunkToMap(currentChunk);
 
-        while (cursorPos < model.getWidth()-6) {
+        while (cursorPos < model.getWidth()-8) {
             currentChunk = getNextChunk(currentChunk);
             addChunkToMap(currentChunk);
         }
