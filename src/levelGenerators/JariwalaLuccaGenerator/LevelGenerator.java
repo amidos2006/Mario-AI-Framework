@@ -29,8 +29,7 @@ public class LevelGenerator implements MarioLevelGenerator {
     private double START_CHANCE = 0.0;
 
 
-    HashMap<String, Double> inner = new HashMap<String, Double>();
-    HashMap<String, HashMap> outer = new HashMap<String, HashMap>();
+    HashMap<String, HashMap> transitionMaps = new HashMap<String, HashMap>();
 
 
 
@@ -212,35 +211,14 @@ public class LevelGenerator implements MarioLevelGenerator {
             START
     };
 
-    private final Double[] LEVEL_CHUNKS_VALUES = {
-        LO_GROUND_CHANCE,
-        HI_GROUND_CHANCE,
-        PLAT_CHANCE,
-        GAP_CHANCE,
-        HILL_CHANCE,
-        LOWPIPE_CHANCE,
-        HIGHPIPE_CHANCE,
-        LOWPIPEPLANT_CHANCE,
-        HIGHPIPEPLANT_CHANCE,
-        GOOBA1_CHANCE,
-        GOOBA2_CHANCE,
-        KOOPA1_CHANCE,
-        KOOPA2_CHANCE,
-        KOOPA3_CHANCE,
-        MIX1_CHANCE,
-        MIX2_CHANCE,
-        EMPTY_CHANCE,
-        RAMP_CHANCE,
-        START_CHANCE
-    };
-
     public void createHash() {
-        for (int i = 0; i < LEVEL_CHUNKS.length; i++) {
-            inner.put(LEVEL_CHUNKS[i], LEVEL_CHUNKS_VALUES[i]);
-        }
-        for (int i = 0; i < LEVEL_CHUNKS.length; i++) {
-            outer.put(LEVEL_CHUNKS[i], inner);
-        }
+        // GOOMBA2 chunk transition table
+        HashMap<String, Double> goomba2Table = new HashMap<>();
+        goomba2Table.put(HILL, 0.3);
+        goomba2Table.put(GAP, 0.3);
+        goomba2Table.put(LOWPIPE, 0.3);
+        goomba2Table.put(LOWPIPEPLANT, 0.1);
+        transitionMaps.put(GOOMBA2, goomba2Table);
     }
 
     // The level model for this level
@@ -256,7 +234,7 @@ public class LevelGenerator implements MarioLevelGenerator {
      */
     private String getNextChunk(String lastChunk) {
         // Map of weights of next chunks
-        HashMap<String, Double> weights = outer.get(lastChunk);
+        HashMap<String, Double> weights = transitionMaps.get(lastChunk);
 
         // Get total weight of all choices
         double weightSum = 0;
