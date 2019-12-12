@@ -21,7 +21,7 @@ public class LevelGenerator implements MarioLevelGenerator {
 
     public LevelGenerator() {
 	random = new Random();
-	this.type = random.nextInt(3);
+	this.type = random.nextInt(5);
 	this.difficulty = random.nextInt(5);
     }
 
