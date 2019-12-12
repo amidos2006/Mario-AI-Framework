@@ -175,9 +175,9 @@ public class MarioForwardModel {
 	    case 15:
 		return OBS_COIN;
 	    // Jump through platforms
-	    case 43:
 	    case 44:
 	    case 45:
+	    case 46:
 		return OBS_PLATFORM;
 	    }
 	    return OBS_NONE;
