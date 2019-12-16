@@ -10,60 +10,60 @@ public class SpriteState {
     public float x, y, xa = 0, ya = 0;
 
     public float height() {
-	return -1;
+        return -1;
     }
 
     public boolean dead() {
-	return false;
+        return false;
     }
 
     public SpriteState clone() {
-	return null;
+        return null;
     }
 
     // returns false iff we should remove the enemy from the list
     public boolean move(WorldState ws) {
-	return false;
+        return false;
     }
 
     public WorldState collideCheck(WorldState ws, MarioState ms) {
-	return ws;
+        return ws;
     }
 
     // you may destructively update ws here as it's fresh for the purpose of this
     // stomp
     public SpriteState stomp(WorldState ws, MarioState ms) {
-	return this;
+        return this;
     }
 
     public SpriteState shellCollideCheck(ShellState shell) {
-	return this;
+        return this;
     }
 
     public SpriteState bumpCheck(int xTile, int yTile, MarioState ms) {
-	return this;
+        return this;
     }
 
     static public SpriteState newEnemy(float x, float y, int type, MarioState ms) {
-	switch (type) {
-	case KIND_BULLET_BILL:
-	    return new BulletBillState(x, y, ms);
-	case KIND_FLOWER_ENEMY:
-	    return new FlowerEnemyState(x, y);
-	case KIND_MUSHROOM:
-	    return null;
-	case KIND_SHELL:
-	    return new ShellState(x, y, false);
-	}
-	return new EnemyState(x, y, type);
+        switch (type) {
+            case KIND_BULLET_BILL:
+                return new BulletBillState(x, y, ms);
+            case KIND_FLOWER_ENEMY:
+                return new FlowerEnemyState(x, y);
+            case KIND_MUSHROOM:
+                return null;
+            case KIND_SHELL:
+                return new ShellState(x, y, false);
+        }
+        return new EnemyState(x, y, type);
     }
 
     // default resync: dead reckoning
     public void resync(float x, float y, float prev_x, float prev_y) {
-	this.x = x;
-	this.y = y;
-	this.xa = x - prev_x;
-	this.ya = y - prev_y;
+        this.x = x;
+        this.y = y;
+        this.xa = x - prev_x;
+        this.ya = y - prev_y;
     }
 
     // enemy kinds
@@ -91,6 +91,6 @@ public class SpriteState {
     public static final int KIND_FIREBALL = 25;
 
     public boolean spiky() {
-	return type >= KIND_SPIKY && type <= KIND_FLOWER_ENEMY;
+        return type >= KIND_SPIKY && type <= KIND_FLOWER_ENEMY;
     }
 }

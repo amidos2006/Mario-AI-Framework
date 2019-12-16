@@ -12,7 +12,6 @@ import engine.helper.MarioActions;
 import java.util.Collections;
 
 /**
- *
  * @author Spencer Schumann
  */
 // Jump up from one floor to another, if possible.
@@ -103,12 +102,11 @@ public class MovementPlanner {
             sim.update(plan.nextAction());
             projectedX[plan.getIndex() - 1] = sim.mario.x;
             projectedY[plan.getIndex() - 1] = sim.mario.y;
-            for (Enemy e: es.enemies) {
-                if (sim.mario.x >= (e.x - e.width/2.0f - 4.0f) &&
-                        sim.mario.x <= (e.x + e.width/2.0f + 4.0f) &&
+            for (Enemy e : es.enemies) {
+                if (sim.mario.x >= (e.x - e.width / 2.0f - 4.0f) &&
+                        sim.mario.x <= (e.x + e.width / 2.0f + 4.0f) &&
                         sim.mario.y >= e.y - e.height &&
-                        sim.mario.y - sim.mario.height <= e.y)
-                {
+                        sim.mario.y - sim.mario.height <= e.y) {
                     return false;
                 }
             }
@@ -194,8 +192,8 @@ public class MovementPlanner {
         for (Edge e : scene.floors) {
             if (//(e.x2 > currentFloor.x2) &&
                     (e.x2 > mario.x) &&
-                    //(e.y1 <= currentFloor.y1) &&
-                    (e.y1 + 64.0f >= currentFloor.y1)) {
+                            //(e.y1 <= currentFloor.y1) &&
+                            (e.y1 + 64.0f >= currentFloor.y1)) {
                 //System.out.println(String.format("  Candidate target: (%f,%f)-(%f,%f)",
                 //        e.x1, e.y1, e.x2, e.y2));
                 targets.add(e);
