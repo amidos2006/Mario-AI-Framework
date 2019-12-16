@@ -13,14 +13,14 @@ public enum EventType {
     KICK(10),
     LOSE(11),
     WIN(12);
-    
+
     private int value;
 
     EventType(int newValue) {
-	value = newValue;
+        value = newValue;
     }
-    
+
     public int getValue() {
-	return value;
+        return value;
     }
 }

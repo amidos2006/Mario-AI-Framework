@@ -1,10 +1,9 @@
 package agents.spencerSchumann;
 
 /**
- *
  * @author Spencer Schumann
  */
- public class BumpableEdge extends Edge {
+public class BumpableEdge extends Edge {
     // Type is BRICK, SPECIAL_COIN, or SPECIAL_QUESTION
 
     int type;
