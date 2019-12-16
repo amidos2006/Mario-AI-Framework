@@ -5,37 +5,41 @@ import engine.core.MarioForwardModel;
 import engine.core.MarioTimer;
 import engine.helper.MarioActions;
 
-public class Agent implements MarioAgent{
+public class Agent implements MarioAgent {
     private enum JumpType {
         ENEMY, GAP, WALL, NONE
     }
-    private class Rectangle{
-	private float x, y, width, height;
-	public Rectangle(float x, float y, float width, float height){
-	    this.x = x;
-	    this.y = y;
-	    this.width = width;
-	    this.height = height;
-	}
-	public boolean contains(float x, float y) {
-	    return x >= this.x && y >= this.y && x <= this.x + this.width && y <= this.y + this.height;
-	}
+
+    private class Rectangle {
+        private float x, y, width, height;
+
+        public Rectangle(float x, float y, float width, float height) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+        }
+
+        public boolean contains(float x, float y) {
+            return x >= this.x && y >= this.y && x <= this.x + this.width && y <= this.y + this.height;
+        }
     }
+
     private JumpType jumpType = JumpType.NONE;
-    private int jumpCount = 0,  jumpSize = -1;
+    private int jumpCount = 0, jumpSize = -1;
     private float prevY = 0;
     private boolean[] action;
-    
+
     @Override
     public void initialize(MarioForwardModel model, MarioTimer timer) {
-	action = new boolean[MarioActions.numberOfActions()];
+        action = new boolean[MarioActions.numberOfActions()];
         action[MarioActions.RIGHT.getValue()] = true;
         action[MarioActions.SPEED.getValue()] = true;
     }
-    
+
     private int getWallHeight(int tileX, int tileY, int[][] levelScene) {
         int y = tileY + 1, wallHeight = 0;
-        while (y-- > 0 && levelScene[tileX+1][y] != 0) {
+        while (y-- > 0 && levelScene[tileX + 1][y] != 0) {
             wallHeight++;
         }
         return wallHeight;
@@ -68,16 +72,16 @@ public class Agent implements MarioAgent{
 
     @Override
     public boolean[] getActions(MarioForwardModel model, MarioTimer timer) {
-	final float marioSpeed = model.getMarioFloatVelocity()[0];
+        final float marioSpeed = model.getMarioFloatVelocity()[0];
         final boolean dangerOfEnemy = enemyInRange(model, new Rectangle(-13, -57, 105, 87));
         final boolean dangerOfEnemyAbove = enemyInRange(model, new Rectangle(-28, 28, 58, 45));
-        final boolean dangerOfGap = dangerOfGap(model.getMarioScreenTilePos()[0], model.getMarioScreenTilePos()[1], 
-        	model.getScreenSceneObservation());
+        final boolean dangerOfGap = dangerOfGap(model.getMarioScreenTilePos()[0], model.getMarioScreenTilePos()[1],
+                model.getScreenSceneObservation());
         if ((model.isMarioOnGround() || model.mayMarioJump()) && !jumpType.equals(JumpType.NONE)) {
             setJump(JumpType.NONE, -1);
         } else if (model.mayMarioJump()) {
-            final int wallHeight = getWallHeight(model.getMarioScreenTilePos()[0], model.getMarioScreenTilePos()[1], 
-        	    model.getScreenSceneObservation());
+            final int wallHeight = getWallHeight(model.getMarioScreenTilePos()[0], model.getMarioScreenTilePos()[1],
+                    model.getScreenSceneObservation());
             if (dangerOfGap && marioSpeed > 0) {
                 setJump(JumpType.GAP, marioSpeed < 6 ? (int) (9 - marioSpeed) : 1);
             } else if (marioSpeed <= 1 && !dangerOfEnemyAbove && wallHeight > 0) {
@@ -99,6 +103,6 @@ public class Agent implements MarioAgent{
 
     @Override
     public String getAgentName() {
-	return "TrondEllingsen";
+        return "TrondEllingsen";
     }
 }

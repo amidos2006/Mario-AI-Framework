@@ -1,7 +1,6 @@
 package agents.spencerSchumann;
 
 /**
- *
  * @author Spencer Schumann
  */
 public class Edge {

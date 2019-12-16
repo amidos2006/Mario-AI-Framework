@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- *
  * @author Spencer Schumann
  */
 public class PlanRunner {
@@ -12,6 +11,7 @@ public class PlanRunner {
     private class Event {
         public int key;
         public boolean pressed;
+
         Event(int key, boolean pressed) {
             this.key = key;
             this.pressed = pressed;
@@ -75,7 +75,7 @@ public class PlanRunner {
     public boolean[] nextAction() {
         ArrayList<Event> keys = events.get(Integer.valueOf(index));
         if (keys != null) {
-            for (Event e: keys) {
+            for (Event e : keys) {
                 action[e.key] = e.pressed;
             }
         }

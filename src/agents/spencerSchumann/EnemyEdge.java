@@ -1,10 +1,9 @@
 package agents.spencerSchumann;
 
 /**
- *
  * @author Spencer Schumann
  */
- public class EnemyEdge extends Edge {
+public class EnemyEdge extends Edge {
     // TODO: add enemy type
     // Horizontal edges emit flowers, horizontal ones emit bullets
 

@@ -6,7 +6,6 @@ import engine.core.MarioTimer;
 import engine.helper.MarioActions;
 
 /**
- *
  * @author Spencer Schumann
  */
 public class Agent implements MarioAgent {
@@ -19,7 +18,7 @@ public class Agent implements MarioAgent {
 
     @Override
     public void initialize(MarioForwardModel model, MarioTimer timer) {
-	tiles = new Tiles();
+        tiles = new Tiles();
         mario = new MarioState();
         planRunner = new PlanRunner();
         enemySim = new EnemySimulator();
@@ -27,10 +26,10 @@ public class Agent implements MarioAgent {
 
     @Override
     public boolean[] getActions(MarioForwardModel model, MarioTimer timer) {
-	float[] marioPos = model.getMarioFloatPos();
+        float[] marioPos = model.getMarioFloatPos();
         tiles.addObservation(model);
-        int mx = (int)(marioPos[0] / 16.0f);
-        int my = (int)(marioPos[1] / 16.0f);
+        int mx = (int) (marioPos[0] / 16.0f);
+        int my = (int) (marioPos[1] / 16.0f);
         // TODO: in the latest code drop, it looks like there is no "mario hole."
         // So, tiles could be removed.
         int[][] scene = tiles.getScene(mx - model.obsGridWidth / 2, my - model.obsGridHeight / 2,
@@ -50,8 +49,8 @@ public class Agent implements MarioAgent {
             } else {
                 action = new boolean[5];
                 action[MarioActions.RIGHT.getValue()] = true;
-                action[MarioActions.SPEED.getValue()] = action[MarioActions.JUMP.getValue()] = 
-                	model.mayMarioJump() || !model.isMarioOnGround();
+                action[MarioActions.SPEED.getValue()] = action[MarioActions.JUMP.getValue()] =
+                        model.mayMarioJump() || !model.isMarioOnGround();
             }
         }
         if (action == null)
@@ -61,7 +60,7 @@ public class Agent implements MarioAgent {
 
     @Override
     public String getAgentName() {
-	return "SpencerShumannAgent";
+        return "SpencerShumannAgent";
     }
 
 }

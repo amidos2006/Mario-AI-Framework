@@ -14,8 +14,7 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
 
-public class Assets
-{
+public class Assets {
     public static Image[][] mario;
     public static Image[][] smallMario;
     public static Image[][] fireMario;
@@ -28,10 +27,8 @@ public class Assets
     final static String curDir = System.getProperty("user.dir");
     final static String img = curDir + "/img/";
 
-    public static void init(GraphicsConfiguration gc)
-    {
-        try
-        {
+    public static void init(GraphicsConfiguration gc) {
+        try {
             mario = cutImage(gc, "mariosheet.png", 32, 32);
             smallMario = cutImage(gc, "smallmariosheet.png", 16, 16);
             fireMario = cutImage(gc, "firemariosheet.png", 32, 32);
@@ -40,21 +37,17 @@ public class Assets
             level = cutImage(gc, "mapsheet.png", 16, 16);
             particles = cutImage(gc, "particlesheet.png", 16, 16);
             font = cutImage(gc, "font.gif", 8, 8);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    private static Image getImage(GraphicsConfiguration gc, String imageName) throws IOException
-    {
+    private static Image getImage(GraphicsConfiguration gc, String imageName) throws IOException {
         BufferedImage source = null;
         try {
             source = ImageIO.read(Assets.class.getResourceAsStream(imageName));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
 
         if (source == null) {
@@ -65,10 +58,10 @@ public class Assets
         if (source == null) {
             File file = new File(imageName);
             ImageInputStream iis = ImageIO.createImageInputStream(file);
-            String suffix = imageName.substring(imageName.length() - 3, imageName.length());
-            ImageReader reader = ImageIO.getImageReadersBySuffix(suffix).next ();
+            String suffix = imageName.substring(imageName.length() - 3);
+            ImageReader reader = ImageIO.getImageReadersBySuffix(suffix).next();
             reader.setInput(iis, true);
-            source = reader.read (0);
+            source = reader.read(0);
         }
         Image image = gc.createCompatibleImage(source.getWidth(), source.getHeight(), Transparency.BITMASK);
         Graphics2D g = (Graphics2D) image.getGraphics();
@@ -78,14 +71,11 @@ public class Assets
         return image;
     }
 
-    private static Image[][] cutImage(GraphicsConfiguration gc, String imageName, int xSize, int ySize) throws IOException
-    {
+    private static Image[][] cutImage(GraphicsConfiguration gc, String imageName, int xSize, int ySize) throws IOException {
         Image source = getImage(gc, imageName);
         Image[][] images = new Image[source.getWidth(null) / xSize][source.getHeight(null) / ySize];
-        for (int x = 0; x < source.getWidth(null) / xSize; x++)
-        {
-            for (int y = 0; y < source.getHeight(null) / ySize; y++)
-            {
+        for (int x = 0; x < source.getWidth(null) / xSize; x++) {
+            for (int y = 0; y < source.getHeight(null) / ySize; y++) {
                 Image image = gc.createCompatibleImage(xSize, ySize, Transparency.BITMASK);
                 Graphics2D g = (Graphics2D) image.getGraphics();
                 g.setComposite(AlphaComposite.Src);

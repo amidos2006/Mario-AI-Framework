@@ -5,7 +5,6 @@
 package agents.spencerSchumann;
 
 /**
- *
  * @author Spencer
  */
 public class Enemy {
@@ -16,7 +15,7 @@ public class Enemy {
     public float vx;
     public float height;
     public float width;
-    
+
     public boolean winged;
     public boolean safeTop;
 
