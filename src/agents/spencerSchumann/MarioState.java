@@ -3,7 +3,6 @@ package agents.spencerSchumann;
 import engine.core.MarioForwardModel;
 
 /**
- *
  * @author Spencer Schumann
  */
 public class MarioState {
@@ -30,7 +29,7 @@ public class MarioState {
         onGround = model.isMarioOnGround();
         mayJump = model.mayMarioJump();
 
-        float [] pos = model.getMarioFloatPos();
+        float[] pos = model.getMarioFloatPos();
         if (first) {
             first = false;
             x = pos[0];

@@ -8,7 +8,6 @@ package agents.spencerSchumann;
 import engine.helper.MarioActions;
 
 /**
- *
  * @author Spencer Schumann
  */
 public class MotionSimulator {
@@ -28,7 +27,7 @@ public class MotionSimulator {
         this.scene.update(scene);
     }
 
-    private void handleHorizontalInput(boolean [] action) {
+    private void handleHorizontalInput(boolean[] action) {
         float xSpeed = action[MarioActions.SPEED.getValue()] ? 1.2f : 0.6f;
         if (action[MarioActions.LEFT.getValue()])
             mario.vx -= xSpeed;
@@ -40,7 +39,7 @@ public class MotionSimulator {
     // 1. Simulator sometimes allows jump when it shouldn't: when running off of
     //    edges, and when repeatedly pressing the jump button
 
-    private void handleJumpInput(boolean [] action) {
+    private void handleJumpInput(boolean[] action) {
         mario.vy *= 0.85f;
         if (!mario.onGround)
             mario.vy += 3.0f;
@@ -49,7 +48,7 @@ public class MotionSimulator {
         if (!action[MarioActions.JUMP.getValue()]) {
             mario.jumpTime = 0;
             if (mario.onGround)
-                mario.mayJump =  true;
+                mario.mayJump = true;
         }
 
         if (action[MarioActions.JUMP.getValue()]) {
@@ -64,7 +63,7 @@ public class MotionSimulator {
     }
 
     // Applies the given action to run one simulation time step
-    public void update(boolean [] action) {
+    public void update(boolean[] action) {
         handleHorizontalInput(action);
         handleJumpInput(action);
 
@@ -95,13 +94,12 @@ public class MotionSimulator {
 
         float newX = goofyAdd(mario.x, mario.vx);
         // Is there a wall between x & newX?
-        for (Edge e: scene.walls) {
+        for (Edge e : scene.walls) {
             //System.out.println(String.format("Pos:(%f,%f)  New X: %f  Wall:(%f,%f)@%f", scene.pos.x, scene.pos.y, newX, e.y1, e.y2, e.x1));
             // In the right Y range?
             // TODO: I think the Y check is off a bit, especially the y2 portion.
             if (e.y1 <= mario.y &&
-                e.y2 >= mario.y - mario.height)
-            {
+                    e.y2 >= mario.y - mario.height) {
                 // Collision going right?
                 if (mario.x + 4.0f <= e.x1 && e.x1 <= newX + 4.0f) {
                     mario.x = e.x1 - 5.0f;
@@ -132,12 +130,11 @@ public class MotionSimulator {
         float newY = goofyAdd(mario.y, mario.vy);
         // Check for floor
         if (mario.vy >= 0.0f) {
-            for (Edge e: scene.floors) {
+            for (Edge e : scene.floors) {
                 // In right X range and has Y intersect?
                 if (e.x1 < mario.x + 4.0f &&
-                    e.x2 > mario.x - 4.0f &&
-                    mario.y <= e.y1 && e.y1 - 1.0f <= newY)
-                {
+                        e.x2 > mario.x - 4.0f &&
+                        mario.y <= e.y1 && e.y1 - 1.0f <= newY) {
                     mario.y = e.y1 - 1.0f;
                     mario.onGround = true;
                     mario.jumpTime = 0;
@@ -147,13 +144,12 @@ public class MotionSimulator {
         }
         // Check for ceiling
         else if (mario.vy < 0.0f) {
-            for (Edge e: scene.ceilings) {
+            for (Edge e : scene.ceilings) {
                 // In right X range and has Y intersect?
                 if (e.x1 < mario.x + 4.0f &&
-                    e.x2 > mario.x - 4.0f &&
-                    mario.y - mario.height >= e.y1 &&
-                    e.y1 >= newY - mario.height)
-                {
+                        e.x2 > mario.x - 4.0f &&
+                        mario.y - mario.height >= e.y1 &&
+                        e.y1 >= newY - mario.height) {
                     mario.y = e.y1 + mario.height;
                     mario.vy = 0.0f;
                     mario.jumpTime = 0;

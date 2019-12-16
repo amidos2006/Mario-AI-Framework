@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import engine.core.MarioForwardModel;
 
 /**
- *
  * @author Spencer
  */
 public class EnemySimulator {
@@ -24,7 +23,7 @@ public class EnemySimulator {
     @Override
     public EnemySimulator clone() {
         EnemySimulator es = new EnemySimulator();
-        for (Enemy e: enemies) {
+        for (Enemy e : enemies) {
             es.enemies.add(e.clone());
         }
         return es;
@@ -32,7 +31,7 @@ public class EnemySimulator {
 
     // Update all known enemy positions based on given scene
     public void update(Scene scene) {
-        for (Enemy enemy: enemies) {
+        for (Enemy enemy : enemies) {
             // TODO: this needs to be much more sophisticated.
             enemy.x += enemy.vx;
         }
@@ -45,11 +44,11 @@ public class EnemySimulator {
         int i;
         ArrayList<Enemy> newEnemies = new ArrayList<Enemy>();
         for (i = 0; i < ep.length; i += 3) {
-            int type = (int)ep[i];
-            float x = ep[i+1];
-            float y = ep[i+2];
+            int type = (int) ep[i];
+            float x = ep[i + 1];
+            float y = ep[i + 2];
             boolean found = false;
-            for (Enemy enemy: enemies) {
+            for (Enemy enemy : enemies) {
                 if (type == enemy.type && y == enemy.y) {
                     float xdiff = Math.abs(enemy.x - x);
                     if (xdiff == 0.0f) {

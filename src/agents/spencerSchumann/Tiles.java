@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import engine.core.MarioForwardModel;
 
 /**
- *
  * @author Spencer Schumann
  */
 public class Tiles {
@@ -72,6 +71,7 @@ public class Tiles {
             }
         }
     }
+
     ArrayList<Column> columns;
 
     public Tiles() {
