@@ -66,8 +66,6 @@ public class MarioGame {
 
     /**
      * Create a mario game with a different forward model where the player on certain event
-     *
-     * @param killPlayer events that will kill the player
      */
     public MarioGame(MarioEvent[] killEvents) {
         this.killEvents = killEvents;
@@ -215,7 +213,13 @@ public class MarioGame {
             this.window.setVisible(true);
         }
         this.setAgent(agent);
-        return this.gameLoop(level, timer, marioState, visuals, fps);
+        MarioResult result = this.gameLoop(level, timer, marioState, visuals, fps);
+
+        if (visuals) {
+            this.window.dispose();
+        }
+
+        return result;
     }
 
     private MarioResult gameLoop(String level, int timer, int marioState, boolean visual, int fps) {

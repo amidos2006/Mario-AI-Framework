@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 import engine.core.MarioGame;
 import engine.core.MarioResult;
@@ -24,12 +25,13 @@ public class PlayLevel {
     }
 
     public static String getLevel(String filepath) {
-        String content = "";
         try {
-            content = new String(Files.readAllBytes(Paths.get(filepath)));
+            List<String> lines = Files.readAllLines(Paths.get(filepath));
+            return String.join("\n", lines) + "\n";
         } catch (IOException e) {
+            e.printStackTrace();
         }
-        return content;
+        return null;
     }
 
     public static void main(String[] args) {
