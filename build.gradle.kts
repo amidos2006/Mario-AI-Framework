@@ -12,6 +12,8 @@ repositories {
 }
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
+
+    implementation("org.apache.commons", "commons-csv", "1.8")
 }
 
 val compileKotlin: KotlinCompile by tasks
