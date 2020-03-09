@@ -1,3 +1,8 @@
+A fork of the Mario AI framework for use in NAIL123 - Procedural Content Generation in Computer games course at
+Charles University. Notable additions:
+
+- Using Gradle
+
 <p align="center">
 <a href="#features">Features</a> &mdash; <a href="#use">How To Use</a> &mdash; <a href="#papers">Related Papers</a> &mdash; <a href="#missing">Missing Features</a> &mdash; <a href="#copyrights">Copyrights</a>
 </p>
