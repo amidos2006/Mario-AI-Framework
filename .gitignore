@@ -136,7 +136,7 @@ gradle-app.setting
 # End of https://www.gitignore.io/api/java,gradle,intellij
 
 # CUSTOM
-# Dont version anything in the server folder, except for the building BuildTools JAR
-server/*
-!server/plugins/StartCommands.jar
-server/plugins/PluginMetrics
+# Dont version the IDEA project nor __pycache__ in python sources
+src/main/python/.idea
+src/main/python/__pycache__
+
