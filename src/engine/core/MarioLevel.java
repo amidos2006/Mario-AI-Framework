@@ -32,7 +32,7 @@ public class MarioLevel {
             this.height = 0;
             return;
         }
-        String[] lines = level.split("\n");
+        String[] lines = level.split("\\r?\\n");
         this.tileWidth = lines[0].length();
         this.width = this.tileWidth * 16;
         this.tileHeight = lines.length;
@@ -331,7 +331,7 @@ public class MarioLevel {
     }
 
     public SpriteType getSpriteType(int xTile, int yTile) {
-        if (xTile < 0 || yTile < 0 || xTile > this.tileWidth - 1 || yTile > this.tileHeight - 1) {
+        if (xTile < 0 || yTile < 0 || xTile >= this.tileWidth || yTile >= this.tileHeight) {
             return SpriteType.NONE;
         }
         return this.spriteTemplates[xTile][yTile];
