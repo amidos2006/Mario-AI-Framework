@@ -139,4 +139,5 @@ gradle-app.setting
 # Dont version the IDEA project nor __pycache__ in python sources
 src/main/python/.idea
 src/main/python/__pycache__
-
+src/main/python/out
+src/main/python/data

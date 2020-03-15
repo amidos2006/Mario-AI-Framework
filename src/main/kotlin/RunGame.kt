@@ -1,11 +1,8 @@
-package cz.cuni.gamedev.nail123.mariolevelgeneration
-
-import PlayLevel
-import cz.cuni.gamedev.nail123.mariolevelgeneration.levelGenerators.sample.GapLevelGenerator
 import engine.core.MarioGame
 import engine.core.MarioLevelGenerator
 import engine.core.MarioLevelModel
 import engine.core.MarioTimer
+import levelGenerators.sample.GapLevelGenerator
 
 fun main() {
     val game = MarioGame()

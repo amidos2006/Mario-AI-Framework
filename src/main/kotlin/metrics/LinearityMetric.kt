@@ -1,4 +1,4 @@
-package cz.cuni.gamedev.nail123.mariolevelgeneration.metrics
+package metrics
 
 import engine.core.MarioGame
 import engine.core.MarioResult
@@ -20,7 +20,7 @@ class LinearityMetric: AbstractMetric() {
         results.agentEvents
             .filter { it.marioOnGround }
             .forEach { event ->
-                if (sb.isNotEmpty()) sb.append("-")
+                if (sb.isNotEmpty()) sb.append("_")
                 sb.append(event.marioX)
                 sb.append(':')
                 sb.append(event.marioY)

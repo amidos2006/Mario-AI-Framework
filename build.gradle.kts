@@ -24,3 +24,18 @@ val compileTestKotlin: KotlinCompile by tasks
 compileTestKotlin.kotlinOptions {
     jvmTarget = "1.8"
 }
+
+tasks.register<JavaExec>("singleRun") {
+    group = "run"
+
+    classpath = sourceSets.main.get().runtimeClasspath
+    main = "RunGameKt"
+}
+
+tasks.register<JavaExec>("generateCSV") {
+    group = "run"
+
+    classpath = sourceSets.main.get().runtimeClasspath
+    main = "GatherMetricsKt"
+}
+

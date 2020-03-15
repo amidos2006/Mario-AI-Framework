@@ -1,4 +1,4 @@
-package cz.cuni.gamedev.nail123.mariolevelgeneration.metrics
+package metrics
 
 import engine.core.MarioLevel
 import engine.core.MarioResult

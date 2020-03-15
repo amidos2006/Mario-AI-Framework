@@ -3,7 +3,7 @@ import numpy as np
 
 
 def handle(s):
-    coords = s.split('-')
+    coords = s.split('_')
     # skip first two, they are usually weird
     coords = coords[2:]
 

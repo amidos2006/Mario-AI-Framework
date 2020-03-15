@@ -1,4 +1,4 @@
-package cz.cuni.gamedev.nail123.mariolevelgeneration.levelGenerators.sample
+package levelGenerators.sample
 
 import engine.core.MarioLevelGenerator
 import engine.core.MarioLevelModel
