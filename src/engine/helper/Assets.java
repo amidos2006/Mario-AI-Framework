@@ -25,7 +25,7 @@ public class Assets {
     public static Image[][] font;
     public static Image[][] map;
     final static String curDir = System.getProperty("user.dir");
-    final static String img = curDir + "./img/";
+    final static String img = curDir + "/img/";
 
     public static void init(GraphicsConfiguration gc) {
         try {
