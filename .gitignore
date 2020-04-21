@@ -136,6 +136,7 @@ gradle-app.setting
 # End of https://www.gitignore.io/api/java,gradle,intellij
 
 # CUSTOM
+.idea/codestream.xml
 # Dont version the IDEA project nor __pycache__ in python sources
 src/main/python/.idea
 src/main/python/__pycache__
