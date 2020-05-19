@@ -6,7 +6,7 @@ import engine.core.MarioResult;
 import engine.helper.EventType;
 import org.jetbrains.annotations.NotNull;
 
-class JumpMetricJava extends AbstractMetric {
+public class JumpMetricJava extends AbstractMetric {
     @NotNull
     @Override
     public String getName() {
