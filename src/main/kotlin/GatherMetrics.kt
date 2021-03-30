@@ -9,6 +9,7 @@ fun main() {
     val levelGenerator = GapLevelGenerator()
     val metrics = listOf<AbstractMetric>(
         LinearityMetric(),
+        // TODO: Change this to your custom metric
         JumpMetric()
     )
 
