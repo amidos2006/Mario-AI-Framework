@@ -15,7 +15,8 @@ public class MarioResult {
      * Create a mario result object
      *
      * @param world the current level world that is being used. This class uses the world object to get cleaner statistics.
-     * @param all   the events that happens in the playthrough of the game
+     * @param gameEvents   the events that happens in the playthrough of the game
+     * @param agentEvents  the events that happens in the playthrough of the game
      */
     public MarioResult(MarioWorld world, ArrayList<MarioEvent> gameEvents, ArrayList<MarioAgentEvent> agentEvents) {
         this.world = world;
