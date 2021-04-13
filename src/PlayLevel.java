@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -23,17 +26,22 @@ public class PlayLevel {
     }
 
     public static String getLevel(String filepath) {
-        String content = "";
-        try {
-            content = new String(Files.readAllBytes(Paths.get(filepath)));
-        } catch (IOException e) {
+      try (Reader r = new InputStreamReader(PlayLevel.class.getResourceAsStream(filepath))) {
+        StringWriter writer = new StringWriter();
+        char[] buf = new char[1024];
+        int read;
+        while ((read = r.read(buf)) != -1) {
+          writer.write(buf, 0, read);
         }
-        return content;
+        return writer.toString();
+      } catch (IOException e) {
+        return "";
+      }
     }
 
     public static void main(String[] args) {
-        MarioGame game = new MarioGame();
-        // printResults(game.playGame(getLevel("../levels/original/lvl-1.txt"), 200, 0));
-        printResults(game.runGame(new agents.robinBaumgarten.Agent(), getLevel("./levels/original/lvl-1.txt"), 20, 0, true));
+      MarioGame game = new MarioGame();
+      // printResults(game.playGame(getLevel("/original/lvl-1.txt"), 200, 0));
+      printResults(game.runGame(new agents.robinBaumgarten.Agent(), getLevel("/original/lvl-1.txt"), 20, 0, true));
     }
 }
