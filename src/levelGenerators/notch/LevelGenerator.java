@@ -31,6 +31,12 @@ public class LevelGenerator implements MarioLevelGenerator {
         this.difficulty = difficulty;
     }
 
+    public LevelGenerator(int type, int difficulty, Random random) {
+        this.random = random;
+        this.type = type;
+        this.difficulty = difficulty;
+    }
+
     private int buildZone(MarioLevelModel model, int x, int maxLength) {
         int t = random.nextInt(totalOdds);
         int type = 0;
