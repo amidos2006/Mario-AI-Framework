@@ -26,7 +26,7 @@ public class MarioRender extends JComponent implements FocusListener {
         this.setEnabled(true);
         this.scale = scale;
 
-        Dimension size = new Dimension((int) (256 * scale), (int) (240 * scale));
+        Dimension size = new Dimension((int) (256 * scale), (int) (256 * scale));
 
         setPreferredSize(size);
         setMinimumSize(size);
@@ -41,7 +41,7 @@ public class MarioRender extends JComponent implements FocusListener {
     }
 
     public void renderWorld(MarioWorld world, Image image, Graphics g, Graphics og) {
-        og.fillRect(0, 0, 256, 240);
+        og.fillRect(0, 0, 256, 256);
         world.render(og);
         drawStringDropShadow(og, "Lives: " + world.lives, 0, 0, 7);
         drawStringDropShadow(og, "Coins: " + world.coins, 11, 0, 7);
@@ -56,7 +56,7 @@ public class MarioRender extends JComponent implements FocusListener {
             drawStringDropShadow(og, "Buttons: " + pressedButtons, 0, 2, 1);
         }
         if (scale > 1) {
-            g.drawImage(image, 0, 0, (int) (256 * scale), (int) (240 * scale), null);
+            g.drawImage(image, 0, 0, (int) (256 * scale), (int) (256 * scale), null);
         } else {
             g.drawImage(image, 0, 0, null);
         }
