@@ -3,9 +3,15 @@ package levelGenerators.FrangieSlatteryMcEvoyGenerator;
 import java.util.ArrayList;
 import java.util.Random;
 
+// A class for Markov Chain Nodes
 public class MarkovChainNode<T> {
     public T value;
     public ArrayList<MarkovChainPath<T>> paths;
+
+    public MarkovChainNode(T _value) {
+        this.value = _value;
+        this.paths = new ArrayList<MarkovChainPath<T>>();
+    }
 
     public MarkovChainNode<T> getNextNode() {
         MarkovChainNode<T> nextNode = null;
