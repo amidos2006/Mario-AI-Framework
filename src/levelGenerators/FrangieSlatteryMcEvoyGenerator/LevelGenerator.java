@@ -11,12 +11,16 @@ public class LevelGenerator implements MarioLevelGenerator {
     @Override
     public String getGeneratedLevel(MarioLevelModel model, MarioTimer timer) {
         // Load generation information
-        ArrayList<MarioLevelModelStrip> strips = null;
-        int nodeCount = 0;
+        int stripCount = 1;
+        ArrayList<MarioLevelModelStrip> strips = new ArrayList<MarioLevelModelStrip>(stripCount);
+        strips.set(0, new MarioLevelModelStrip(1, 14, "x-------------"));
+
+        int nodeCount = 1;
         float[][] frequencies = null;
 
         // TODO: Jack - How to generate the data and frequncies !!! 
-
+        frequencies = new float[1][1];
+        frequencies[0][0] = 1;
 
         // Load Markov Chain nodes with data, link them with MarkovChainPaths frequency information
         ArrayList<MarkovChainNode<MarioLevelModelStrip>> nodes 
@@ -55,7 +59,7 @@ public class LevelGenerator implements MarioLevelGenerator {
 
         for (int x = 0; x < model.getWidth(); x++) {
             // Use the Mario Level Strip to add to the level
-            // TODO: Ben !!!
+            currentNode.value.setLevelStrip(model, x);
 
             // Generate the next Node
             currentNode = currentNode.getNextNode();
