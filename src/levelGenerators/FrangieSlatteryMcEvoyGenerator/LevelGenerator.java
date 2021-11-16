@@ -13,7 +13,7 @@ public class LevelGenerator implements MarioLevelGenerator {
         // Load generation information
         int stripCount = 1;
         ArrayList<MarioLevelModelStrip> strips = new ArrayList<MarioLevelModelStrip>(stripCount);
-        strips.set(0, new MarioLevelModelStrip(1, 14, "x-------------"));
+        strips.add(new MarioLevelModelStrip(1, 16, "---------------X"));
 
         int nodeCount = 1;
         float[][] frequencies = null;
@@ -28,7 +28,7 @@ public class LevelGenerator implements MarioLevelGenerator {
 
         for (int i = 0; i < nodeCount; i++) {
             MarkovChainNode<MarioLevelModelStrip> node = new MarkovChainNode<MarioLevelModelStrip>(strips.get(i));
-            nodes.set(i, node);
+            nodes.add(node);
 
             for (int j = 0; j <= i; j++) {
                 MarkovChainNode<MarioLevelModelStrip> pastNode = nodes.get(j);
