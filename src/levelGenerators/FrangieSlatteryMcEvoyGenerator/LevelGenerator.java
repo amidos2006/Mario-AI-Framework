@@ -130,6 +130,9 @@ public class LevelGenerator implements MarioLevelGenerator {
 
             // Generate the next Node
             currentNode = currentNode.getNextNode();
+
+            // Edge case: pathless Nodes
+            if (currentNode == null) currentNode = nodes.get(0);
         }
         
         return model.getMap();
