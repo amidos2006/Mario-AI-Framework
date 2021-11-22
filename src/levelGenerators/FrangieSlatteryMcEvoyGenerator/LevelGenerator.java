@@ -3,7 +3,6 @@ package levelGenerators.FrangieSlatteryMcEvoyGenerator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -92,11 +91,11 @@ public class LevelGenerator implements MarioLevelGenerator {
 
         // Load Markov Chain nodes with data, link them with MarkovChainPaths frequency information
         ArrayList<MarkovChainNode<MarioLevelModelStrip>> nodes 
-            = new ArrayList<MarkovChainNode<MarioLevelModelStrip>>(nodeCount);
+            = new ArrayList<MarkovChainNode<MarioLevelModelStrip>>();
 
         for (int i = 0; i < nodeCount; i++) {
             MarkovChainNode<MarioLevelModelStrip> node = new MarkovChainNode<MarioLevelModelStrip>(strips.get(i));
-            nodes.set(i, node);
+            nodes.add(node);
 
             for (int j = 0; j <= i; j++) {
                 MarkovChainNode<MarioLevelModelStrip> pastNode = nodes.get(j);
@@ -110,7 +109,7 @@ public class LevelGenerator implements MarioLevelGenerator {
                 }
 
                 // From node[j] To node[i]
-                if (frequencies.get(j).get(i) > 0) {
+                if (i != j && frequencies.get(j).get(i) > 0) {
                     MarkovChainPath<MarioLevelModelStrip> path = new MarkovChainPath<MarioLevelModelStrip>();
                     path.node = node;
                     path.frequency = frequencies.get(j).get(i);
@@ -131,7 +130,6 @@ public class LevelGenerator implements MarioLevelGenerator {
 
             // Generate the next Node
             currentNode = currentNode.getNextNode();
-            System.out.println(currentNode.value.strip[0]);
         }
         
         return model.getMap();
