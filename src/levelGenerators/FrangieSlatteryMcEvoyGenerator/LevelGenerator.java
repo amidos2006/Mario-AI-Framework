@@ -126,7 +126,7 @@ public class LevelGenerator implements MarioLevelGenerator {
 
         for (int x = 0; x < model.getWidth(); x++) {
             // Use the Mario Level Strip to add to the level
-            // TODO: Ben !!!
+            currentNode.value.setLevelStrip(model, x);
 
             // Generate the next Node
             currentNode = currentNode.getNextNode();
