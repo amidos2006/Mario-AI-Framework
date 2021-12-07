@@ -12,6 +12,17 @@ import engine.helper.GameStatus;
 public class Agent implements MarioAgent {
     private Random rnd;
     private ArrayList<boolean[]> choices;
+    private int currentState;
+    private State[] states;
+        //0 - Idle
+        //1 - Random Idle
+        //2 - Walk
+        //3 - Run
+        //4 - Kill
+        //5 - Avoid
+        //6 - Collect
+        //7 - Break
+
     float greed; //collect coins
     float fightorflight; //high to kill enemies, low to run away
     float frog; //jumps
@@ -49,16 +60,17 @@ public class Agent implements MarioAgent {
         boost = rnd.nextFloat(); //collects powerups
         sadness = rnd.nextFloat(); //dies
         zoomer = rnd.nextFloat(); //gotta go fast
+        currentState = 0;
     }
 
     @Override
     public boolean[] getActions(MarioForwardModel model, MarioTimer timer) {
-        return choices.get(rnd.nextInt(choices.size()));
+        return states[currentState].getAction();
     }
 
     @Override
     public String getAgentName() {
-        return "RandomAgent";
+        return "FrangieSlatteryMcEvoyAgent";
     }
 
     int percentChance(float[] list) {
