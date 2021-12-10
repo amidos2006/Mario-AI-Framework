@@ -1,12 +1,19 @@
 package agents.FrangieSlatteryMcEvoyAgent;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import engine.core.MarioForwardModel;
 import engine.helper.GameStatus;
 import engine.helper.MarioActions;
 
 public class GetAction {
+    protected Random rnd;
+
+    public GetAction() {
+        rnd = new Random();
+    }
+
     public boolean[] getAction() {return null;}
 
     //Copied from robinBaumgarten.Helper.java

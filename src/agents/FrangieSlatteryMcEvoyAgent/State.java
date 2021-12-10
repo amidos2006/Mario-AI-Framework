@@ -13,10 +13,11 @@ public class State {
     SFunction onExit;
     GetAction action;
 
-    State(Transition[] ts, SFunction ent, SFunction ex) {
+    State(Transition[] ts, SFunction ent, SFunction ex, GetAction ga) {
         transitions = ts;
         onEnter = ent;
         onExit = ex;
+        action = ga;
     }
     
     public boolean[] getAction() {return action.getAction();}

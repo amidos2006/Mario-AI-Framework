@@ -15,7 +15,7 @@ public class Agent implements MarioAgent {
     private int currentState;
     private State[] states;
         //0 - Idle
-        //1 - Random Idle
+        //1 - Random Idle (Idle2)
         //2 - Walk
         //3 - Run
         //4 - Kill
@@ -60,7 +60,10 @@ public class Agent implements MarioAgent {
         boost = rnd.nextFloat(); //collects powerups
         sadness = rnd.nextFloat(); //dies
         zoomer = rnd.nextFloat(); //gotta go fast
-        currentState = 0;
+        states = new State[8];
+        states[0] = new State(null, null, null, new GetIdleAction());
+        states[1] = new State(null, null, null, new GetIdle2Action());
+        currentState = 1;
     }
 
     @Override
