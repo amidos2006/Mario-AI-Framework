@@ -1,17 +1,13 @@
 package agents.FrangieSlatteryMcEvoyAgent;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import engine.core.MarioAgent;
 import engine.core.MarioForwardModel;
 import engine.core.MarioTimer;
 
-import engine.helper.GameStatus;
-
 public class Agent implements MarioAgent {
     private Random rnd;
-    private ArrayList<boolean[]> choices;
     private int currentState;
     private State[] states;
         //0 - Idle
@@ -35,23 +31,6 @@ public class Agent implements MarioAgent {
     @Override
     public void initialize(MarioForwardModel model, MarioTimer timer) {
         rnd = new Random();
-        choices = new ArrayList<>();
-        //right run
-        choices.add(new boolean[]{false, true, false, true, false});
-        //right jump and run
-        choices.add(new boolean[]{false, true, false, true, true});
-        // right
-        choices.add(new boolean[]{false, true, false, false, false});
-        // right jump
-        choices.add(new boolean[]{false, true, false, false, true});
-        //left
-        choices.add(new boolean[]{true, false, false, false, false});
-        //left run
-        choices.add(new boolean[]{true, false, false, true, false});
-        //left jump
-        choices.add(new boolean[]{true, false, false, false, true});
-        //left jump and run
-        choices.add(new boolean[]{true, false, false, true, true});
 
         greed = rnd.nextFloat(); //collect coins
         fightorflight = rnd.nextFloat(); //high to kill enemies, low to run away
@@ -60,9 +39,12 @@ public class Agent implements MarioAgent {
         boost = rnd.nextFloat(); //collects powerups
         sadness = rnd.nextFloat(); //dies
         zoomer = rnd.nextFloat(); //gotta go fast
+        
         states = new State[8];
-        states[0] = new StateIdle(this, null, null, null);
-        states[1] = new StateIdle2(this, null, null, null);
+        states[0] = new StateIdle(this);
+        states[1] = new StateRandom(this);
+        states[2] = new StateRun(this);
+        states[3] = new StateWalk(this);
         currentState = 1;
     }
 
@@ -76,14 +58,7 @@ public class Agent implements MarioAgent {
         return "FrangieSlatteryMcEvoyAgent";
     }
 
-    public void transition(int i) {
-        currentState = i;
-        if (states[currentState].onEnter != null) {
-            states[currentState].onEnter.execute();
-        }
-    }
-
-    int percentChance(float[] list) {
+    protected int percentChance(float[] list) {
         float total = 0f;
         for (int i = 0; i < list.length; i++) {
             total += list[i];
