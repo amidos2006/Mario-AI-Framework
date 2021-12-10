@@ -12,12 +12,20 @@ public class State {
     SFunction onEnter;
     SFunction onExit;
     GetAction action;
+    Agent agent;
 
-    State(Transition[] ts, SFunction ent, SFunction ex, GetAction ga) {
+    State(Agent a, Transition[] ts, SFunction ent, SFunction ex, GetAction ga) {
+        agent = a;
         transitions = ts;
         onEnter = ent;
         onExit = ex;
         action = ga;
+    }
+
+    public void transition(int target) {
+        target %= transitions.length;
+        transitions[target].transitionFunction.execute();
+        agent.transition(target);
     }
     
     public boolean[] getAction() {return action.getAction();}

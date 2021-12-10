@@ -17,7 +17,7 @@ public class GetAction {
     public boolean[] getAction() {return null;}
 
     //Copied from robinBaumgarten.Helper.java
-    public static boolean[] createAction(boolean left, boolean right, boolean down, boolean jump, boolean speed) {
+    public static boolean[] createAction(boolean left, boolean right, boolean down, boolean speed, boolean jump) {
         boolean[] action = new boolean[5];
         action[MarioActions.DOWN.getValue()] = down;
         action[MarioActions.JUMP.getValue()] = jump;

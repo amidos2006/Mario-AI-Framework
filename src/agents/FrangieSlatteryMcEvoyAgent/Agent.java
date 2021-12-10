@@ -61,8 +61,8 @@ public class Agent implements MarioAgent {
         sadness = rnd.nextFloat(); //dies
         zoomer = rnd.nextFloat(); //gotta go fast
         states = new State[8];
-        states[0] = new State(null, null, null, new GetIdleAction());
-        states[1] = new State(null, null, null, new GetIdle2Action());
+        states[0] = new State(this, null, null, null, new GetIdleAction());
+        states[1] = new State(this, null, null, null, new GetIdle2Action());
         currentState = 1;
     }
 
@@ -75,6 +75,8 @@ public class Agent implements MarioAgent {
     public String getAgentName() {
         return "FrangieSlatteryMcEvoyAgent";
     }
+
+    public void transition(int i) {currentState = i;}
 
     int percentChance(float[] list) {
         float total = 0f;

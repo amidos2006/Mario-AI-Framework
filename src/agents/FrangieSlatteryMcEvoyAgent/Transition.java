@@ -7,10 +7,10 @@ import engine.helper.GameStatus;
 import engine.helper.MarioActions;
 
 public class Transition {
-    State targetState;
+    int targetState;
     SFunction transitionFunction;
 
-    Transition(State ts, SFunction tf) {
+    Transition(int ts, SFunction tf) {
         targetState = ts;
         transitionFunction = tf;
     }

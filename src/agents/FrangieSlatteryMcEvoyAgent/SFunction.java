@@ -10,4 +10,6 @@ public class SFunction {
 
     SFunction() {
     }
+
+    public void execute() {}
 }
