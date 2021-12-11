@@ -3,6 +3,8 @@ package agents.FrangieSlatteryMcEvoyAgent;
 import java.util.Random;
 
 import engine.helper.MarioActions;
+import engine.core.MarioForwardModel;
+import engine.core.MarioTimer;
 
 public abstract class State {
     protected Agent agent;
@@ -13,7 +15,7 @@ public abstract class State {
         rnd = new Random();
     }
 
-    public abstract boolean[] getAction();
+    public abstract boolean[] getAction(MarioForwardModel model, MarioTimer timer);
 
     protected static boolean[] createAction(boolean left, boolean right, boolean down, boolean speed, boolean jump) {
         boolean[] action = new boolean[5];
