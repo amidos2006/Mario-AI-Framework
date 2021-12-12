@@ -6,8 +6,11 @@ import engine.core.MarioForwardModel;
 import engine.core.MarioTimer;
 import engine.helper.GameStatus;
 
-// A* Pathfinding code from Robin Baumgarten Agent
+// A* Pathfinding code adapted from Robin Baumgarten Agent
 public class AStarTree {
+    private int MAX_REPLANNING_BEFORE_OVERWHELMED = 20;
+    private int replans = 0;
+
     public SearchNode bestPosition;
     public SearchNode furthestPosition;
     float currentSearchStartingMarioXPos;
@@ -123,6 +126,8 @@ public class AStarTree {
         ticksBeforeReplanning--;
         requireReplanning = false;
         if (ticksBeforeReplanning <= 0 || currentActionPlan.size() == 0 || requireReplanning) {
+            System.out.println("Replanning!");
+            replans++;
             currentActionPlan = extractPlan();
             if (currentActionPlan.size() < planAhead) {
                 planAhead = currentActionPlan.size();
@@ -163,4 +168,8 @@ public class AStarTree {
         return false;
     }
 
+    public boolean overwhelmed() {
+        System.out.println("Overwhelmed!");
+        return replans >= MAX_REPLANNING_BEFORE_OVERWHELMED;
+    }
 }
