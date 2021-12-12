@@ -126,7 +126,6 @@ public class AStarTree {
         ticksBeforeReplanning--;
         requireReplanning = false;
         if (ticksBeforeReplanning <= 0 || currentActionPlan.size() == 0 || requireReplanning) {
-            System.out.println("Replanning!");
             replans++;
             currentActionPlan = extractPlan();
             if (currentActionPlan.size() < planAhead) {
@@ -169,7 +168,6 @@ public class AStarTree {
     }
 
     public boolean overwhelmed() {
-        System.out.println("Overwhelmed!");
         return replans >= MAX_REPLANNING_BEFORE_OVERWHELMED;
     }
 }

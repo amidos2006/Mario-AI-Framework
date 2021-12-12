@@ -15,7 +15,6 @@ public class Agent implements MarioAgent {
 
     @Override
     public boolean[] getActions(MarioForwardModel model, MarioTimer timer) {
-        System.out.println(state);
         state = state.checkStateTransition(model, timer);
         return state.getAction(model, timer);
     }
