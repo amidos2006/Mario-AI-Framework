@@ -13,7 +13,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
-    implementation("org.apache.commons", "commons-csv", "1.8")
+    implementation("org.apache.commons", "commons-csv", "1.9.0")
 }
 
 val compileKotlin: KotlinCompile by tasks
@@ -29,13 +29,12 @@ tasks.register<JavaExec>("singleRun") {
     group = "run"
 
     classpath = sourceSets.main.get().runtimeClasspath
-    main = "RunGameKt"
+    mainClass.set("RunGameKt")
 }
 
 tasks.register<JavaExec>("generateCSV") {
     group = "run"
 
     classpath = sourceSets.main.get().runtimeClasspath
-    main = "GatherMetricsKt"
+    mainClass.set("GatherMetricsKt")
 }
-
