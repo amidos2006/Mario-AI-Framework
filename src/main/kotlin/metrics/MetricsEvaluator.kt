@@ -19,7 +19,8 @@ class MetricsEvaluator(val generator: MarioLevelGenerator, val metrics: List<Abs
         val writer = file.bufferedWriter()
 
         val columnNames = arrayOf("run") + metrics.map { it.name }.toTypedArray()
-        val csv = CSVPrinter(writer, CSVFormat.DEFAULT.withHeader(*columnNames))
+        val csv = CSVPrinter(writer, CSVFormat.DEFAULT)
+        csv.printRecord(*columnNames)
 
         for (i in 1 .. iterations) {
             print("Performing run $i... ")
