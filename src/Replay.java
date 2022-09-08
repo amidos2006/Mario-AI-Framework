@@ -1,15 +1,16 @@
-import java.awt.*;
-import java.awt.image.VolatileImage;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 import engine.core.MarioGame;
 import engine.core.MarioRender;
 import engine.core.MarioResult;
 import engine.core.MarioWorld;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.image.VolatileImage;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Replay {
     private final MarioRender render;
@@ -27,21 +28,45 @@ public class Replay {
         return content;
     }
 
+    private class onChange implements ChangeListener {
+        JSlider slider;
+
+        public void stateChanged(ChangeEvent e) {
+            if (!slider.getValueIsAdjusting()) {
+                System.out.println(slider.getValue());
+            }
+        }
+
+        onChange(JSlider slider) {
+            this.slider = slider;
+        }
+    }
+
     public void update(MarioWorld world) {
         this.render.renderWorld(world, renderTarget, backBuffer, currentBuffer);
     }
 
     Replay() {
-        JFrame window = new JFrame("Replay");
+        //set UI
         this.render = new MarioRender(2);
-        window.setContentPane(this.render);
-        window.pack();
-        window.setResizable(false);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.render.init();
-        window.setVisible(true);
+
+        JSlider slider = new JSlider(0, 100);
+        slider.addChangeListener(new onChange(slider));
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.add(this.render, BorderLayout.CENTER);
+        panel.add(slider, BorderLayout.PAGE_END);
+
+        JFrame frame = new JFrame("Replay");
+        frame.getContentPane().add(panel);
+        frame.pack();
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
 
         //initialize graphics
+        this.render.init();
         renderTarget = this.render.createVolatileImage(MarioGame.width, MarioGame.height);
         backBuffer = this.render.getGraphics();
         currentBuffer = renderTarget.getGraphics();
