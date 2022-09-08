@@ -41,21 +41,11 @@ public class Agent extends KeyAdapter implements MarioAgent {
             return;
         }
         switch (keyCode) {
-            case KeyEvent.VK_LEFT:
-                this.actions[MarioActions.LEFT.getValue()] = isPressed;
-                break;
-            case KeyEvent.VK_RIGHT:
-                this.actions[MarioActions.RIGHT.getValue()] = isPressed;
-                break;
-            case KeyEvent.VK_DOWN:
-                this.actions[MarioActions.DOWN.getValue()] = isPressed;
-                break;
-            case KeyEvent.VK_S:
-                this.actions[MarioActions.JUMP.getValue()] = isPressed;
-                break;
-            case KeyEvent.VK_A:
-                this.actions[MarioActions.SPEED.getValue()] = isPressed;
-                break;
+            case KeyEvent.VK_A -> this.actions[MarioActions.LEFT.getValue()] = isPressed;
+            case KeyEvent.VK_D -> this.actions[MarioActions.RIGHT.getValue()] = isPressed;
+            case KeyEvent.VK_S -> this.actions[MarioActions.DOWN.getValue()] = isPressed;
+            case KeyEvent.VK_K -> this.actions[MarioActions.JUMP.getValue()] = isPressed;
+            case KeyEvent.VK_J -> this.actions[MarioActions.SPEED.getValue()] = isPressed;
         }
     }
 
