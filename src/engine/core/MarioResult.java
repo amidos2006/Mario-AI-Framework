@@ -25,6 +25,13 @@ public class MarioResult {
     }
 
     /**
+     * Get the current MarioWorld
+     *
+     * @return MarioWorld of current world
+     */
+    public MarioWorld getWorld() { return this.world; }
+
+    /**
      * Get the current state of the running game
      *
      * @return GameStatus the current state (WIN, LOSE, TIME_OUT, RUNNING)
