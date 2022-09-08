@@ -27,6 +27,7 @@ public class PlayLevel {
         try {
             content = new String(Files.readAllBytes(Paths.get(filepath)));
         } catch (IOException e) {
+            e.printStackTrace();
         }
         return content;
     }
