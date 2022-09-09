@@ -1,5 +1,6 @@
 package engine.core;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import engine.helper.EventType;
@@ -10,6 +11,7 @@ public class MarioResult {
     private MarioWorld world;
     private ArrayList<MarioEvent> gameEvents;
     private ArrayList<MarioAgentEvent> agentEvents;
+    private ArrayList<BufferedImage> snapshots;
 
     /**
      * Create a mario result object
@@ -18,10 +20,20 @@ public class MarioResult {
      * @param gameEvents   the events that happens in the playthrough of the game
      * @param agentEvents  the events that happens in the playthrough of the game
      */
-    public MarioResult(MarioWorld world, ArrayList<MarioEvent> gameEvents, ArrayList<MarioAgentEvent> agentEvents) {
+    public MarioResult(MarioWorld world, ArrayList<MarioEvent> gameEvents, ArrayList<MarioAgentEvent> agentEvents, ArrayList<BufferedImage> snapshots) {
         this.world = world;
         this.gameEvents = gameEvents;
         this.agentEvents = agentEvents;
+        this.snapshots = snapshots;
+    }
+
+    /**
+     * Get the snapshots
+     *
+     * @return snapshots
+     */
+    public ArrayList<BufferedImage> getSnapshots() {
+        return this.snapshots;
     }
 
     /**

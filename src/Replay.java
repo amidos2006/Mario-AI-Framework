@@ -1,22 +1,19 @@
 import engine.core.MarioGame;
-import engine.core.MarioRender;
 import engine.core.MarioResult;
-import engine.core.MarioWorld;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.image.VolatileImage;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class Replay {
-    private final MarioRender render;
-    private final VolatileImage renderTarget;
-    private final Graphics backBuffer;
-    private final Graphics currentBuffer;
+    private final ImageComponent imageComponent;
+    private final ArrayList<BufferedImage> snapshots;
 
     public static String getLevel(String filepath) {
         String content = "";
@@ -32,9 +29,7 @@ public class Replay {
         JSlider slider;
 
         public void stateChanged(ChangeEvent e) {
-            if (!slider.getValueIsAdjusting()) {
-                System.out.println(slider.getValue());
-            }
+            imageComponent.setImage(snapshots.get(slider.getValue()));
         }
 
         onChange(JSlider slider) {
@@ -42,20 +37,18 @@ public class Replay {
         }
     }
 
-    public void update(MarioWorld world) {
-        this.render.renderWorld(world, renderTarget, backBuffer, currentBuffer);
-    }
+    Replay(ArrayList<BufferedImage> snapshots) {
+        this.snapshots = snapshots;
 
-    Replay() {
         //set UI
-        this.render = new MarioRender(2);
+        this.imageComponent = new ImageComponent(2);
 
-        JSlider slider = new JSlider(0, 100);
+        JSlider slider = new JSlider(0, snapshots.size() - 1);
         slider.addChangeListener(new onChange(slider));
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        panel.add(this.render, BorderLayout.CENTER);
+        panel.add(this.imageComponent, BorderLayout.CENTER);
         panel.add(slider, BorderLayout.PAGE_END);
 
         JFrame frame = new JFrame("Replay");
@@ -65,21 +58,12 @@ public class Replay {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
-        //initialize graphics
-        this.render.init();
-        renderTarget = this.render.createVolatileImage(MarioGame.width, MarioGame.height);
-        backBuffer = this.render.getGraphics();
-        currentBuffer = renderTarget.getGraphics();
-        this.render.addFocusListener(this.render);
+        slider.setValue(0);
     }
 
     public static void main(String[] args) {
-        Replay replay = new Replay();
         MarioGame game = new MarioGame();
         MarioResult result = game.playGame(getLevel("./levels/original/lvl-1.txt"), 200, 0);
-        replay.update(result.getWorld());
-        MarioGame game2 = new MarioGame();
-        MarioResult result2 = game2.runGame(new agents.robinBaumgarten.Agent(), getLevel("./levels/original/lvl-1.txt"), 20, 0, true);
-        replay.update(result2.getWorld());
+        new Replay(result.getSnapshots());
     }
 }

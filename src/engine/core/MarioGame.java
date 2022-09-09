@@ -1,5 +1,6 @@
 package engine.core;
 
+import java.awt.image.BufferedImage;
 import java.awt.image.VolatileImage;
 import java.util.ArrayList;
 import java.awt.*;
@@ -234,6 +235,7 @@ public class MarioGame {
         VolatileImage renderTarget = null;
         Graphics backBuffer = null;
         Graphics currentBuffer = null;
+        ArrayList<BufferedImage> snapshots = new ArrayList<>();
         if (visual) {
             renderTarget = this.render.createVolatileImage(MarioGame.width, MarioGame.height);
             backBuffer = this.render.getGraphics();
@@ -268,6 +270,7 @@ public class MarioGame {
             //render world
             if (visual) {
                 this.render.renderWorld(this.world, renderTarget, backBuffer, currentBuffer);
+                snapshots.add(renderTarget.getSnapshot());
             }
             //check if delay needed
             if (this.getDelay(fps) > 0) {
@@ -279,6 +282,6 @@ public class MarioGame {
                 }
             }
         }
-        return new MarioResult(this.world, gameEvents, agentEvents);
+        return new MarioResult(this.world, gameEvents, agentEvents, snapshots);
     }
 }
