@@ -14,10 +14,6 @@ public class FlowerEnemy extends Enemy {
         this.width = 2;
         this.yStart = this.y;
         this.ya = -1;
-        this.y -= 1;
-        for (int i = 0; i < 4; i++) {
-            this.update();
-        }
 
         if (visuals) {
             this.graphics.originY = 24;
