@@ -46,7 +46,7 @@ public class Assets {
     private static Image getImage(GraphicsConfiguration gc, String imageName) throws IOException {
         BufferedImage source = null;
         try {
-            source = ImageIO.read(Assets.class.getResourceAsStream(imageName));
+            source = ImageIO.read(Assets.class.getResourceAsStream("/"+imageName));
         } catch (Exception e) {
         }
 
